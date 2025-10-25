@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>QuickCourier - Catálogo</title>
+    <link rel="stylesheet" href="static/css/catalogo.css">
+    <link rel="icon" href="static/img/logo.png">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+    <div class="menu-btn">☰</div>
+
+    <img src="static/img/logo.png" class="logo-header">
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="¿Qué estás buscando hoy?">
+        <button class="search-btn">
+            <img src="static/img/buscar.png" alt="Buscar" class="search-icon">
+        </button>
+    </div>
+    <a href="/Frontend/templates/resumen-carrito.html" alt= "carrito" class="kart-btn"> Carrito
+        <img src="static/img/carrito.png" alt="Carrito" class="kart-icon">
+        <span id="cart-count">0</span>
+    </button>
+</header>
+    </header>
+
+    <!-- Menú lateral de categorías -->
+<nav id="side-menu" class="side-menu">
+    <a href="catalogo.html" clas="close-btn" id="close-menu">✕</span>
+    <ul>
+        <li><a href="#libros-container">Libros</a></li>
+        <li><a href="#snacks-container">Snacks</a></li>
+        <li><a href="#">Tecnología</a></li>
+        <li><a href="#">Hogar</a></li>
+        <li><a href="#">Juguetes</a></li>
+        <li><a href="#">Ropa</a></li>
+    </ul>
+<br>
+
+    <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
+</nav>
+
+
+<div id="overlay" class="overlay"></div>
+
+    <main class="contenedor">
+
+        <!-- Categoria Libros -->
+        <h2 class="category-title">Libros</h2>
+        <div class="product-grid" id="libros-container">
+            <!-- JS Inserta tarjetas aquí -->
+        </div>
+
+        <!-- Categoria Snacks -->
+        <h2 class="category-title">Snacks</h2>
+        <div class="product-grid" id="snacks-container">
+            <!-- JS Inserta tarjetas aquí -->
+        </div>
+
+    </main>
+
+    <script src="static/js/catalogo.js"></script>
+
+</body>
+</html>

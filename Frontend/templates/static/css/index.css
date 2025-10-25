@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+}
+
+.left {
+    width: 60%;
+    background-color: #003b80;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.right {
+    width: 40%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden
+}
+
+.login-box {
+    width: 80%;
+    max-width: 380px;
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.logo {
+    width: 300px;
+    object-position: center -100px;
+}
+
+h3 {
+    color: #333;
+    margin-top: -170px;
+    margin-bottom: 25px;
+}
+
+form {
+    text-align: left;
+}
+
+label {
+    color: #333;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 18px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: #003b80;
+    outline: none;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff8c1a;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #e07914;
+}
+
+.forgot, .create {
+    display: block;
+    margin-top: 15px;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.create {
+    color: #003b80;
+    font-weight: bold;
+}
+
+.right {
+    width: 55%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.right-img {
+    width: 160%;
+    background-color:white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    object-position: center 50px;
+    transform: translateX(100px);
+}
+
+.tag {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: #003b80;
+}
+
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.error-msg {
+    font-size: 12px;
+    color: #ff4d4d;
+    margin-top: 4px;
+    display: block;
+}
+
+.input-error {
+    border: 2px solid #ff4d4d !important;
+}
+
+
+

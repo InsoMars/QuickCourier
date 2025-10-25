@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumen Carrito</title>
+     <link rel="stylesheet" href="static/css/resumen-carrito.css" />
+</head>
+<body>
+    <header class="resumen-carrito-header">
+         <div class="menu-btn">☰</div>
+        <div class="resumen-carrito-logo">
+            <img src="static/img/logo.png" alt="Quick Courier">
+        </div>
+        
+        
+    </header>
+
+
+     <!-- Menú lateral de categorías -->
+<nav id="side-menu" class="side-menu">
+    <span class="close-btn" id="close-menu">✕</span>
+    <ul>
+        <li><a href="#libros-container">Libros</a></li>
+        <li><a href="#snacks-container">Snacks</a></li>
+        <li><a href="#">Tecnología</a></li>
+        <li><a href="#">Hogar</a></li>
+        <li><a href="#">Juguetes</a></li>
+        <li><a href="#">Ropa</a></li>
+    </ul>
+<br>
+
+    <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
+</nav>
+
+<!-- Fondo para cerrar menú si clicas afuera -->
+<div id="overlay" class="overlay"></div>
+
+
+    <main class="resumen-carrito-main">
+         <a href="catalogo.html" id="resumen-carrito-seguir">← Seguir comprando</a>
+        <h1 class="resumen-carrito-title">Tu Pedido</h1>
+        <p class="resumen-carrito-subtitle">Carrito de Compras (<span id="resumen-carrito-count">2</span> productos)</p>
+
+        <table class="resumen-carrito-table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody id="resumen-carrito-body">
+                <!-- agregar los productos JSON -->
+            </tbody>
+        </table>
+
+        <div class="resumen-carrito-total">
+            
+            <div class="resumen-carrito-summary">
+                <div class="resumen-carrito-line subtotal">
+                    <span>Subtotal</span>
+                    <span id="resumen-carrito-subtotal">$0</span>
+                </div>
+                <div class="resumen-carrito-line total">
+                    <span>Total:</span>
+                    <span id="resumen-carrito-total">$0</span>
+                </div>
+                
+                <a href= info-pedido.html  id="resumen-carrito-pagar">INICIAR PAGO </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="resumen-carrito.js"></script>
+</body>
+</html>

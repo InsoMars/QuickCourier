@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>QuickCourier - Registro</title>
+
+    <link rel="stylesheet" href="static/css/register.css">
+    <link rel="icon" type="image/png" href="static/img/logo.png">
+</head>
+
+<body>
+    <div class="left">
+
+        <div class="login-box">
+            <img src="static/img/logo.png" class="logo">
+            <h3>Registrate</h3>
+
+            <form id="registerForm" novalidate>
+
+                <label for="nombre">Nombre Completo</label>
+                <input 
+                    type="text" 
+                    id="nombre"   
+                    name="nombre" 
+                    required minlength="5" 
+                    placeholder="Ej: Mariana Landinez R">
+                <small class="error-msg"></small>
+
+                <label for="cedula">Cédula</label>
+                <input type="number" id="cedula" name="cedula" required minlength="6" placeholder="Ej: 1000123456">
+                <small class="error-msg"></small>
+
+                <label for="telefono">Teléfono</label>
+                <input type="number" id="telefono" name="telefono" required minlength="10" placeholder="Ej: 3003512345">
+                <small class="error-msg"></small>
+
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" name="direccion" required placeholder="Ej: Calle 123 #45a-40">
+                <small class="error-msg"></small>
+
+                <label for="correo">Correo electrónico</label>
+                <input type="email" id="correo" name="correo" required placeholder="ejemplo@correo.com">
+                <small class="error-msg"></small>
+
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" required minlength="6" placeholder="••••••••">
+                <small class="error-msg"></small>
+
+                <button type="submit" class="btn-login">Registrarse</button>
+            </form>
+
+            <a href="/Frontend/templates/index.html" class="create">¿Ya tienes cuenta? Inicia sesión</a>
+
+        </div>
+    </div>
+
+    <div class="right">
+        <img src="static/img/img-register.jpg" class="right-img">
+    </div>
+
+    <!-- JS -->
+    <script src="static/js/register.js"></script>
+
+</body>
+
+</html>

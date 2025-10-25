@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tu Pedido - Quick Courier</title>
+  <link rel="stylesheet" href="static/css/info-pedido.css" />
+</head>
+<body>
+  <header class="header">
+
+    <div class="menu-btn">☰</div>
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Quick_Logo.png" alt="Quick Courier" />
+    </div>
+    
+
+    
+  </header>
+
+   <!-- Menú lateral de categorías -->
+<nav id="side-menu" class="side-menu">
+    <span class="close-btn" id="close-menu">✕</span>
+    <ul>
+        <li><a href="#libros-container">Libros</a></li>
+        <li><a href="#snacks-container">Snacks</a></li>
+        <li><a href="#">Tecnología</a></li>
+        <li><a href="#">Hogar</a></li>
+        <li><a href="#">Juguetes</a></li>
+        <li><a href="#">Ropa</a></li>
+    </ul>
+<br>
+
+    <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
+</nav>
+
+<!-- Fondo para cerrar menú si clicas afuera -->
+<div id="overlay" class="overlay"></div>
+
+  <main class="container">
+    <button class="back-general" id="btnVolverResumen">← Volver al resumen de compra</button>
+    <h1>Finaliza tu compra</h1>
+    <p class="subtitle">Completa los siguientes pasos para continuar</p>
+
+    <!-- Pasos -->
+    <div class="steps-container">
+      <div class="step active" id="step1">
+        <div class="circle">1</div>
+        <div>Identificación</div>
+      </div>
+      <div class="step" id="step2">
+        <div class="circle">2</div>
+        <div>Envío</div>
+      </div>
+      <div class="step" id="step3">
+        <div class="circle">3</div>
+        <div>Pago</div>
+      </div>
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="order-content">
+      <div class="info-section">
+        <!-- Paso 1 -->
+        <div class="info-box" id="identificacion-section">
+          <h2>1. IDENTIFICACIÓN</h2>
+          <p><strong>Correo:</strong> correo@ejemplo.com</p>
+          <p><strong>Nombre:</strong> Mariana Landinez</p>
+          <p><strong>Teléfono:</strong> 312 *** **32</p>
+          <button class="next-btn" id="toEnvio">Siguiente →</button>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="info-box hidden" id="envio-section">
+          <h2>2. ENVÍO</h2>
+          <p><strong>Lista de direcciones</strong></p>
+          <label class="address-option">
+            <input type="radio" name="direccion" checked />
+            Calle 123 #45-67, Bogotá
+          </label>
+
+          <div class="extra-option">
+            <label><input type="checkbox" checked /> Envío Estándar</label>
+            <span>$9.000</span>
+          </div>
+
+          <div class="extra-option">
+            <label><input type="checkbox" /> Empaque de Regalo</label>
+            <span>$6.000</span>
+          </div>
+          <button class="back-btn" id="backToIdent">← Atrás</button>
+          <button class="next-btn" id="toPago">Siguiente →</button>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="info-box hidden" id="pago-section">
+          <h2>3. PAGO</h2>
+          <p>Selecciona tu método de pago:</p>
+          <label><input type="radio" name="pago" value="tarjeta" /> Tarjeta de crédito</label><br />
+          <label><input type="radio" name="pago" value="transferencia" /> Transferencia bancaria</label><br />
+          <label><input type="radio" name="pago" value="efectivo" /> Pago contra entrega</label><br /><br />
+          <button class="back-btn" id="backToEnvio">← Atrás</button>
+          <button id="btnPagar">Pagar ahora</button>
+        </div>
+      </div>
+
+      <!-- Resumen -->
+<aside class="summary" id="resumen">
+  <h3>Subtotal (IVA incluido)</h3>
+  <p class="price">$65.000</p>
+
+  <h3>Gastos de Envío</h3>
+  <p class="price">$15.000</p>
+
+  <hr />
+  <div class="total">
+    <span>Total:</span>
+    <span>$80.000</span>
+  </div>
+
+  <hr />
+  <div id="resumen-detalles">
+    <!-- Aquí se insertan los datos de identificación, envío y pago -->
+  </div>
+</aside>
+    </div>
+  </main>
+
+  <script src="static/js/info-pedido.js"></script>
+</body>
+</html>
