@@ -14,8 +14,10 @@ body {
 }
 
 .logo-header {
-    height: 50px;
-    width: 100px;
+    height: 100px;
+    margin-top: -35px;
+    margin-bottom: -25px;
+    width: 190px;
 }
 
 .search-container {
