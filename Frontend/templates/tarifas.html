@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Courier - Gestión de Tarifas</title>
+    <link rel="stylesheet" href="static/css/tarifas.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="logo">
+                <span class="logo-text">QUICK</span>
+                <span class="logo-text courier">COURIER 🛒</span>
+            </div>
+            <div class="area-title">Área Comercial</div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="ejemplo.html" class="nav-link">Inicio</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="tarifas.html" class="nav-link">Tarifas y Promociones</a>
+                </li>
+            </ul>
+            <button class="logout-btn" id="cerrarSesion">Cerrar Sesión</button>
+        </nav>
+
+        <main class="content">
+            <h1 class="page-title">Tarifas</h1>
+
+            <div class="filters-container">
+                <div class="filter-box">
+                    <h2 class="filter-title">Filtros de búsqueda</h2>
+                    <div class="filter-controls">
+                        <div class="input-group">
+                            <label for="buscar">Buscar</label>
+                            <input type="text" id="buscar" placeholder="Busque por nombre o descripción">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="filtrarZona">Filtrar por zona</label>
+                            <input type="text" id="filtrarZona" placeholder="Busque por nombre o descripción">
+                        </div>
+
+                        <button class="create-tariff-btn">+ Crear Tarifa</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tariff-table-container">
+                <div class="table-header">
+                    <div class="header-item">ID Tarifa</div>
+                    <div class="header-item">Zona</div>
+                    <div class="header-item">Precio</div>
+                    <div class="header-item">Acciones</div>
+                </div>
+                <div class="table-body-placeholder">
+                    </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="tarifas.js"></script>
+</body>
+</html>
