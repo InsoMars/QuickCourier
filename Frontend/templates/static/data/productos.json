@@ -1,0 +1,6 @@
+[
+  { "nombre": "Orgullo y Prejuicio", "categoria": "Libros", "img": "static/img/orgullo_prejuicio.jfif" },
+  { "nombre": "Sentido y Sensibilidad", "categoria": "Libros", "img": "static/img/sentido_sensibilidad.jfif" },
+  { "nombre": "Ferrero Rocher", "categoria": "Snacks", "img": "static/img/ferrero_rocher.jfif" },
+  { "nombre": "Reese's Pop", "categoria": "Snacks", "img": "static/img/reeses_pop.jpg" }
+]

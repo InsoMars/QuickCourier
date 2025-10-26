@@ -1,22 +1,25 @@
 // Simulación de productos
 const productosLibros = [
-    {nombre: "Orgullo y Prejuicio", img: "static/img/libro1.jpg"},
-    {nombre: "Sentido y Sensibilidad", img: "static/img/libro2.jpg"},
-    {nombre: "What on earth am I here for?", img: "static/img/libro3.jpg"},
-    {nombre: "Holy Bible", img: "static/img/libro4.jpg"},
-    {nombre: "El hombre en busca de sentido", img: "static/img/libro5.jpg"},
-    {nombre: "Vanish", img: "static/img/libro6.jpg"}
+    {nombre: "Orgullo y Prejuicio", "categoria": "Libros", "img": "static/img/orgullo_prejuicio.jfif" },
+    {nombre: "Sentido y Sensibilidad", "categoria": "Libros", "img": "static/img/sentido_sensibilidad.jfif" },
+    {nombre: "What on earth am I here for?", img: "static/img/what_on_earth.png"},
+    {nombre: "Holy Bible", img: "static/img/holy_bible.jfif"},
+    {nombre: "El hombre en busca de sentido", img: "static/img/el_hombre_en_busca_de_sentido.jfif"},
+    {nombre: "Vanish", img: "static/img/vanish.jfif"}
 ];
 
 const productosSnacks = [
-    {nombre: "Ferrero Rocher", img: "static/img/snack1.jpg"},
-    {nombre: "Reese's Pop", img: "static/img/snack2.jpg"},
-    {nombre: "Cornitos BBQ", img: "static/img/snack3.jpg"},
-    {nombre: "Fidmi", img: "static/img/snack4.jpg"},
-    {nombre: "Cornitos Lima", img: "static/img/snack5.jpg"},
-    {nombre: "El Especial", img: "static/img/snack6.jpg"}
+    {nombre: "Ferrero Rocher", "categoria": "Snacks", "img": "static/img/ferrero_rocher.jfif" },
+    {nombre: "Reese's Pop", "categoria": "Snacks", "img": "static/img/reeses_pop.jpg" },
+    {nombre: "Cornitos BBQ", img: "static/img/cornitos_pop.png"},
+    {nombre: "Fidmi", img: "static/img/fidmi.jfif"},
+    {nombre: "Cornitos Lima", img: "static/img/cornitos_lima.webp"},
+    {nombre: "El Especial", img: "static/img/la_especial.webp"}
 ];
 
+
+
+   
 // Carrito
 let carrito = [];
 

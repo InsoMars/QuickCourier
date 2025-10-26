@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-QuickCourierApplication<QuickCourier>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.QuickCourier.QuickCourierApplication",
+            "projectName": "QuickCourier",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
