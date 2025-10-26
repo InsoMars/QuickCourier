@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Quick Courier - Área Comercial</title>
-    <link rel="stylesheet" href="static/css/tarifas-promociones.css"> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Courier - Área Administrativa</title>
+    <link rel="stylesheet" href="static/css/admin.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -12,13 +14,13 @@
                 <span class="logo-text">QUICK</span>
                 <span class="logo-text courier">COURIER 🛒</span>
             </div>
-            <div class="area-title">Área Comercial</div>
+            <div class="area-title">Área Administrativa</div>
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="#" class="nav-link">Inicio</a>
                 </li>
                 <li class="nav-item active">
-                    <a href="#" class="nav-link">Tarifas y Promociones</a>
+                    <a href="admin.html" class="nav-link">Impuestos y Extras</a>
                 </li>
             </ul>
             <button class="logout-btn" id="cerrarSesion">Cerrar Sesión</button>
@@ -26,27 +28,24 @@
 
         <main class="content">
             <div class="card-grid">
+                
                 <div class="card">
-                    <h2 class="card-title">Tarifas</h2>
-                    <p class="card-description">Agregue, elimine o modifique las tarifas de envío</p>
+                    <h2 class="card-title admin-card-title">Impuestos</h2>
+                    <p class="card-description">Agregue, elimine o modifique los impuestos.</p>
                     <button class="manage-btn orange">GESTIONAR</button>
                 </div>
 
                 <div class="card">
-                    <h2 class="card-title">Promociones</h2>
-                    <p class="card-description">Agregue, elimine o modifique las promociones</p>
-                    <button class="manage-btn orange">GESTIONAR</button>
+                    <h2 class="card-title admin-card-title">Extras</h2>
+                    <p class="card-description">Agregue, elimine o modifique los extras.</p>
+                    <br>
+                    <a href="extras.html" class="manage-btn orange" >GESTIONAR</a>
                 </div>
 
-                <div class="card full-width">
-                    <h2 class="card-title">Descuentos</h2>
-                    <p class="card-description">Agregue, elimine o modifique los descuentos</p>
-                    <button class="manage-btn orange">GESTIONAR</button>
                 </div>
-            </div>
         </main>
     </div>
 
-    <script src="scripts.js"></script>
+    <script src="admin.js"></script>
 </body>
 </html>
