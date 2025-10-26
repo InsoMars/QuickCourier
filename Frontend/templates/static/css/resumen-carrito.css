@@ -7,6 +7,23 @@ body {
     color: #1b1464;
 }
 
+
+.header {
+    background: #0A4285;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 20px;
+    color: #fff;
+}
+
+.logo-header {
+    height: 50px;
+    width: 100px;
+}
+
+
+
 .resumen-carrito-header {
     display: flex;
     justify-content: space-between;
@@ -114,22 +131,40 @@ body {
 }
 
 
+.logout-btn {
+  background-color: #888686;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #bbbbbb;
+}
+
+.menu-btn {
+    cursor: pointer;
+    font-size: 36px;
+}
 
 .side-menu {
     position: fixed;
     top: 0;
-    left: 0;
+    left: -320px; /* escondido */
     width: 280px;
     height: 100%;
     background: #0A4285;
     padding: 20px;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    transition: left 0.3s ease;
     z-index: 2000;
 }
 
 .side-menu.open {
-    transform: translateX(0);
+    left: 0; /* aparece */
 }
 
 .side-menu ul {
@@ -174,22 +209,4 @@ body {
 }
 
 
-.logout-btn {
-  background-color: #888686;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
 
-.logout-btn:hover {
-  background-color: #bbbbbb;
-}
-
-.menu-btn {
-    cursor: pointer;
-    font-size: 36px;
-}

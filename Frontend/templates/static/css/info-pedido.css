@@ -2,20 +2,21 @@ body {
   font-family: Arial, sans-serif;
   background: #f8f8fc;
   margin: 0;
-  color: #333;
 }
 
-/* Encabezado */
+
 .header {
   background: #0A4285;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+  color: white;
 }
 
-.logo img {
-  height: 40px;
+.logo-header {
+    height: 50px;
+    width: 100px;
 }
 
 .cart-icon {
