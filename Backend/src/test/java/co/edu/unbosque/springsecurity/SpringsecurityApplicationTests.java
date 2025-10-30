@@ -1,10 +1,10 @@
-package com.QuickCourier;
+package co.edu.unbosque.springsecurity;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class QuickCourierApplicationTests {
+class SpringsecurityApplicationTests {
 
 	@Test
 	void contextLoads() {

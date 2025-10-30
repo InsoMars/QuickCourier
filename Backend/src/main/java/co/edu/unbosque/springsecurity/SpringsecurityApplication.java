@@ -1,13 +1,13 @@
-package com.QuickCourier;
+package co.edu.unbosque.springsecurity;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class QuickCourierApplication {
+public class SpringsecurityApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(QuickCourierApplication.class, args);
+		SpringApplication.run(SpringsecurityApplication.class, args);
 	}
 
 }
