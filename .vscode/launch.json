@@ -2,11 +2,28 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SpringsecurityApplication",
+            "request": "launch",
+            "mainClass": "co.edu.unbosque.springsecurity.SpringsecurityApplication",
+            "projectName": "QuickCourier"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-QuickCourierApplication<QuickCourier>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "mainClass": "com.QuickCourier.QuickCourierApplication",
             "projectName": "QuickCourier",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringsecurityApplication<springsecurity>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "co.edu.unbosque.springsecurity.SpringsecurityApplication",
+            "projectName": "springsecurity",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
