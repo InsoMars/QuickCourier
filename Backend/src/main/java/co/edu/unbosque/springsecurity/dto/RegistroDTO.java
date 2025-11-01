@@ -12,4 +12,7 @@ public class RegistroDTO {
     private String cedula;
     private String direccion;
     private String contrasena;
+    private String telefono;
+
+    
 }

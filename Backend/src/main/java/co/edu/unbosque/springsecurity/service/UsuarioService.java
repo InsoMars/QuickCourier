@@ -31,6 +31,7 @@ public class UsuarioService {
                 .cedula(request.getCedula())
                 .direccion(request.getDireccion())
                 .contrasena(passwordEncoder.encode(request.getContrasena()))
+                .telefono(request.getTelefono())
                 .build();
 
         var usuarioGuardado = usuarioRepository.save(usuario);

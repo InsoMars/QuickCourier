@@ -18,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor 
 @Builder //patron Builder para mapear el DTO
 @Entity
-@Table(name = "usuario")
+@Table(name = "cliente")
 
 public class Cliente {
 
