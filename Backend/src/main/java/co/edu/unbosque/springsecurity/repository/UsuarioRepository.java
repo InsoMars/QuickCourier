@@ -1,11 +1,13 @@
 package co.edu.unbosque.springsecurity.repository;
 
-import co.edu.unbosque.springsecurity.model.Usuario;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.Optional;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-    Optional<Usuario> findByCorreoElectronico(String correoElectronico);
-    boolean existsByCorreoElectronico(String correoElectronico);
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import co.edu.unbosque.springsecurity.model.Cliente;
+
+
+public interface UsuarioRepository extends JpaRepository<Cliente, Long> {
+    Optional<Cliente> findByEmail(String email);
+    boolean existsByEmail(String email);
 }

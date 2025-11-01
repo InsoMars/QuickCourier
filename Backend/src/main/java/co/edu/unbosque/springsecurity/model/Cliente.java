@@ -18,22 +18,23 @@ import lombok.Setter;
 @AllArgsConstructor 
 @Builder //patron Builder para mapear el DTO
 @Entity
-@Table(name = "usuarios")
+@Table(name = "usuario")
 
-public class Usuario {
+public class Cliente {
 
     @Id
+    @Column(name = "id_cliente")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idCliente;
 
-    private String nombreCompleto;
+    private String nombre;
 
     @Column(unique = true)
-    private String correoElectronico;
+    private String email;
 
     private String cedula;
     private String direccion;
     private String contrasena;
+    private String telefono;
 
-    private String rol;
 }

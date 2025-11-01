@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import co.edu.unbosque.springsecurity.model.Usuario;
+import co.edu.unbosque.springsecurity.model.Cliente;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -30,25 +30,25 @@ public class JwtService {
     private long expiracionRefresh;
 
   
-    public String generarToken(final Usuario usuario) {
+    public String generarToken(final Cliente usuario) {
         return construirToken(usuario, expiracionJwt);
     }
 
 
-    public String generarRefreshToken(final Usuario usuario) {
+    public String generarRefreshToken(final Cliente usuario) {
         return construirToken(usuario, expiracionRefresh);
     }
 
  
-    private String construirToken(final Usuario usuario, final long expiracion) {
+    private String construirToken(final Cliente usuario, final long expiracion) {
         return Jwts.builder()
-                .id(usuario.getId().toString())
+                .id(usuario.getIdCliente().toString())
                 .claims(Map.of(
-                        "nombre", usuario.getNombreCompleto(),
-                        "correo", usuario.getCorreoElectronico(),
-                        "rol", usuario.getRol()
+                        "nombre", usuario.getNombre(),
+                        "correo", usuario.getEmail()
+                       
                 ))
-                .subject(usuario.getCorreoElectronico())
+                .subject(usuario.getEmail())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expiracion))
                 .signWith(obtenerClaveFirma(), SignatureAlgorithm.HS256)
@@ -75,9 +75,9 @@ public class JwtService {
         return jwt.getPayload();
     }
 
-    public boolean esTokenValido(final String token, final Usuario usuario) {
+    public boolean esTokenValido(final String token, final Cliente usuario) {
         String correoExtraido = extraerCorreo(token);
-        return (correoExtraido.equals(usuario.getCorreoElectronico()) && !estaExpirado(token));
+        return (correoExtraido.equals(usuario.getEmail()) && !estaExpirado(token));
     }
 
     public boolean esTokenValidoUsuariosDetalles(final String token, final UserDetails userDetails) {

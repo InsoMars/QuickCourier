@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.edu.unbosque.springsecurity.model.Cliente;
 import co.edu.unbosque.springsecurity.model.Token;
 import co.edu.unbosque.springsecurity.model.TokenType;
-import co.edu.unbosque.springsecurity.model.Usuario;
 import co.edu.unbosque.springsecurity.repository.TokenRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +18,7 @@ public class TokenService {
     private final TokenRepository tokenRepository;
 
     @Transactional
-    public void guardarToken(Usuario usuario, String jwtToken) {
+    public void guardarToken(Cliente usuario, String jwtToken) {
         var token = Token.builder()
                 .usuario(usuario)
                 .token(jwtToken)
@@ -31,8 +31,8 @@ public class TokenService {
     }
 
     @Transactional
-    public void revocarTokens(Usuario usuario) {
-        List<Token> tokensValidos = tokenRepository.findAllValidTokensByUserId(usuario.getId());
+    public void revocarTokens(Cliente usuario) {
+        List<Token> tokensValidos = tokenRepository.findAllValidTokensByUserId(usuario.getIdCliente());
         if (tokensValidos.isEmpty()) return;
 
         tokensValidos.forEach(token -> {

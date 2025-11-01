@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import co.edu.unbosque.springsecurity.dto.LoginDTO;
 import co.edu.unbosque.springsecurity.dto.RegistroDTO;
 import co.edu.unbosque.springsecurity.dto.TokenDTO;
-import co.edu.unbosque.springsecurity.model.Usuario;
+import co.edu.unbosque.springsecurity.model.Cliente;
 import co.edu.unbosque.springsecurity.repository.UsuarioRepository;
 import co.edu.unbosque.springsecurity.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -25,13 +25,12 @@ public class UsuarioService {
 
     public TokenDTO registro(RegistroDTO request) {
 
-        var usuario = Usuario.builder()
-                .nombreCompleto(request.getNombreCompleto())
-                .correoElectronico(request.getCorreoElectronico())
+        var usuario = Cliente.builder()
+                .nombre(request.getNombreCompleto())
+                .email(request.getCorreoElectronico())
                 .cedula(request.getCedula())
                 .direccion(request.getDireccion())
                 .contrasena(passwordEncoder.encode(request.getContrasena()))
-                .rol("USER")
                 .build();
 
         var usuarioGuardado = usuarioRepository.save(usuario);
@@ -53,7 +52,7 @@ public class UsuarioService {
                 )
         );
 
-        var usuario = usuarioRepository.findByCorreoElectronico(request.getCorreoElectronico())
+        var usuario = usuarioRepository.findByEmail(request.getCorreoElectronico())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         var jwtToken = jwtService.generarToken(usuario);
@@ -77,7 +76,7 @@ public class UsuarioService {
             throw new IllegalArgumentException("Token de refresco inválido");
         }
 
-        var usuario = usuarioRepository.findByCorreoElectronico(userEmail)
+        var usuario = usuarioRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         if (!jwtService.esTokenValido(refreshToken, usuario)) {
