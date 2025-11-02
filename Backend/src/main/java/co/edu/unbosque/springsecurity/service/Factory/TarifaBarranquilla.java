@@ -15,5 +15,9 @@ public class TarifaBarranquilla implements Tarifa {
         else return tarifaBarranquilla+12000;
     }
 
+     @Override
+    public String getDescripcion() {
+       return "Tarifa base Barranquilla";
+    }
     
 }

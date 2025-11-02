@@ -20,9 +20,18 @@ public class PedidoController {
 
 
 
-    @GetMapping("/tarifa-base")
-    public Double calcularCostoEnvioBase(@AuthenticationPrincipal UserDetails user, @RequestParam String ciudad, @RequestParam Double peso) {
-        return pedidoService.calcularCostoEnvioBase(ciudad, peso);
+    @GetMapping("/tarifa-envio")
+    public Double calcularCostoEnvioBase(
+        @AuthenticationPrincipal UserDetails user,
+        @RequestParam String ciudad,
+        @RequestParam Double peso,
+        @RequestParam (defaultValue= "false") boolean empaqueRegalo,
+        @RequestParam (defaultValue= "false") boolean envioExpress,
+        @RequestParam (defaultValue= "false") boolean envioSeguro,
+        @RequestParam (defaultValue= "false") boolean manejoFragil) 
+        
+        {
+        return pedidoService.calcularCostoEnvioBase(ciudad, peso, empaqueRegalo, envioExpress,envioSeguro, manejoFragil);
         
     }
     
@@ -30,3 +39,4 @@ public class PedidoController {
     
     
 }
+

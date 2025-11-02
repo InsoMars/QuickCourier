@@ -4,5 +4,6 @@ public interface  Tarifa {
 
 
     Double calcularTarifa(Double peso);
+    String getDescripcion();
     
 }

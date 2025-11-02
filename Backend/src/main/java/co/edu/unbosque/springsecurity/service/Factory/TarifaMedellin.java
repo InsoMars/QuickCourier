@@ -15,5 +15,10 @@ public class TarifaMedellin implements Tarifa {
         else return tarifaMedellin+12000;
     }
 
+    @Override
+    public String getDescripcion() {
+       return "Envío Medellín";
+    }
+
     
 }

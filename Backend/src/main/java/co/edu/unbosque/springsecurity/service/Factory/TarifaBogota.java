@@ -15,5 +15,8 @@ public class TarifaBogota implements Tarifa {
         else return tarifaBogota+12000;
     }
 
-    
+     @Override
+    public String getDescripcion() {
+       return "Envío Bogotá";
+    }
 }

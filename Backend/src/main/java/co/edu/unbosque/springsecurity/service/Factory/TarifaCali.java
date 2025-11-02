@@ -15,5 +15,8 @@ public class TarifaCali implements Tarifa {
         else return tarifaCali+12000;
     }
 
-    
+     @Override
+    public String getDescripcion() {
+       return "Envío Cali";
+    }
 }

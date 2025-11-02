@@ -15,5 +15,9 @@ public class TarifaBucaramanga implements Tarifa {
         else return tarifaBucaramanga+12000;
     }
 
+     @Override
+    public String getDescripcion() {
+       return "Envío Bucaramanga";
+    }
     
 }
