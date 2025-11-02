@@ -24,7 +24,6 @@ public class ProductoController {
     
     @GetMapping
     public ResponseEntity<List<ProductoDTO>> obtenerProductos(@AuthenticationPrincipal UserDetails user) {
-        // Llama al servicio que ya hace el mapeo Entidad -> DTO
         List<ProductoDTO> productos = productoService.findAllProductos();
         return ResponseEntity.ok(productos);
     }

@@ -2,7 +2,7 @@ package co.edu.unbosque.springsecurity.controller;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin; // Importación necesaria
+import org.springframework.web.bind.annotation.CrossOrigin; 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -22,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-// APLICACIÓN DE CROSSORIGIN basada en tu ProductoController
 @CrossOrigin (origins = "http://127.0.0.1:5500") 
 @Tag(name = "Autenticación", description = "Endpoints para registro, login y refresco de tokens JWT")
 public class UsuarioController {

@@ -1,10 +1,10 @@
-// index.js
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Referencias a elementos del DOM
     const form = document.getElementById("loginForm");
-    const errorDisplay = document.querySelector('.login-error-message'); // Asegúrate de que este elemento exista en tu HTML
+    const errorDisplay = document.querySelector('.login-error-message'); // Contenedor para errores generales
 
-    // Prevenimos el envío tradicional del formulario y realizamos la llamada asíncrona
+    // Manejador del envío del formulario
     form.addEventListener("submit", async (event) => {
         event.preventDefault(); 
         
@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 2. Llamada asíncrona al API de login
         try {
-            // Verifica que el servidor de Spring Boot esté corriendo en el puerto 8081
             const response = await fetch('http://localhost:8081/auth/login', { 
                 method: 'POST',
                 headers: {
@@ -59,16 +58,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 
                 console.error(`Error de inicio de sesión: Status ${status}`);
-                errorDisplay.textContent = errorMessage; // Usamos el contenedor de errores
+                errorDisplay.textContent = errorMessage;
                 return;
             }
 
             // 3. Login Exitoso: Guardar y Redirigir
             const tokenDTO = await response.json();
             
-            // AJUSTE CLAVE: Usamos tokenDTO.accessToken, que es la clave que sabes que funciona
-            // y es consistente con el código del catálogo.
-            const jwtToken = tokenDTO.accessToken; 
+            // 🔥 CORRECCIÓN CLAVE: Leemos la propiedad que envía el backend (access_token)
+            const jwtToken = tokenDTO.access_token; 
             
             if (!jwtToken) {
                 console.error("Respuesta del servidor no contiene el token JWT esperado:", tokenDTO);
@@ -76,12 +74,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
             
-            // Guardar el token principal
+            // Guardar el token principal con la clave 'accessToken' (para que catalogo.js lo lea)
             localStorage.setItem('accessToken', jwtToken); 
             
-            // Si el backend también devuelve refreshToken, guárdalo (Opcional)
-            if (tokenDTO.refreshToken) {
-                 localStorage.setItem('refreshToken', tokenDTO.refreshToken);
+            // Guardar el refresh token (si existe)
+            if (tokenDTO.refresh_token) {
+                 localStorage.setItem('refreshToken', tokenDTO.refresh_token);
             }
             
             // Redirigir al usuario
@@ -89,7 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         } catch (error) {
             console.error('Error de conexión o del servidor:', error);
-            // Este catch se ejecuta si el servidor está apagado o la URL es incorrecta
             errorDisplay.textContent = "No se pudo conectar con el servidor. Verifica que esté activo.";
         }
     });
@@ -98,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // --- Funciones de Validación y Errores ---
 
 function validateEmail(email) {
+    // Regex estándar para validación simple de correo
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
 }
@@ -110,8 +108,10 @@ function showError(input, message) {
 }
 
 function resetErrors() {
+    // Limpia mensajes de error individuales
     document.querySelectorAll(".error-msg").forEach(msg => msg.textContent = "");
     document.querySelectorAll(".input-error").forEach(input => input.classList.remove("input-error"));
+    // Limpia el mensaje de error general
     const errorDisplay = document.querySelector('.login-error-message');
     if (errorDisplay) errorDisplay.textContent = "";
 }

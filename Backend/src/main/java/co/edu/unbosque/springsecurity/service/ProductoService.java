@@ -17,10 +17,8 @@ public class ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
 
-    // Método de Mapeo (Traducción) usando Lombok Builder
     private ProductoDTO convertirADto(Producto producto) {
         
-        // El Builder facilita asignar los campos de manera fluida y legible
         return ProductoDTO.builder()
                 .idProducto(producto.getIdProducto())
                 .nombreProd(producto.getNombreProd())
@@ -33,7 +31,6 @@ public class ProductoService {
                 .build();
     }
 
-    // Método que el Controlador usará para obtener la lista de DTOs
     public List<ProductoDTO> findAllProductos() {
         return productoRepository.findAll().stream()
                 .map(this::convertirADto)

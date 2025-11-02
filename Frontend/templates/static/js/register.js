@@ -1,4 +1,3 @@
-// register.js (Versión Corregida para Registro)
 
 const form = document.getElementById("registerForm");
 const inputs = form.querySelectorAll("input");
@@ -102,7 +101,7 @@ form.addEventListener("submit", async function (event) {
         localStorage.setItem('refreshToken', tokenDTO.refreshToken);
         
         alert("¡Registro exitoso! Serás redirigido.");
-        window.location.href = '/dashboard.html'; 
+        window.location.href = '/Frontend/templates/index.html'; 
 
     } catch (error) {
         console.error('Error al intentar registrar (Fallo de red):', error);

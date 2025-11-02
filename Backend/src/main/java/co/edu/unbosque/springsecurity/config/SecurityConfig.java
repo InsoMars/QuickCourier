@@ -13,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-// IMPORTS NECESARIOS PARA CORS
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -38,7 +37,6 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            // 1. HABILITAR CORS Y ASIGNAR EL ORIGEN CONFIGURADO
             .cors(cors -> cors.configurationSource(corsConfigurationSource())) 
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
@@ -78,28 +76,21 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /**
-     * Define la configuración de CORS para Spring Security.
-     * Permite peticiones desde el Live Server de VS Code (127.0.0.1:5500).
-     */
+    
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        // El origen de tu frontend
         configuration.setAllowedOrigins(List.of("http://127.0.0.1:5500"));
         
-        // Métodos permitidos (OPTIONS es crucial para el preflight)
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         
-        // Permite cualquier header, incluyendo el "Authorization"
         configuration.setAllowedHeaders(List.of("*")); 
         
         configuration.setAllowCredentials(true); 
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // Aplicar a todas las rutas
-        
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 }

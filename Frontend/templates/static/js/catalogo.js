@@ -1,4 +1,4 @@
-// src/main/resources/static/js/catalogo.js
+
 
 // 1. FUNCIÓN DE ACTUALIZACIÓN VISUAL DEL CONTADOR
 function actualizarCarrito() {
