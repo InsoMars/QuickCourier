@@ -13,7 +13,7 @@ import co.edu.unbosque.springsecurity.dto.ProductoDTO;
 import co.edu.unbosque.springsecurity.service.ProductoService;
 
 @RestController
-@RequestMapping("/QuickCourier/Catalogo")
+@RequestMapping("/QuickCourier/Productos/Catalogo")
 @CrossOrigin (origins = "http://127.0.0.1:5500")
 public class ProductoController {
 

@@ -36,7 +36,6 @@ body {
     background-color: none;
     border-radius: 8px 0 0 8px;
     outline: none;
-    
 }
 
 .search-container input {
@@ -44,9 +43,7 @@ body {
     padding: 10px;
     width: 100%;
     outline: none;
-    margin-left:20px ;
-    
-    
+    margin-left: 20px;
 }
 
 .search-btn {
@@ -66,7 +63,6 @@ body {
 }
 
 .kart-btn{
-
     background: transparent;
     border: none;
     cursor: pointer;
@@ -76,8 +72,6 @@ body {
     justify-content: center;
     color: white;
     margin-left: auto;
-    
-    
 }
 
 .kart-btn img.kart-icon{
@@ -85,36 +79,33 @@ body {
     height: 60px;
     object-fit: contain;
     filter: brightness(0) invert(1); 
-
-
-    
 }
 
 #cart-count {
-  background: #FF9100;
-  color: #fff;
-  border-radius: 50%;
-  padding: 3px 7px;
-  font-size: 12px;
-  position: absolute;
-  top: 5px;
-  right: 5px;
+    background: #FF9100;
+    color: #fff;
+    border-radius: 50%;
+    padding: 3px 7px;
+    font-size: 12px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 
 
 .logout-btn {
-  background-color: #888686;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s ease;
+    background-color: #888686;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 .logout-btn:hover {
-  background-color: #bbbbbb;
+    background-color: #bbbbbb;
 }
 
 .menu-btn {
@@ -129,6 +120,7 @@ body {
     font-weight: bold;
 }
 
+/* --- REGLAS DE CUADRÍCULA --- */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -142,17 +134,28 @@ body {
     border-radius: 12px;
     padding: 10px;
     text-align: center;
+    
+    /* [CORRECCIÓN 1]: Usamos flexbox para alinear el contenido internamente */
+    display: flex;
+    flex-direction: column;
+    /* [CORRECCIÓN 2]: Establece una altura mínima para evitar que la tarjeta se encoja/estire */
 }
 
 .product-card img {
-    height: 180px;
-    object-fit: cover;
+    /* [CORRECCIÓN 3]: Asegura que la imagen siempre ocupe todo el ancho de la tarjeta */
+    width: 100%; 
+    height: 230px;
+    /* object-fit: cover asegura que la imagen llene la altura sin distorsionarse (recortará si es necesario) */
+    object-fit: cover; 
+    object-position: center;
 }
 
 .product-name {
     font-size: 14px;
     font-weight: bold;
     margin: 10px 0;
+    /* Esto empuja el botón "Agregar" hacia abajo, llenando el min-height */
+    flex-grow: ; 
 }
 
 .add-btn {
@@ -167,6 +170,8 @@ body {
     display: flex;
     justify-content: center;
     gap: 6px;
+    /* Asegura que el botón esté siempre en la parte inferior de la tarjeta */
+    margin-top: auto; 
 }
 
 .add-btn:hover {
@@ -174,7 +179,7 @@ body {
 }
 
 
-
+/* --- REGLAS DEL MENÚ LATERAL --- */
 .side-menu {
     position: fixed;
     top: 0;
