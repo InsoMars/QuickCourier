@@ -14,6 +14,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import co.edu.unbosque.springsecurity.model.Token;
 import co.edu.unbosque.springsecurity.repository.TokenRepository;
+import io.jsonwebtoken.ExpiredJwtException; 
+import io.jsonwebtoken.MalformedJwtException; 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,32 +50,51 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         final String jwtToken = authHeader.substring(7);
-        final String correoUsuario = jwtService.extraerCorreo(jwtToken);
+        final String correoUsuario;
 
-        if (correoUsuario == null || SecurityContextHolder.getContext().getAuthentication() != null) {
+       
+        if (jwtToken.isEmpty() || jwtToken.length() < 10) { 
+            System.err.println("Advertencia: Token JWT en cabecera es nulo o incompleto.");
             filterChain.doFilter(request, response);
             return;
         }
 
-        Token token = tokenRepository.findByToken(jwtToken).orElse(null);
-        if (token == null || token.isExpirado() || token.isRevocado()) {
+
+        try {
+            correoUsuario = jwtService.extraerCorreo(jwtToken);
+        } catch (MalformedJwtException | ExpiredJwtException e) {
+            
+            System.err.println("Error de token JWT (Malformed o Expired): " + e.getMessage());
             filterChain.doFilter(request, response);
-            return;
+            return; 
         }
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(correoUsuario);
-        if (jwtService.esTokenValidoUsuariosDetalles(jwtToken, userDetails)) {
-            UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(
-                            userDetails, null, userDetails.getAuthorities());
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        if (correoUsuario != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            
+          
+            Token token = tokenRepository.findByToken(jwtToken).orElse(null);
+            
+            if (token == null || token.isExpirado() || token.isRevocado()) {
+                 filterChain.doFilter(request, response);
+                 return;
+            }
+
+            UserDetails userDetails = userDetailsService.loadUserByUsername(correoUsuario);
+            
+            if (jwtService.esTokenValidoUsuariosDetalles(jwtToken, userDetails)) {
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(
+                                userDetails, null, userDetails.getAuthorities());
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
 
         filterChain.doFilter(request, response);

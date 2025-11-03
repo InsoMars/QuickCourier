@@ -32,9 +32,80 @@ public class Producto {
     @Column(name = "peso_prod")
     private Double pesoProd;
 
-    @Column( name= "ruta_prod")
+    @Column(name = "ruta_prod")
     private String rutaProd;
 
+
+    public Producto() {
+        
+    }
+
+    public Producto(Long idProducto, String nombreProd, String descripcionProd, Double precioUniProd,
+            String categoriaProd, Double pesoProd, String rutaProd) {
+        this.idProducto = idProducto;
+        this.nombreProd = nombreProd;
+        this.descripcionProd = descripcionProd;
+        this.precioUniProd = precioUniProd;
+        this.categoriaProd = categoriaProd;
+        this.pesoProd = pesoProd;
+        this.rutaProd = rutaProd;
+    }
+
+    public Long getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(Long idProducto) {
+        this.idProducto = idProducto;
+    }
+
+    public String getNombreProd() {
+        return nombreProd;
+    }
+
+    public void setNombreProd(String nombreProd) {
+        this.nombreProd = nombreProd;
+    }
+
+    public String getDescripcionProd() {
+        return descripcionProd;
+    }
+
+    public void setDescripcionProd(String descripcionProd) {
+        this.descripcionProd = descripcionProd;
+    }
+
+    public Double getPrecioUniProd() {
+        return precioUniProd;
+    }
+
+    public void setPrecioUniProd(Double precioUniProd) {
+        this.precioUniProd = precioUniProd;
+    }
+
+    public String getCategoriaProd() {
+        return categoriaProd;
+    }
+
+    public void setCategoriaProd(String categoriaProd) {
+        this.categoriaProd = categoriaProd;
+    }
+
+    public Double getPesoProd() {
+        return pesoProd;
+    }
+
+    public void setPesoProd(Double pesoProd) {
+        this.pesoProd = pesoProd;
+    }
+
+    public String getRutaProd() {
+        return rutaProd;
+    }
+
+    public void setRutaProd(String rutaProd) {
+        this.rutaProd = rutaProd;
+    }
 
     
 }

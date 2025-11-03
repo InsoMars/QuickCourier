@@ -2,6 +2,7 @@ package co.edu.unbosque.springsecurity.controller;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin; 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@CrossOrigin (origins = "http://127.0.0.1:5500") 
 @Tag(name = "Autenticación", description = "Endpoints para registro, login y refresco de tokens JWT")
 public class UsuarioController {
 
@@ -41,7 +43,6 @@ public class UsuarioController {
         return ResponseEntity.ok(token);
     }
 
- 
     @Operation(
         summary = "Iniciar sesión",
         description = "Valida las credenciales del usuario y devuelve un token JWT de autenticación."
@@ -57,7 +58,6 @@ public class UsuarioController {
         return ResponseEntity.ok(token);
     }
 
-  
     @Operation(
         summary = "Refrescar token JWT",
         description = "Recibe el token actual en el header Authorization y devuelve uno nuevo si aún es válido."

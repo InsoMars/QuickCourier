@@ -14,5 +14,4 @@ public class RegistroDTO {
     private String contrasena;
     private String telefono;
 
-    
 }

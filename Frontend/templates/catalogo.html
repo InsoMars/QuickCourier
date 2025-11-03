@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>QuickCourier - Catálogo</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="static/css/catalogo.css">
     <link rel="icon" href="static/img/logo.png">
 </head>
@@ -11,55 +13,56 @@
 
     <!-- Header -->
     <header class="header">
-    <div class="menu-btn">☰</div>
+        <div class="menu-btn">☰</div>
 
-    <img src="static/img/logo-blanco.png" class="logo-header">
+        <!-- NOTA: Las rutas de las imágenes deben ser correctas en su entorno -->
+        <img src="static/img/logo-blanco.png" class="logo-header">
 
-    <div class="search-container">
-        <input type="text" id="search-input" placeholder="¿Qué estás buscando hoy?">
-        <button class="search-btn">
-            <img src="static/img/buscar.png" alt="Buscar" class="search-icon">
-        </button>
-    </div>
-    <a href="/Frontend/templates/resumen-carrito.html" alt= "carrito" class="kart-btn"> Carrito
-        <img src="static/img/carrito.png" alt="Carrito" class="kart-icon">
-        <span id="cart-count">0</span>
-    </button>
-</header>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="¿Qué estás buscando hoy?">
+            <button class="search-btn">
+                <img src="static/img/buscar.png" alt="Buscar" class="search-icon">
+            </button>
+        </div>
+        <a href="/Frontend/templates/resumen-carrito.html" alt="carrito" class="kart-btn"> Carrito
+            <img src="static/img/carrito.png" alt="Carrito" class="kart-icon">
+            <span id="cart-count">0</span>
+        </a>
     </header>
 
     <!-- Menú lateral de categorías -->
-<nav id="side-menu" class="side-menu">
-    <a href="#" class="close-btn" id="close-menu">✕</span>
+    <nav id="side-menu" class="side-menu">
+        <a href="#" class="close-btn" id="close-menu">✕</a>
         <img src="static/img/logo-blanco.png" class="logo-header">
-    <ul>
-        <li><a href="#libros-container">Libros</a></li>
-        <li><a href="#snacks-container">Snacks</a></li>
-        <li><a href="#">Tecnología</a></li>
-        <li><a href="#">Hogar</a></li>
-        <li><a href="#">Juguetes</a></li>
-        <li><a href="#">Ropa</a></li>
-    </ul>
-<br>
+        <ul>
+            <li><a href="#libros-container">Libros</a></li>
+            <li><a href="#snacks-container">Snacks</a></li>
+            <li><a href="#accesorios-container">Accesorios</a></li>
+        </ul>
+        <br>
+        <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
+    </nav>
 
-    <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
-</nav>
-
-
-<div id="overlay" class="overlay"></div>
+    <div id="overlay" class="overlay"></div>
 
     <main class="contenedor">
 
-        <!-- Categoria Libros -->
+        <!-- Categoria Libros (¡Contenedor Vacio! Se llena con JS) -->
         <h2 class="category-title">Libros</h2>
         <div class="product-grid" id="libros-container">
-            <!-- JS Inserta tarjetas aquí -->
+            <!-- Productos cargados aquí por catalogo.js (Dinámico) -->
         </div>
 
-        <!-- Categoria Snacks -->
+        <!-- Categoria Snacks (¡Contenedor Vacio! Se llena con JS) -->
         <h2 class="category-title">Snacks</h2>
         <div class="product-grid" id="snacks-container">
-            <!-- JS Inserta tarjetas aquí -->
+            <!-- Productos cargados aquí por catalogo.js (Dinámico) -->
+        </div>
+
+        <!-- Categoria Accesorios (¡Contenedor Vacio! Se llena con JS) -->
+        <h2 class="category-title">Accesorios</h2>
+        <div class="product-grid" id="accesorios-container">
+            <!-- Productos cargados aquí por catalogo.js (Dinámico) -->
         </div>
 
     </main>

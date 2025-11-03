@@ -4,39 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resumen Carrito</title>
-     <link rel="stylesheet" href="static/css/resumen-carrito.css" />
-     <link rel="icon" href="static/img/logo.png">
+    <link rel="stylesheet" href="static/css/resumen-carrito.css" />
+    <link rel="icon" href="static/img/logo.png">
 </head>
 <body>
     <header class="resumen-carrito-header">
-    <div class="menu-btn">☰</div>
-
-    <img src="static/img/logo-blanco.png" class="logo-header">
+        <div class="menu-btn">☰</div>
+        <img src="static/img/logo-blanco.png" class="logo-header">
     </header>
 
 
     <!-- Menú lateral de categorías -->
-<nav id="side-menu" class="side-menu">
-    <a href="#" class="close-btn" id="close-menu">✕</a>
-    <img src="static/img/logo-blanco.png" class="logo-header">
-    <ul>
-        <li><a href="#libros-container">Libros</a></li>
-        <li><a href="#snacks-container">Snacks</a></li>
-        <li><a href="#">Tecnología</a></li>
-        <li><a href="#">Hogar</a></li>
-        <li><a href="#">Juguetes</a></li>
-        <li><a href="#">Ropa</a></li>
-    </ul>
-<br>
+    <nav id="side-menu" class="side-menu">
+        <a href="#" class="close-btn" id="close-menu">✕</a>
+        <img src="static/img/logo-blanco.png" class="logo-header">
+        <ul>
+            <li><a href="#libros-container">Libros</a></li>
+            <li><a href="#snacks-container">Snacks</a></li>
+            <li><a href="#">Tecnología</a></li>
+            <li><a href="#">Hogar</a></li>
+            <li><a href="#">Juguetes</a></li>
+            <li><a href="#">Ropa</a></li>
+        </ul>
+        <br>
 
-    <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
-</nav>
+        <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
+    </nav>
 
-<div id="overlay" class="overlay"></div>
+    <div id="overlay" class="overlay"></div>
 
 
     <main class="resumen-carrito-main">
-         <a href="catalogo.html" id="resumen-carrito-seguir">← Seguir comprando</a>
+        <a href="catalogo.html" id="resumen-carrito-seguir">← Seguir comprando</a>
         <h1 class="resumen-carrito-title">Tu Pedido</h1>
         <p class="resumen-carrito-subtitle">Carrito de Compras (<span id="resumen-carrito-count">2</span> productos)</p>
 
@@ -46,10 +45,12 @@
                     <th>Producto</th>
                     <th>Precio</th>
                     <th>Cantidad</th>
+                    <!-- Columna para los botones de eliminar/acción -->
+                    <th>Acción</th> 
                 </tr>
             </thead>
             <tbody id="resumen-carrito-body">
-                <!-- agregar los productos JSON -->
+                <!-- Contenido generado por resumen-carrito.js -->
             </tbody>
         </table>
 
@@ -66,8 +67,7 @@
                 </div>
                 <br>
                 
-                
-                <a href= info-pedido.html  id="resumen-carrito-pagar">INICIAR PAGO </a>
+                <a href="info-pedido.html" id="resumen-carrito-pagar">INICIAR PAGO</a>
             </div>
         </div>
     </main>
