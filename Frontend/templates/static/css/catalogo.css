@@ -1,7 +1,7 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
     margin: 0;
-    background: #fff;
+    background: #f4f4f9;
 }
 
 .header {
@@ -11,6 +11,7 @@ body {
     gap: 20px;
     padding: 10px 20px;
     color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .logo-header {
@@ -26,24 +27,18 @@ body {
     border-radius: 30px;
     overflow: hidden;
     width: 40%;
-    margin-left: 300px;
+    margin-left: auto; 
+    max-width: 500px;
 }
 
 #search-input {
     width: 100%;
     padding: 10px;
     border: none;
-    background-color: none;
+    background-color: transparent;
     border-radius: 8px 0 0 8px;
     outline: none;
-}
-
-.search-container input {
-    border: none;
-    padding: 10px;
-    width: 100%;
-    outline: none;
-    margin-left: 20px;
+    padding-left: 20px;
 }
 
 .search-btn {
@@ -54,6 +49,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.search-btn:hover {
+    background: #e07c00;
 }
 
 .search-btn img.search-icon {
@@ -62,23 +62,24 @@ body {
     object-fit: contain;
 }
 
-.kart-btn{
+.kart-btn {
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 0;
+    padding: 0 10px;
     display: flex;
     align-items: center;
-    justify-content: center;
     color: white;
-    margin-left: auto;
+    position: relative;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-.kart-btn img.kart-icon{
+.kart-btn img.kart-icon {
     width: 60px;
     height: 60px;
     object-fit: contain;
-    filter: brightness(0) invert(1); 
+    filter: brightness(0) invert(1);
 }
 
 #cart-count {
@@ -88,10 +89,11 @@ body {
     padding: 3px 7px;
     font-size: 12px;
     position: absolute;
-    top: 5px;
+    top: -5px;
     right: 5px;
+    z-index: 10;
+    border: 2px solid #0A4285;
 }
-
 
 .logout-btn {
     background-color: #888686;
@@ -102,6 +104,8 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s ease;
+    width: fit-content;
+    margin-top: 20px;
 }
 
 .logout-btn:hover {
@@ -115,47 +119,89 @@ body {
 
 .category-title {
     font-size: 26px;
-    color: #FF9100;
-    margin: 25px;
-    font-weight: bold;
+    color: #0A4285; /* Cambiado a azul para más contraste */
+    margin: 25px 20px 15px 20px;
+    font-weight: 800;
 }
 
-/* --- REGLAS DE CUADRÍCULA --- */
+/* --- REGLAS CLAVE PARA EL DESPLAZAMIENTO HORIZONTAL (product-grid) --- */
 .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    /* 1. Usar flexbox para que los elementos se alineen horizontalmente */
+    display: flex;
+    /* 2. Permitir el desplazamiento horizontal y que la barra sea visible */
+    overflow-x: auto;
+    /* 3. Deshabilitar el ajuste de línea */
+    flex-wrap: nowrap;
+
+    /* 4. Espacio entre los productos */
     gap: 20px;
-    padding: 0 20px;
+    padding: 0 20px 20px 20px; /* Padding para evitar que el scroll toque los bordes */
+
+    scroll-behavior: smooth;
+    /* 5. Estilizar la barra de desplazamiento (opcional, solo para WebKit/Chrome/Safari) */
+    scrollbar-color: #FF9100 #ddd; /* track y thumb */
+    scrollbar-width: thin; /* Firefox */
+
 }
 
+/* Estilo para la barra de desplazamiento en Webkit */
+.product-grid::-webkit-scrollbar {
+    height: 8px; /* Altura de la barra de desplazamiento horizontal */
+}
+
+.product-grid::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Fondo de la barra */
+    border-radius: 10px;
+}
+
+.product-grid::-webkit-scrollbar-thumb {
+    background: #FF9100; /* Color del "pulgar" de la barra */
+    border-radius: 10px;
+}
+
+.product-grid::-webkit-scrollbar-thumb:hover {
+    background: #e07c00;
+}
+
+/* --- REGLAS DE LA TARJETA (product-card) --- */
 .product-card {
     background: #fff;
-    border: 2px solid #FFB86F;
+    border: 1px solid #ddd;
     border-radius: 12px;
     padding: 10px;
     text-align: center;
-    
-    /* [CORRECCIÓN 1]: Usamos flexbox para alinear el contenido internamente */
+
     display: flex;
     flex-direction: column;
-    /* [CORRECCIÓN 2]: Establece una altura mínima para evitar que la tarjeta se encoja/estire */
+
+    /* CRUCIAL: Define el ancho de la tarjeta y evita que se encoja */
+    flex-shrink: 0;
+    width: 180px;
+    max-height: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .product-card img {
-    /* [CORRECCIÓN 3]: Asegura que la imagen siempre ocupe todo el ancho de la tarjeta */
-    width: 100%; 
+    width: 100%;
     height: 230px;
-    /* object-fit: cover asegura que la imagen llene la altura sin distorsionarse (recortará si es necesario) */
-    object-fit: cover; 
+    object-fit: cover;
     object-position: center;
+    border-radius: 8px;
+    margin-bottom: 5px;
 }
 
 .product-name {
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: 600;
     margin: 10px 0;
-    /* Esto empuja el botón "Agregar" hacia abajo, llenando el min-height */
-    flex-grow: ; 
+    flex-grow: 1;
 }
 
 .add-btn {
@@ -169,9 +215,10 @@ body {
     font-weight: bold;
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 6px;
-    /* Asegura que el botón esté siempre en la parte inferior de la tarjeta */
-    margin-top: auto; 
+    margin-top: auto;
+    transition: background 0.3s ease;
 }
 
 .add-btn:hover {
@@ -183,17 +230,18 @@ body {
 .side-menu {
     position: fixed;
     top: 0;
-    left: -320px; /* escondido */
+    left: -320px;
     width: 280px;
     height: 100%;
     background: #0A4285;
     padding: 20px;
     transition: left 0.3s ease;
     z-index: 2000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .side-menu.open {
-    left: 0; /* aparece */
+    left: 0;
 }
 
 .side-menu ul {
@@ -204,12 +252,19 @@ body {
 
 .side-menu ul li {
     margin: 20px 0;
+    padding: 5px 0;
 }
 
 .side-menu a {
     color: #fff;
     font-size: 18px;
     text-decoration: none;
+    display: block;
+    transition: color 0.2s;
+}
+
+.side-menu a:hover {
+    color: #FF9100;
 }
 
 .close-btn {
@@ -235,4 +290,41 @@ body {
 
 .overlay.show {
     display: block;
+}
+
+/* Media Query para responsividad en móvil */
+@media (max-width: 768px) {
+    .header {
+        gap: 10px;
+        padding: 10px 15px;
+    }
+    .logo-header {
+        height: 60px;
+        width: 140px;
+        margin: -10px 0;
+    }
+    .search-container {
+        display: none; /* Ocultar la barra de búsqueda en móvil para ahorrar espacio */
+    }
+    .kart-btn {
+        margin-left: 0;
+    }
+    .kart-btn img.kart-icon {
+        width: 40px;
+        height: 40px;
+    }
+    #cart-count {
+        right: 0px;
+    }
+    .product-grid {
+        gap: 15px;
+        padding: 0 15px 20px 15px;
+    }
+    .product-card {
+        width: 140px; /* Ajuste para móvil */
+        height: 320px;
+    }
+    .product-card img {
+        height: 180px;
+    }
 }

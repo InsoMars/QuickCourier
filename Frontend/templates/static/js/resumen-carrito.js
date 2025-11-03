@@ -160,6 +160,7 @@ function renderCarrito(productosEnCarrito) {
     
     productosEnCarrito.forEach((producto) => {
         // Usamos los nombres de campos del DTO:
+        const id = producto.idProducto;
         const precioUnitario = producto.precioUniProd;
         const nombre = producto.nombreProd;
         const imagen = producto.rutaImagen;
@@ -171,21 +172,30 @@ function renderCarrito(productosEnCarrito) {
         totalProductos += cantidad;
 
         const row = document.createElement('tr');
-        // Nota: se eliminan los botones de control de cantidad por ahora,
-        // ya que la lógica de remover/agregar no está implementada.
         row.innerHTML = `
             <td>
-                <img src="${imagen}" alt="${nombre}"> 
-                <div>
-                    <strong>${nombre}</strong><br>
-                    <small>${descripcion}</small>
+                <div class="product-info-wrap">
+                    <img src="${imagen}" alt="${nombre}"> 
+                    <div>
+                        <strong>${nombre}</strong><br>
+                        <small>${descripcion}</small>
+                    </div>
                 </div>
             </td>
             <td>$${precioUnitario.toLocaleString()}</td>
             <td>
-                <div class="cantidad-display">
-                    <span>${cantidad}</span>
+                <div class="cantidad-controls">
+                    <!-- Botón para disminuir -->
+                    <button class="control-btn minus-btn" data-id="${id}">-</button>
+                    <!-- Display de la cantidad -->
+                    <span class="cantidad-display">${cantidad}</span>
+                    <!-- Botón para aumentar -->
+                    <button class="control-btn plus-btn" data-id="${id}">+</button>
                 </div>
+            </td>
+            <td>
+                <!-- Nuevo botón de eliminar todo el producto -->
+                <button class="remove-all-btn" data-id="${id}">Eliminar</button>
             </td>
         `;
         tbody.appendChild(row);
@@ -202,7 +212,82 @@ function actualizarTotales(subtotal, totalProductos) {
 }
 
 // =======================================================
-// 3. LÓGICA DEL MENÚ Y LOGOUT
+// 3. MANIPULACIÓN DEL CARRITO (Aumentar/Disminuir/Eliminar)
+// =======================================================
+
+/**
+ * Agrega una instancia del producto al carrito (almacenamiento local)
+ * @param {string} id - ID del producto a aumentar.
+ */
+function aumentarCantidad(id) {
+    const idsEnCarrito = JSON.parse(localStorage.getItem('carritoIds') || '[]');
+    idsEnCarrito.push(id); // Simplemente añade el ID al final
+    localStorage.setItem('carritoIds', JSON.stringify(idsEnCarrito));
+    // Vuelve a cargar el resumen para refrescar la vista
+    cargarResumenDelCarrito();
+}
+
+/**
+ * Remueve la primera instancia encontrada del producto del carrito.
+ * @param {string} id - ID del producto a disminuir.
+ */
+function disminuirCantidad(id) {
+    let idsEnCarrito = JSON.parse(localStorage.getItem('carritoIds') || '[]');
+    
+    // Encuentra el índice del primer elemento que coincide con el ID
+    const indexToRemove = idsEnCarrito.findIndex(itemId => itemId === id);
+    
+    if (indexToRemove !== -1) {
+        // Elimina solo ese elemento
+        idsEnCarrito.splice(indexToRemove, 1); 
+        localStorage.setItem('carritoIds', JSON.stringify(idsEnCarrito));
+        // Vuelve a cargar el resumen para refrescar la vista
+        cargarResumenDelCarrito();
+    } else {
+        // Opcional: Si el producto no se encuentra (no debería pasar), se puede limpiar o notificar.
+        console.warn(`Intento de disminuir la cantidad de ID ${id}, pero no se encontró en el carrito.`);
+    }
+}
+
+/**
+ * Elimina TODAS las instancias de un producto específico del carrito.
+ * @param {string} id - ID del producto a eliminar completamente.
+ */
+function eliminarProducto(id) {
+    let idsEnCarrito = JSON.parse(localStorage.getItem('carritoIds') || '[]');
+    
+    // Filtra el array, manteniendo solo los IDs que NO coinciden con el ID a eliminar
+    idsEnCarrito = idsEnCarrito.filter(itemId => itemId !== id);
+    
+    localStorage.setItem('carritoIds', JSON.stringify(idsEnCarrito));
+    // Vuelve a cargar el resumen para refrescar la vista
+    cargarResumenDelCarrito();
+}
+
+
+// =======================================================
+// 4. MANEJADOR DE CLICKS DE BOTONES
+// =======================================================
+
+document.addEventListener("click", (e) => {
+    const target = e.target;
+    const id = target.getAttribute("data-id");
+
+    if (!id) return; // Si no tiene data-id, no es un botón de control de producto
+
+    if (target.classList.contains("plus-btn")) {
+        aumentarCantidad(id);
+    } else if (target.classList.contains("minus-btn")) {
+        disminuirCantidad(id);
+    } else if (target.classList.contains("remove-all-btn")) {
+        eliminarProducto(id);
+    }
+    // Lógica del Menú y Logout (se mantiene abajo)
+});
+
+
+// =======================================================
+// 5. LÓGICA DEL MENÚ Y LOGOUT
 // =======================================================
 
 const menuBtn = document.querySelector(".menu-btn");

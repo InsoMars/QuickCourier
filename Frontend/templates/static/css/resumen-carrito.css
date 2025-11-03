@@ -7,7 +7,6 @@ body {
     color: #1b1464;
 }
 
-
 .header {
     background: #0A4285;
     display: flex;
@@ -23,8 +22,6 @@ body {
     margin-top: -20px;
     margin-bottom: -10px;
 }
-
-
 
 .resumen-carrito-header {
     display: flex;
@@ -66,37 +63,84 @@ body {
 
 .resumen-carrito-table th, .resumen-carrito-table td {
     text-align: left;
-    padding: 10px;
+    padding: 15px 10px;
     border-bottom: 1px solid #ccc;
-}
-
-.resumen-carrito-table img {
-    width: 60px;
-    height: auto;
-    margin-right: 10px;
     vertical-align: middle;
 }
 
-.resumen-carrito-table td .cantidad-btn {
+.resumen-carrito-table thead th {
+    background-color: #f0f0f0;
+}
+
+/* Estilo para alinear imagen y texto en la columna Producto */
+.product-info-wrap {
     display: flex;
     align-items: center;
-    border: 1px solid #000;
-    border-radius: 25px;
-    overflow: hidden;
+    gap: 15px;
 }
 
-.cantidad-btn button {
-    background: none;
+.product-info-wrap img {
+    width: 60px;
+    height: 60px; /* Tamaño fijo para la imagen del producto */
+    object-fit: cover;
+    margin-right: 0;
+    vertical-align: middle;
+    border-radius: 8px;
+}
+
+/* --- ESTILOS DE CONTROLES DE CANTIDAD (NUEVOS) --- */
+
+.cantidad-controls {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: fit-content;
+    overflow: hidden; 
+}
+
+.control-btn {
+    background-color: #f1f1f1;
     border: none;
-    padding: 5px 10px;
-    font-size: 1.2em;
+    padding: 8px 12px;
     cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    transition: background-color 0.2s;
+    color: #1b1464;
 }
 
-.cantidad-btn span {
-    padding: 0 10px;
+.control-btn:hover {
+    background-color: #e0e0e0;
 }
 
+.cantidad-display {
+    padding: 0 15px;
+    font-weight: bold;
+    font-size: 15px;
+    min-width: 30px;
+    text-align: center;
+}
+
+/* Botón de Eliminar (quitar todas las unidades) */
+.remove-all-btn {
+    background-color: #dc3545; /* Rojo */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s, transform 0.1s;
+    white-space: nowrap; /* Evita que el texto se rompa */
+}
+
+.remove-all-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+/* Reglas originales */
 .resumen-carrito-total {
     margin-top: 30px;
     display: flex;
@@ -122,6 +166,7 @@ body {
 }
 
 #resumen-carrito-pagar {
+    display: block; /* Asegurar que el <a> actúe como bloque */
     width: 100%;
     padding: 10px;
     background-color: orange;
@@ -130,22 +175,24 @@ body {
     color: white;
     font-weight: bold;
     cursor: pointer;
+    text-align: center; /* Centrar texto del botón */
+    text-decoration: none; /* Quitar subrayado al enlace */
 }
 
 
 .logout-btn {
-  background-color: #888686;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s ease;
+    background-color: #888686;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 .logout-btn:hover {
-  background-color: #bbbbbb;
+    background-color: #bbbbbb;
 }
 
 .menu-btn {
@@ -209,6 +256,3 @@ body {
 .overlay.show {
     display: block;
 }
-
-
-
