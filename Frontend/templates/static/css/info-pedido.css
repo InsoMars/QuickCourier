@@ -3,8 +3,8 @@ body {
   background: #f8f8fc;
   margin: 0;
 }
-
-
+ 
+ 
 .header {
   background: #0A4285;
   display: flex;
@@ -13,19 +13,19 @@ body {
   padding: 10px 20px;
   color: white;
 }
-
+ 
 .logo-header {
      height: 70px;
     width: 160px;
     margin-top: -20px;
     margin-bottom: -10px;
 }
-
+ 
 .cart-icon {
   font-size: 24px;
   color: orange;
 }
-
+ 
 /* Contenedor principal */
 .container {
   max-width: 1100px;
@@ -36,17 +36,17 @@ body {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   position: relative;
 }
-
+ 
 h1 {
   color: #2c1b87;
   margin-bottom: 5px;
 }
-
+ 
 .subtitle {
   color: #555;
   margin-bottom: 30px;
 }
-
+ 
 /* Pasos */
 .steps-container {
   display: flex;
@@ -55,13 +55,13 @@ h1 {
   margin-bottom: 40px;
   gap: 50px;
 }
-
+ 
 .step {
   text-align: center;
   font-size: 14px;
   color: #333;
 }
-
+ 
 .step .circle {
   display: inline-block;
   width: 32px;
@@ -73,17 +73,17 @@ h1 {
   margin-bottom: 5px;
   font-weight: bold;
 }
-
+ 
 .step.active .circle {
   border-color: orange;
   color: orange;
 }
-
+ 
 .step.done .circle {
   background: #333;
   color: white;
 }
-
+ 
 /* Contenido */
 .order-content {
   display: flex;
@@ -91,25 +91,25 @@ h1 {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-
+ 
 .info-section {
   flex: 1;
   min-width: 500px;
 }
-
+ 
 .info-box {
   border: 1px solid #bbb;
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
 }
-
+ 
 .info-box h2 {
   color: #2c1b87;
   font-size: 18px;
   margin-bottom: 10px;
 }
-
+ 
 .extra-option,
 .address-option {
   display: flex;
@@ -120,7 +120,7 @@ h1 {
   padding: 10px;
   margin: 10px 0;
 }
-
+ 
 /* Resumen */
 .summary {
   width: 280px;
@@ -129,21 +129,21 @@ h1 {
   padding: 20px;
   height: fit-content;
 }
-
+ 
 .summary h3 {
   margin: 10px 0 0;
 }
-
+ 
 .price {
   text-align: right;
   font-weight: bold;
   color: #555;
 }
-
+ 
 hr {
   margin: 15px 0;
 }
-
+ 
 .total {
   color: #2c1b87;
   font-weight: bold;
@@ -151,7 +151,7 @@ hr {
   display: flex;
   justify-content: space-between;
 }
-
+ 
 #btnPagar {
   display: block;
   width: 100%;
@@ -164,15 +164,15 @@ hr {
   cursor: pointer;
   margin-top: 15px;
 }
-
+ 
 #btnPagar:hover {
   background: #e69500;
 }
-
-.hidden { 
-  display: none; 
+ 
+.hidden {
+  display: none;
 }
-
+ 
 .next-btn, #btnPagar {
   background: orange;
   color: white;
@@ -181,17 +181,17 @@ hr {
   border-radius: 6px;
   cursor: pointer;
 }
-
+ 
 .next-btn:hover, #btnPagar:hover {
   background: #e69500;
 }
-
-.step.done .circle { 
-  background: #333; 
-  color: white; 
+ 
+.step.done .circle {
+  background: #333;
+  color: white;
 }
-
-
+ 
+ 
 .resumen-bloque {
   background: #f9f9ff;
   border: 1px solid #ddd;
@@ -200,14 +200,14 @@ hr {
   margin-top: 10px;
   font-size: 14px;
 }
-
+ 
 .resumen-bloque h4 {
   margin: 0 0 5px 0;
   color: #2c1b87;
   font-size: 15px;
 }
-
-
+ 
+ 
 .step-section {
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -215,7 +215,7 @@ hr {
   overflow: hidden;
   transition: all 0.3s ease;
 }
-
+ 
 .step-title {
   background-color: #f5f5ff;
   padding: 10px 15px;
@@ -223,25 +223,25 @@ hr {
   cursor: pointer;
   color: #2c1b87;
 }
-
+ 
 .step-content {
   padding: 15px;
   transition: all 0.3s ease;
 }
-
+ 
 .step-section.collapsed .step-content {
   height: 0;
   padding: 0;
   overflow: hidden;
   opacity: 0;
 }
-
+ 
 .step-section.collapsed .step-title {
   background-color: #eaeaff;
   color: #666;
 }
-
-
+ 
+ 
 /* Efecto de colapso de las secciones */
 .info-box {
   border: 1px solid #ddd;
@@ -250,7 +250,7 @@ hr {
   overflow: hidden;
   transition: all 0.3s ease;
 }
-
+ 
 .info-box h2 {
   background-color: #f5f5ff;
   padding: 10px 15px;
@@ -259,25 +259,25 @@ hr {
   color: #2c1b87;
   cursor: pointer;
 }
-
+ 
 .info-box.collapsed h2 {
   background-color: #eaeaff;
   color: #666;
 }
-
+ 
 .info-box .content {
   padding: 15px;
   transition: all 0.3s ease;
 }
-
+ 
 .info-box.collapsed .content {
   height: 0;
   padding: 0;
   overflow: hidden;
   opacity: 0;
 }
-
-
+ 
+ 
 next-btn,
 .back-btn {
   padding: 10px 18px;
@@ -286,26 +286,26 @@ next-btn,
   cursor: pointer;
   font-size: 14px;
 }
-
+ 
 .next-btn {
   background-color: orange;
   color: white;
 }
-
+ 
 .next-btn:hover {
   background-color: #e69500;
 }
-
+ 
 .back-btn {
   background-color: #ddd;
   color: #333;
 }
-
+ 
 .back-btn:hover {
   background-color: #ccc;
 }
-
-
+ 
+ 
 .back-general {
   background: none;
   border: none;
@@ -318,12 +318,12 @@ next-btn,
   gap: 5px;
   transition: color 0.3s;
 }
-
+ 
 .back-general:hover {
   color: #0056b3;
   text-decoration: underline;
 }
-
+ 
 #resumen-carrito-pagar,
 #resumen-carrito-seguir {
   display: flex;
@@ -334,43 +334,43 @@ next-btn,
   padding: 12px 20px;
   transition: background 0.3s ease, color 0.3s ease;
   width: fit-content;
-    
+   
 }
-
+ 
 #resumen-carrito-pagar {
   background-color: #007bff;
   color: white;
   margin-top: 10px;
   display: block;
 }
-
+ 
 #resumen-carrito-pagar:hover {
   background-color: #0056b3;
 }
-
+ 
 #resumen-carrito-seguir {
   background-color: transparent;
   color: #007bff;
   margin-top: 10px;
   display: block;
 }
-
+ 
 #resumen-carrito-seguir:hover {
   color: #0056b3;
   text-decoration: underline;
 }
-
+ 
 .kart-btn img.kart-icon{
     width: 60px;
     height: 60px;
     object-fit: contain;
-    filter: brightness(0) invert(1); 
-
-
-    
+    filter: brightness(0) invert(1);
+ 
+ 
+   
 }
-
-
+ 
+ 
 .side-menu {
     position: fixed;
     top: 0;
@@ -382,27 +382,27 @@ next-btn,
     transition: left 0.3s ease;
     z-index: 2000;
 }
-
+ 
 .side-menu.open {
     left: 0; /* aparece */
 }
-
+ 
 .side-menu ul {
     list-style: none;
     padding: 0;
     margin-top: 50px;
 }
-
+ 
 .side-menu ul li {
     margin: 20px 0;
 }
-
+ 
 .side-menu a {
     color: #fff;
     font-size: 18px;
     text-decoration: none;
 }
-
+ 
 .close-btn {
     font-size: 28px;
     cursor: pointer;
@@ -411,8 +411,8 @@ next-btn,
     right: 15px;
     top: 10px;
 }
-
-
+ 
+ 
 .overlay {
     position: fixed;
     top: 0;
@@ -423,12 +423,12 @@ next-btn,
     display: none;
     z-index: 1500;
 }
-
+ 
 .overlay.show {
     display: block;
 }
-
-
+ 
+ 
 .logout-btn {
   background-color: #888686;
   color: white;
@@ -439,12 +439,98 @@ next-btn,
   cursor: pointer;
   transition: background 0.3s ease;
 }
-
+ 
 .logout-btn:hover {
   background-color: #bbbbbb;
 }
-
+ 
 .menu-btn {
     cursor: pointer;
     font-size: 36px;
+}
+ 
+ 
+ 
+/* --- FORMULARIO NUEVA DIRECCIÓN --- */
+#formNuevaDireccion {
+  margin-top: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  background: #f5f5ff;
+  animation: slideDown 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+ 
+#formNuevaDireccion label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #2c1b87;
+}
+ 
+#formNuevaDireccion input,
+#formNuevaDireccion select,
+#formNuevaDireccion textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #fff;
+}
+ 
+#formNuevaDireccion textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+ 
+/* --- BOTÓN GUARDAR DIRECCIÓN --- */
+#formNuevaDireccion button[type="submit"] {
+  background: orange;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.3s ease;
+}
+ 
+#formNuevaDireccion button[type="submit"]:hover {
+  background: #e69500;
+}
+ 
+/* --- BOTÓN AGREGAR NUEVA DIRECCIÓN --- */
+#btnAgregarDireccion {
+  display: inline-block;
+  background: #0A4285;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+ 
+#btnAgregarDireccion:hover {
+  background: #082f60;
+  transform: scale(1.03);
+}
+ 
+/* Animación al desplegar formulario */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -1,7 +1,22 @@
+console.log("✅ resumen-carrito.js cargado correctamente");
+
 // [¡IMPORTANTE! VERIFICA ESTA URL CON TU BACKEND]
 // NOTA: Para el resumen del carrito, asumo que el backend necesita la lista completa del catálogo
 // para obtener los detalles de los productos.
 const API_URL = 'http://localhost:8081/QuickCourier/Productos/Catalogo'; 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Referencias del DOM
 const tbody = document.getElementById('resumen-carrito-body');
@@ -42,6 +57,8 @@ async function logoutUser() {
 // =======================================================
 
 document.addEventListener('DOMContentLoaded', () => {
+        console.log("🚀 DOM cargado, iniciando cargarResumenDelCarrito()");
+
     // Iniciar la carga de datos del carrito
     cargarResumenDelCarrito();
 });
@@ -153,57 +170,104 @@ function agruparProductosYContar(idsEnCarrito, todosLosProductos) {
 // 2. FUNCIONES DE RENDERIZADO Y CÁLCULO
 // =======================================================
 
-function renderCarrito(productosEnCarrito) {
+async function renderCarrito(productosEnCarrito) {
     tbody.innerHTML = '';
     let subtotal = 0;
     let totalProductos = 0;
-    
-    productosEnCarrito.forEach((producto) => {
-        // Usamos los nombres de campos del DTO:
-        const id = producto.idProducto;
-        const precioUnitario = producto.precioUniProd;
-        const nombre = producto.nombreProd;
-        const imagen = producto.rutaImagen;
-        const descripcion = producto.descripcionProd;
-        const cantidad = producto.cantidad; // Cantidad ya calculada
+    let pesoTotal = 0;
 
+
+    productosEnCarrito.forEach((producto) => {
+        const precioUnitario = producto.precioUniProd;
+        const cantidad = producto.cantidad;
+        const peso = producto.pesoProd;
         const precioTotalProducto = precioUnitario * cantidad;
+        
         subtotal += precioTotalProducto;
         totalProductos += cantidad;
+        pesoTotal += peso * cantidad;
+
 
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>
                 <div class="product-info-wrap">
-                    <img src="${imagen}" alt="${nombre}"> 
+                    <img src="${producto.rutaImagen}" alt="${producto.nombreProd}"> 
                     <div>
-                        <strong>${nombre}</strong><br>
-                        <small>${descripcion}</small>
+                        <strong>${producto.nombreProd}</strong><br>
+                        <small>${producto.descripcionProd}</small>
                     </div>
                 </div>
             </td>
             <td>$${precioUnitario.toLocaleString()}</td>
             <td>
                 <div class="cantidad-controls">
-                    <!-- Botón para disminuir -->
-                    <button class="control-btn minus-btn" data-id="${id}">-</button>
-                    <!-- Display de la cantidad -->
+                    <button class="control-btn minus-btn" data-id="${producto.idProducto}">-</button>
                     <span class="cantidad-display">${cantidad}</span>
-                    <!-- Botón para aumentar -->
-                    <button class="control-btn plus-btn" data-id="${id}">+</button>
+                    <button class="control-btn plus-btn" data-id="${producto.idProducto}">+</button>
                 </div>
             </td>
-            <td>
-                <!-- Nuevo botón de eliminar todo el producto -->
-                <button class="remove-all-btn" data-id="${id}">Eliminar</button>
-            </td>
+            <td><button class="remove-all-btn" data-id="${producto.idProducto}">Eliminar</button></td>
         `;
         tbody.appendChild(row);
     });
+
+
     
-    // Actualizar totales en la interfaz
-    actualizarTotales(subtotal, totalProductos);
+
+    // 🔹 Calcular el envío real desde backend
+    const totalPedido = await calcularEnvio(productosEnCarrito);
+
+    // 🔹 Actualizar totales
+    subtotalSpan.textContent = `$${subtotal.toLocaleString()}`;
+    totalSpan.textContent = `$${totalPedido.toLocaleString()}`;
+    countSpan.textContent = totalProductos;
 }
+
+
+async function calcularEnvio(productos) {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) return 0;
+
+    const datosEnvio = {
+        ciudad: "Bogota",  // luego puedes cambiarlo según la dirección del usuario
+        empaqueRegalo: false,
+        envioExpress: false,
+        envioSeguro: false,
+        manejoFragil: false,
+        productos: productos.map(p => ({
+            idProducto: p.idProducto,
+            cantidadProducto: p.cantidad
+        }))
+    };
+
+    try {
+        const response = await fetch("http://localhost:8081/pedido/calcular-envio", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${accessToken}`
+            },
+            body: JSON.stringify(datosEnvio)
+        });
+
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+
+        const data = await response.json();
+
+        // Mostrar el peso total en el HTML
+        const pesoSpan = document.getElementById('resumen-carrito-peso');
+        pesoSpan.textContent = `${data.pesoTotal.toFixed(2)} kg`;
+
+        // Retornar el total final
+        return data.totalFinal;
+
+    } catch (error) {
+        console.error("Error al calcular envío:", error);
+        return 0;
+    }
+}
+
 
 function actualizarTotales(subtotal, totalProductos) {
     subtotalSpan.textContent = `$${subtotal.toLocaleString()}`;

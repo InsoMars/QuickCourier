@@ -23,12 +23,7 @@
     <span class="close-btn" id="close-menu">✕</span>
     <ul>
       <img src="static/img/logo-blanco.png" class="logo-header">
-        <li><a href="#libros-container">Libros</a></li>
-        <li><a href="#snacks-container">Snacks</a></li>
-        <li><a href="#">Tecnología</a></li>
-        <li><a href="#">Hogar</a></li>
-        <li><a href="#">Juguetes</a></li>
-        <li><a href="#">Ropa</a></li>
+      
     </ul>
 <br>
 
@@ -67,31 +62,56 @@
           <h2>1. IDENTIFICACIÓN</h2>
           <p><strong>Correo:</strong> correo@ejemplo.com</p>
           <p><strong>Nombre:</strong> Mariana Landinez</p>
-          <p><strong>Teléfono:</strong> 312 *** **32</p>
+          <p><strong>Teléfono:</strong> 312 * **32</p>
           <button class="next-btn" id="toEnvio">Siguiente →</button>
         </div>
 
         <!-- Paso 2 -->
-        <div class="info-box hidden" id="envio-section">
-          <h2>2. ENVÍO</h2>
-          <p><strong>Lista de direcciones</strong></p>
-          <label class="address-option">
-            <input type="radio" name="direccion" checked />
-            Calle 123 #45-67, Bogotá
-          </label>
+<div class="info-box hidden" id="envio-section">
+  <h2>2. ENVÍO</h2>
+  <p><strong>Lista de direcciones</strong></p>
 
-          <div class="extra-option">
-            <label><input type="checkbox" checked /> Envío Estándar</label>
-            <span>$9.000</span>
-          </div>
+  <button class="nueva-direccion" id="btnAgregarDireccion">Agrega una nueva dirección</button>
 
-          <div class="extra-option">
-            <label><input type="checkbox" /> Empaque de Regalo</label>
-            <span>$6.000</span>
-          </div>
-          <button class="back-btn" id="backToIdent">← Atrás</button>
-          <button class="next-btn" id="toPago">Siguiente →</button>
-        </div>
+  <!-- FORMULARIO OCULTO AL INICIO -->
+  <form id="formNuevaDireccion" class="hidden">
+    <h3>Nueva dirección:</h3>
+
+    <div class="formulario-direccion">
+      <label for="ciudad">Ciudad:</label>
+      <select id="ciudad" name="ciudad" required>
+        <option value="">Selecciona una ciudad</option>
+        <option value="bogota">Bogotá</option>
+        <option value="medellin">Medellín</option>
+        <option value="cali">Cali</option>
+      </select>
+
+      <br><br>
+
+      <label for="direccion">Dirección:</label>
+      <input type="text" id="direccion" name="direccion" placeholder="Ej: Calle 123 #45-67" required>
+
+      <br><br>
+
+      <label for="info-extra-dir">Información adicional:</label>
+      <input type="text" id="info-extra-dir" name="info-extra-dir" placeholder="Barrio, interior, apto...">
+
+      <br><br>
+
+      <button type="submit">Guardar nueva dirección</button>
+    </div>
+  </form>
+
+  <h3>Personaliza tu envío</h3>
+ 
+  <div id="extras-container"></div>
+
+  <button id="btnCalcularTarifa">Calcular tarifa</button>
+
+  <button class="back-btn" id="backToIdent">← Atrás</button>
+  <button class="next-btn" id="toPago">Siguiente →</button>
+</div>
+
 
         <!-- Paso 3 -->
         <div class="info-box hidden" id="pago-section">
