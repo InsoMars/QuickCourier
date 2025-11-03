@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.edu.unbosque.springsecurity.dto.CalculoEnvioResponseDTO;
 import co.edu.unbosque.springsecurity.dto.DetalleFacturaDTO;
 import co.edu.unbosque.springsecurity.dto.ExtraEnvioDTO;
 import co.edu.unbosque.springsecurity.model.Producto;
@@ -33,14 +34,13 @@ private ProductoRepository productoRepository;
 
 
 
-    public Double calcularCostoEnvioBase(List<DetalleFacturaDTO> productos, String ciudad,
+    public CalculoEnvioResponseDTO calcularCostoEnvioBase(List<DetalleFacturaDTO> productos, String ciudad,
                                          boolean empaqueRegalo, boolean envioExpress,
                                          boolean envioSeguro, boolean manejoFragil) {
 
         double pesoTotal = 0;
         double totalCompra = 0;
 
-        // 🔹 Calcular peso y total de productos
         for (DetalleFacturaDTO detalle : productos) {
             Producto prod = productoRepository.findById(detalle.getIdProducto())
                     .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado con ID: " + detalle.getIdProducto()));
@@ -62,6 +62,7 @@ private ProductoRepository productoRepository;
 
         // 🔹 Calcular costo de envío total
         double costoEnvio = tarifa.calcularTarifa(pesoTotal);
+        double totalFinal =totalCompra + costoEnvio;
 
        
 
@@ -72,7 +73,7 @@ private ProductoRepository productoRepository;
         System.out.println("Costo envío: $" + costoEnvio);
 
         // 🔹 Retornar el costo total del pedido
-        return totalCompra + costoEnvio;
+         return new CalculoEnvioResponseDTO(totalCompra, costoEnvio, pesoTotal, totalFinal);
     }
 
 

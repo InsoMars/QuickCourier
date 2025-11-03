@@ -3,17 +3,15 @@ package co.edu.unbosque.springsecurity.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.unbosque.springsecurity.dto.CalculoEnvioDTO;
-import co.edu.unbosque.springsecurity.dto.DetalleFacturaDTO;
+import co.edu.unbosque.springsecurity.dto.CalculoEnvioResponseDTO;
 import co.edu.unbosque.springsecurity.dto.ExtraEnvioDTO;
 import co.edu.unbosque.springsecurity.service.PedidoService;
 
@@ -27,24 +25,11 @@ public class PedidoController {
 
 
 
-    @PostMapping("/tarifa-envio")
-    public Double calcularCostoEnvioBase(
-        @AuthenticationPrincipal UserDetails user,
-        @RequestParam String ciudad,
-        @RequestParam (defaultValue= "false") boolean empaqueRegalo,
-        @RequestParam (defaultValue= "false") boolean envioExpress,
-        @RequestParam (defaultValue= "false") boolean envioSeguro,
-        @RequestParam (defaultValue= "false") boolean manejoFragil,
-        @RequestBody List<DetalleFacturaDTO> productos){
-        
-        
-        return pedidoService.calcularCostoEnvioBase(productos, ciudad, empaqueRegalo, envioExpress,envioSeguro, manejoFragil);
-        
-    }
+
 
     @PostMapping("/calcular-envio")
-    public Double calcularCostoEnvio2(@RequestBody CalculoEnvioDTO request) {
-    return pedidoService.calcularCostoEnvioBase(
+    public ResponseEntity<CalculoEnvioResponseDTO> calcularEnvio(@RequestBody CalculoEnvioDTO request) {
+    CalculoEnvioResponseDTO response = pedidoService.calcularCostoEnvioBase(
         request.getProductos(),
         request.getCiudad(),
         request.isEmpaqueRegalo(),
@@ -52,7 +37,9 @@ public class PedidoController {
         request.isEnvioSeguro(),
         request.isManejoFragil()
     );
+    return ResponseEntity.ok(response);
 }
+
 
 
 @GetMapping("/extras")

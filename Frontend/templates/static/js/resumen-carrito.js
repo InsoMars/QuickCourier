@@ -253,8 +253,15 @@ async function calcularEnvio(productos) {
 
         if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
 
-        const total = await response.json();
-        return total; // el backend devuelve el total (productos + envío)
+        const data = await response.json();
+
+        // Mostrar el peso total en el HTML
+        const pesoSpan = document.getElementById('resumen-carrito-peso');
+        pesoSpan.textContent = `${data.pesoTotal.toFixed(2)} kg`;
+
+        // Retornar el total final
+        return data.totalFinal;
+
     } catch (error) {
         console.error("Error al calcular envío:", error);
         return 0;
