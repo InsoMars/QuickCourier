@@ -106,10 +106,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Filtrar y cargar: El JS separa los productos por la categoría
             const libros = productos.filter(p => p.categoriaProd === 'Libros');
             const snacks = productos.filter(p => p.categoriaProd === 'Snacks');
+            const accesorios = productos.filter(p => p.categoriaProd === 'Accesorios');
             
             cargarProductos(libros, "libros-container");
             cargarProductos(snacks, "snacks-container");
-            
+            cargarProductos(accesorios, "accesorios-container");    
+                    
         } else if (response.status === 401 || response.status === 403) {
             // Manejar sesión expirada o token inválido (lo que el JwtAuthFilter te devuelve)
             console.error('Token inválido/expirado:', response.status);
