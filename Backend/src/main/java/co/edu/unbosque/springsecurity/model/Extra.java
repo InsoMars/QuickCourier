@@ -6,23 +6,37 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="extra")
+
+ 
 public class Extra {
-
-
     @Id
-    @Column(name = "id_extra")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_extra")
     private Long idExtra;
-    
-    @Column(name = "id_nombre_extra")
+   
+    @Column(name = "nombre_extra")
     private String nombreExtra;
-
-    @Column(name = "id_precio_extra")
+ 
+    @Column(name = "precio_extra")
     private Double precioExtra;
-
-
+ 
+    @Column(name="descripcion_extra")
+    private String descripcionExtra;
+ 
+    @Column(name="codigo_extra")
+    private String codigoExtra;
+ 
+ 
     
 }

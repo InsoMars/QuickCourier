@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.edu.unbosque.springsecurity.dto.CalculoEnvioDTO;
 import co.edu.unbosque.springsecurity.dto.DetalleFacturaDTO;
+import co.edu.unbosque.springsecurity.dto.ExtraEnvioDTO;
 import co.edu.unbosque.springsecurity.service.PedidoService;
 
 
@@ -39,6 +41,28 @@ public class PedidoController {
         return pedidoService.calcularCostoEnvioBase(productos, ciudad, empaqueRegalo, envioExpress,envioSeguro, manejoFragil);
         
     }
+
+    @PostMapping("/calcular-envio")
+    public Double calcularCostoEnvio2(@RequestBody CalculoEnvioDTO request) {
+    return pedidoService.calcularCostoEnvioBase(
+        request.getProductos(),
+        request.getCiudad(),
+        request.isEmpaqueRegalo(),
+        request.isEnvioExpress(),
+        request.isEnvioSeguro(),
+        request.isManejoFragil()
+    );
+}
+
+
+@GetMapping("/extras")
+ 
+    public List<ExtraEnvioDTO> obtenerExtrasExistentes() {
+ 
+        return pedidoService.obtenerExtrasExistentes();
+ 
+    }
+
 
 
     
