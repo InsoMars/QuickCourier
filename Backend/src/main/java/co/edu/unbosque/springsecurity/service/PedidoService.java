@@ -3,6 +3,7 @@ package co.edu.unbosque.springsecurity.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.edu.unbosque.springsecurity.repository.ProductoRepository;
 import co.edu.unbosque.springsecurity.service.Decorator.ExtraEmpaqueRegalo;
 import co.edu.unbosque.springsecurity.service.Decorator.ExtraEntregaExpress;
 import co.edu.unbosque.springsecurity.service.Decorator.ExtraEnvioSeguro;
@@ -16,12 +17,16 @@ public class PedidoService {
 @Autowired
 private TarifaFactory tarifaFactory;
 
+@Autowired
+private ProductoRepository productoRepository;
 
 
 
-public Double calcularCostoEnvioBase(String ciudad, Double peso, boolean  empaqueRegalo, boolean envioExpress, boolean envioSeguro , boolean manejoFragil){
+
+public Double calcularCostoEnvioBase( String ciudad, Double peso, boolean  empaqueRegalo, boolean envioExpress, boolean envioSeguro , boolean manejoFragil){
 
    Tarifa tarifa= TarifaFactory.calcularTarifaBase(ciudad);
+
 
    if(empaqueRegalo) tarifa= new ExtraEmpaqueRegalo(tarifa);
    if(envioExpress) tarifa= new ExtraEntregaExpress(tarifa);

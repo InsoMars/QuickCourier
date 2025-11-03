@@ -32,6 +32,9 @@ public class Producto {
     @Column(name = "peso_prod")
     private Double pesoProd;
 
+    @Column( name= "ruta_prod")
+    private String rutaProd;
+
 
     
 }
