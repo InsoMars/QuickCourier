@@ -1,6 +1,7 @@
 package co.edu.unbosque.springsecurity.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,9 +9,11 @@ import org.springframework.stereotype.Service;
 import co.edu.unbosque.springsecurity.dto.CalculoEnvioResponseDTO;
 import co.edu.unbosque.springsecurity.dto.DetalleFacturaDTO;
 import co.edu.unbosque.springsecurity.dto.ExtraEnvioDTO;
+import co.edu.unbosque.springsecurity.dto.ZonaDTO;
 import co.edu.unbosque.springsecurity.model.Producto;
 import co.edu.unbosque.springsecurity.repository.ExtraEnvioRepository;
 import co.edu.unbosque.springsecurity.repository.ProductoRepository;
+import co.edu.unbosque.springsecurity.repository.ZonaRepository;
 import co.edu.unbosque.springsecurity.service.Decorator.ExtraEmpaqueRegalo;
 import co.edu.unbosque.springsecurity.service.Decorator.ExtraEntregaExpress;
 import co.edu.unbosque.springsecurity.service.Decorator.ExtraEnvioSeguro;
@@ -30,6 +33,10 @@ private ExtraEnvioRepository extraEnvioRepository;
 
 @Autowired
 private ProductoRepository productoRepository;
+
+
+@Autowired
+private ZonaRepository zonaRepository;
 
 
 
@@ -103,6 +110,14 @@ public List<ExtraEnvioDTO> obtenerExtrasExistentes(){
              .build())
              .toList();
  
+}
+
+
+  public List<ZonaDTO> obtenerZonasExistentes() {
+    return zonaRepository.findAll()
+            .stream()
+            .map(zona -> new ZonaDTO(zona.getNombreZona(), zona.getPrecioZona()))
+            .collect(Collectors.toList());
 }
 
 

@@ -77,14 +77,13 @@
   <form id="formNuevaDireccion" class="hidden">
     <h3>Nueva dirección:</h3>
 
-    <div class="formulario-direccion">
-      <label for="ciudad">Ciudad:</label>
-      <select id="ciudad" name="ciudad" required>
-        <option value="">Selecciona una ciudad</option>
-        <option value="bogota">Bogotá</option>
-        <option value="medellin">Medellín</option>
-        <option value="cali">Cali</option>
-      </select>
+   <div class="formulario-direccion">
+    <!-- Select dinámico de ciudades -->
+    <label for="ciudad">Ciudad:</label>
+    <select id="ciudad" name="ciudad" required>
+      <option value="">Selecciona una ciudad</option>
+      <!-- Las demás opciones se llenan automáticamente desde JS -->
+    </select>
 
       <br><br>
 

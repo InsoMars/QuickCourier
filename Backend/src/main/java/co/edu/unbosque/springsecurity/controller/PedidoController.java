@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.unbosque.springsecurity.dto.CalculoEnvioDTO;
 import co.edu.unbosque.springsecurity.dto.CalculoEnvioResponseDTO;
 import co.edu.unbosque.springsecurity.dto.ExtraEnvioDTO;
+import co.edu.unbosque.springsecurity.dto.ZonaDTO;
 import co.edu.unbosque.springsecurity.service.PedidoService;
 
 
@@ -49,6 +50,13 @@ public class PedidoController {
         return pedidoService.obtenerExtrasExistentes();
  
     }
+
+    @GetMapping("/zonas")
+    public List<ZonaDTO> obtenerZonas() {
+        return pedidoService.obtenerZonasExistentes();
+    }
+
+
 
 
 

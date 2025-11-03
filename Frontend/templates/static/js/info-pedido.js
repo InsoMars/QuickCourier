@@ -191,3 +191,39 @@ async function cargarExtras() {
  
 cargarExtras();
 
+
+function cargarCiudades() {
+    const selectCiudad = document.getElementById('ciudad');
+
+    fetch('http://localhost:8081/pedido/zonas') // <--- URL completa del backend
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al cargar las zonas, status: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Limpiar opciones anteriores
+            selectCiudad.innerHTML = '<option value="">Selecciona una ciudad</option>';
+
+            // Agregar cada ciudad
+            data.forEach(zona => {
+                const option = document.createElement('option');
+                option.value = zona.nombreZona.toLowerCase();
+                option.textContent = zona.nombreZona;
+                selectCiudad.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error cargando zonas:', error));
+}
+
+document.addEventListener('DOMContentLoaded', cargarCiudades);
+
+
+
+
+
+
+
+
+

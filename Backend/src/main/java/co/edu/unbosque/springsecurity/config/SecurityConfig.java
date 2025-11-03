@@ -45,6 +45,7 @@ public class SecurityConfig {
                     "/QuickCourier/Productos/Catalogo",
                     "/pedido/calcular-envio",
                     "/pedido/extras",
+                    "/pedido/zonas",
                      "/pedido/tarifa-envio",
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
