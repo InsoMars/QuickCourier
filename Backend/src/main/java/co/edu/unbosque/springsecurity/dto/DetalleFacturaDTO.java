@@ -9,6 +9,13 @@ public class DetalleFacturaDTO {
     private Long idProducto;
 
 
+   @Override
+public String toString() {
+    return "DetalleFacturaDTO{" +
+            "idProducto=" + idProducto +
+            ", cantidadProducto=" + cantidadProducto +
+            '}';
+}
     
     public Long getIdDetalleFacturaProducto() {
         return idDetalleFacturaProducto;

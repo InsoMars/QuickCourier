@@ -103,17 +103,42 @@ toPago.addEventListener("click", () => {
   `;
 });
  
-btnPagar.addEventListener("click", () => {
+
+////////// ENVIO DEL JSON AL BACK/////
+btnPagar.addEventListener("click", async () => {
   const metodo = document.querySelector("input[name='pago']:checked")?.value || "No seleccionado";
- 
+
   resumenDetalles.innerHTML += `
     <div class="resumen-bloque">
       <h4>Pago</h4>
       <p>Método: ${metodo}</p>
     </div>
   `;
- 
+
   alert("Simulación: redirigiendo a la pasarela de pago...");
+
+  // 🚀 Enviar pedido al backend
+  try {
+    const pedidoFinal = JSON.parse(localStorage.getItem("pedidoFinal"));
+    console.log("📦 Enviando pedido al backend:", pedidoFinal);
+
+    const response = await fetch("http://localhost:8081/pedido/crear", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(pedidoFinal)
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("✅ Pedido creado con éxito:", data);
+      alert("Pedido registrado correctamente.");
+    } else {
+      console.error("❌ Error al enviar pedido:", response.status);
+      alert("Error al registrar el pedido.");
+    }
+  } catch (error) {
+    console.error("⚠️ Error de conexión:", error);
+  }
 });
  
 

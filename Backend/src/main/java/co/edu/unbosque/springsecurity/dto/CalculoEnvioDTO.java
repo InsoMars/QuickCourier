@@ -10,6 +10,7 @@ public class CalculoEnvioDTO {
     private boolean envioExpress;
     private boolean envioSeguro;
     private boolean manejoFragil;
+    private List<String> extras;
     private List<DetalleFacturaDTO> productos;
 
     
@@ -48,6 +49,12 @@ public class CalculoEnvioDTO {
     }
     public void setProductos(List<DetalleFacturaDTO> productos) {
         this.productos = productos;
+    }
+    public List<String> getExtras() {
+        return extras;
+    }
+    public void setExtras(List<String> extras) {
+        this.extras = extras;
     }
 
     

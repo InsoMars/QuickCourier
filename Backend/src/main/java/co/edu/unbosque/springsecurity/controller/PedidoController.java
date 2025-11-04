@@ -1,6 +1,8 @@
 package co.edu.unbosque.springsecurity.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -65,11 +67,37 @@ public class PedidoController {
     }
 
 
+@PostMapping("/crear")
+public ResponseEntity<Map<String, Object>> crearPedido(@RequestBody CalculoEnvioDTO pedido) {
+    System.out.println("📩 Pedido recibido en el backend:");
+    System.out.println("Ciudad: " + pedido.getCiudad());
+    System.out.println("Extras: " + pedido.getExtras());
+    System.out.println("Productos: " + pedido.getProductos());
 
+    Map<String, Object> response = new HashMap<>();
+    response.put("mensaje", "Pedido recibido correctamente");
+    response.put("ciudad", pedido.getCiudad());
+    response.put("extras", pedido.getExtras());
+    response.put("productos", pedido.getProductos());
+
+    return ResponseEntity.ok(response);
+}
 
 
     
-    
+@PostMapping("/calcular-peso")
+    public ResponseEntity<Double> calcularPeso(
+    @RequestBody CalculoEnvioDTO request) {
+ 
+ 
+   
+ 
+    Double response = pedidoService.calcularPeso(
+        request.getProductos()
+       
+    );
+    return ResponseEntity.ok(response);
+}    
 
     
     

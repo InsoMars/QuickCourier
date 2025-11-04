@@ -40,6 +40,23 @@ private ZonaRepository zonaRepository;
 
 
 
+public Double calcularPeso(List<DetalleFacturaDTO> productos) {
+ 
+        double pesoTotal = 0;
+ 
+        for (DetalleFacturaDTO detalle : productos) {
+            Producto prod = productoRepository.findById(detalle.getIdProducto())
+                    .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado con ID: " + detalle.getIdProducto()));
+ 
+            pesoTotal += prod.getPesoProd() * detalle.getCantidadProducto();
+        }
+ 
+ 
+ 
+        return  pesoTotal;
+
+      }
+
 
     public CalculoEnvioResponseDTO calcularCostoEnvioBase(List<DetalleFacturaDTO> productos, String ciudad,
                                          boolean empaqueRegalo, boolean envioExpress,
