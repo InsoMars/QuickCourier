@@ -161,33 +161,37 @@ async function cargarExtras() {
   try {
     const response = await fetch('http://localhost:8081/pedido/extras');
     const extras = await response.json();
- 
-    console.log('Extras recibidos del backend:', extras);
- 
+
     const container = document.getElementById('extras-container');
     container.innerHTML = '';
- 
+
     extras.forEach(extra => {
+      // usa la misma normalización que en tu código original
+      const nombreNormalizado = extra.nombre.toLowerCase().replace(/\s+/g, '');
       const extraDiv = document.createElement('div');
       extraDiv.classList.add('extra-option');
- 
+
       extraDiv.innerHTML = `
         <label>
-          <input type="checkbox" name="extras" value="${extra.codigo || ''}">
+          <input type="checkbox" name="extras" value="${nombreNormalizado}">
           ${extra.nombre}
         </label>
         <span>$${extra.precio.toLocaleString()}</span>
       `;
- 
+
       container.appendChild(extraDiv);
- 
-      console.log("Extras del backend:", extras);
     });
- 
+
+    // una vez creados todos los inputs, sincronizamos su estado con pedidoFinal
+    sincronizarExtrasUI();
+
+    console.log('Extras cargados y UI sincronizada.');
+
   } catch (error) {
     console.error('Error cargando los extras:', error);
   }
 }
+
  
 cargarExtras();
 
@@ -219,11 +223,131 @@ function cargarCiudades() {
 
 document.addEventListener('DOMContentLoaded', cargarCiudades);
 
+// =========================
+// 🔧 CONSTRUCCIÓN DEL JSON FINAL DE PEDIDO (mejorada)
+// =========================
+
+// Recuperar el JSON base del carrito (productos)
+let pedidoFinal = JSON.parse(localStorage.getItem("pedidoParcial")) || { productos: [] };
+
+// Inicializar campos booleanos por defecto para evitar `undefined`
+pedidoFinal = Object.assign({
+  ciudad: pedidoFinal.ciudad || '',
+  empaqueRegalo: false,
+  envioExpress: false,
+  envioSeguro: false,
+  manejoFragil: false,
+  productos: []
+}, pedidoFinal);
+
+// Mapa para traducir value -> propiedad del pedido
+const mapaExtras = {
+  // si tu backend/normalización produce "empaqueregalo" -> mapea a empaqueRegalo
+  "empaqueregalo": "empaqueRegalo",
+  "envioexpress": "envioExpress",
+  "envioseguro": "envioSeguro",
+  "manejofragil": "manejoFragil",
+
+  // incluye alternativas por si el backend devuelve con guiones o underscores
+  "empaque_regalo": "empaqueRegalo",
+  "envio_express": "envioExpress",
+  "envio_seguro": "envioSeguro",
+  "manejo_fragil": "manejoFragil",
+
+  // si backend devuelve códigos tipo EXTRA1, mapea aquí:
+  "extra1": "empaqueRegalo",
+  "extra2": "envioExpress",
+  "extra3": "envioSeguro",
+  "extra4": "manejoFragil",
+
+  
+  "empaqueregalo": "empaqueRegalo",
+  "envioexpress": "envioExpress",
+  "envioseguro": "envioSeguro",
+  "manejofragil": "manejoFragil",
+  "manejofrágil": "manejoFragil", // 👈 agrega esta línea extra con tilde
+
+  // variantes alternativas
+  "empaque_regalo": "empaqueRegalo",
+  "envio_express": "envioExpress",
+  "envio_seguro": "envioSeguro",
+  "manejo_fragil": "manejoFragil"
 
 
+};
 
+// Guardar en localStorage helper
+function guardarPedido() {
+  localStorage.setItem("pedidoFinal", JSON.stringify(pedidoFinal));
+}
 
+// Actualizar ciudad seleccionada (ya la tenías)
+const selectCiudad = document.getElementById("ciudad");
+if (selectCiudad) {
+  selectCiudad.addEventListener("change", (e) => {
+    pedidoFinal.ciudad = e.target.value;
+    console.log("🏙️ Ciudad seleccionada:", pedidoFinal.ciudad);
+    guardarPedido();
+  });
+}
 
+// Listener único y robusto para cambios en extras (captura checkboxes creados dinámicamente)
+document.addEventListener("change", (e) => {
+  if (e.target && e.target.name === "extras") {
+    // normalizamos el value tal como lo generaste: minúsculas y sin espacios
+    const raw = e.target.value || "";
+    const normalized = raw.toLowerCase().replace(/\s+/g, '');
+    // intentar traducción directa por mapa; si no hay, intentar usar normalized directamente
+    const key = mapaExtras[normalized] || mapaExtras[raw.toLowerCase()] || null;
 
+    // Depuración: ver qué value llegó
+    console.log("🔔 checkbox change value:", raw, "normalized:", normalized, "mapped key:", key);
+
+    if (key) {
+      pedidoFinal[key] = e.target.checked;
+    } else {
+      // fallback: si el value está en camelCase ya, úsalo directo (por seguridad)
+      // evita crear propiedades inválidas si el value no es correcto
+      const possible = raw;
+      if (["empaqueRegalo","envioExpress","envioSeguro","manejoFragil"].includes(possible)) {
+        pedidoFinal[possible] = e.target.checked;
+      } else {
+        console.warn("⚠️ Valor de extra no mapeado:", raw);
+      }
+    }
+
+    console.log("🎁 Extras actualizados:", pedidoFinal);
+    guardarPedido();
+  }
+});
+
+// =========================
+// 🔁 Sincronizar la UI con pedidoFinal después de crear los checkboxes
+// =========================
+
+/*
+  Llamar a esta función al final de `cargarExtras()` (después de que hayas creado todos los inputs)
+  para que marque los checkboxes guardados en localStorage (ej. al recargar la página).
+*/
+function sincronizarExtrasUI() {
+  const checks = document.querySelectorAll("input[name='extras']");
+  checks.forEach(input => {
+    const raw = input.value || "";
+    const normalized = raw.toLowerCase().replace(/\s+/g, '');
+    const key = mapaExtras[normalized] || mapaExtras[raw.toLowerCase()] || null;
+
+    if (key && typeof pedidoFinal[key] === "boolean") {
+      input.checked = pedidoFinal[key];
+    } else {
+      // fallback: si el value es directamente el nombre de la propiedad
+      if (["empaqueRegalo","envioExpress","envioSeguro","manejoFragil"].includes(input.value)) {
+        input.checked = !!pedidoFinal[input.value];
+      }
+    }
+  });
+}
+
+// Llama guardarPedido() una vez para asegurarnos de que existe pedidoFinal en localStorage
+guardarPedido();
 
 

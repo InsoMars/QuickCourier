@@ -210,6 +210,21 @@ async function renderCarrito(productosEnCarrito) {
             <td><button class="remove-all-btn" data-id="${producto.idProducto}">Eliminar</button></td>
         `;
         tbody.appendChild(row);
+
+
+                    // Al final de renderCarrito()
+            const pedidoParcial = {
+            productos: productosEnCarrito.map(p => ({
+                idProducto: p.idProducto,
+                cantidadProducto: p.cantidad
+            }))
+            };
+
+            // Guardar en localStorage para que info-pedido.js lo complete
+            localStorage.setItem("pedidoParcial", JSON.stringify(pedidoParcial));
+
+            console.log("🗃️ Pedido parcial guardado en localStorage:", pedidoParcial);
+
     });
 
 

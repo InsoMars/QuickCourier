@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +31,13 @@ public class PedidoController {
 
 
     @PostMapping("/calcular-envio")
-    public ResponseEntity<CalculoEnvioResponseDTO> calcularEnvio(@RequestBody CalculoEnvioDTO request) {
+    public ResponseEntity<CalculoEnvioResponseDTO> calcularEnvio(@AuthenticationPrincipal UserDetails user,
+@RequestBody CalculoEnvioDTO request) {
+
+
+    String username = user.getUsername();
+    System.out.println("Pedido realizado por: " + username);
+
     CalculoEnvioResponseDTO response = pedidoService.calcularCostoEnvioBase(
         request.getProductos(),
         request.getCiudad(),
