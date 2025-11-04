@@ -74,11 +74,8 @@ public ResponseEntity<Map<String, Object>> crearPedido(@RequestBody CalculoEnvio
     System.out.println("Extras: " + pedido.getExtras());
     System.out.println("Productos: " + pedido.getProductos());
 
-    Map<String, Object> response = new HashMap<>();
-    response.put("mensaje", "Pedido recibido correctamente");
-    response.put("ciudad", pedido.getCiudad());
-    response.put("extras", pedido.getExtras());
-    response.put("productos", pedido.getProductos());
+     // 👉 Llama al servicio para procesar el pedido (peso + precio)
+    Map<String, Object> response = pedidoService.procesarPedido(pedido);
 
     return ResponseEntity.ok(response);
 }

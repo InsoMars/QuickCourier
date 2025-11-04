@@ -1,11 +1,14 @@
 package co.edu.unbosque.springsecurity.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.edu.unbosque.springsecurity.dto.CalculoEnvioDTO;
 import co.edu.unbosque.springsecurity.dto.CalculoEnvioResponseDTO;
 import co.edu.unbosque.springsecurity.dto.DetalleFacturaDTO;
 import co.edu.unbosque.springsecurity.dto.ExtraEnvioDTO;
@@ -40,6 +43,26 @@ private ZonaRepository zonaRepository;
 
 
 
+ public Map<String, Object> procesarPedido(CalculoEnvioDTO pedido) {
+        double pesoTotal = calcularPeso(pedido.getProductos());
+        double precioTotal = calcularPrecio(pedido.getProductos());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("mensaje", "Pedido recibido correctamente");
+        response.put("ciudad", pedido.getCiudad());
+        response.put("extras", pedido.getExtras());
+        response.put("productos", pedido.getProductos());
+        response.put("pesoTotal", pesoTotal);
+        response.put("precioTotal", precioTotal);
+
+        System.out.println("Peso total calculado: " + pesoTotal);
+        System.out.println("Precio total calculado: " + precioTotal);
+
+        return response;
+    }
+
+
+
 public Double calcularPeso(List<DetalleFacturaDTO> productos) {
  
         double pesoTotal = 0;
@@ -56,6 +79,19 @@ public Double calcularPeso(List<DetalleFacturaDTO> productos) {
         return  pesoTotal;
 
       }
+
+
+ private double calcularPrecio(List<DetalleFacturaDTO> productos) {
+        double total = 0;
+        for (DetalleFacturaDTO detalle : productos) {
+            Producto prod = productoRepository.findById(detalle.getIdProducto())
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "Producto no encontrado con ID: " + detalle.getIdProducto()));
+            total += prod.getPrecioUniProd() * detalle.getCantidadProducto();
+        }
+        return total;
+    }
+
 
 
     public CalculoEnvioResponseDTO calcularCostoEnvioBase(List<DetalleFacturaDTO> productos, String ciudad,
