@@ -9,6 +9,14 @@ public class TarifaFactory {
 
     public static Tarifa calcularTarifaBase(String ciudad){
 
+
+         ciudad = ciudad.toLowerCase()
+                   .replace("á", "a")
+                   .replace("é", "e")
+                   .replace("í", "i")
+                   .replace("ó", "o")
+                   .replace("ú", "u");
+
        switch (ciudad.toLowerCase()){
 
         case "bogota": 

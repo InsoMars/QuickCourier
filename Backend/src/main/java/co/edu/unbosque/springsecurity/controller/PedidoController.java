@@ -31,7 +31,7 @@ public class PedidoController {
 
 
 
-
+ /*
     @PostMapping("/calcular-envio")
     public ResponseEntity<CalculoEnvioResponseDTO> calcularEnvio(@AuthenticationPrincipal UserDetails user,
 @RequestBody CalculoEnvioDTO request) {
@@ -50,7 +50,7 @@ public class PedidoController {
     );
     return ResponseEntity.ok(response);
 }
-
+ */
 
 
 @GetMapping("/extras")
@@ -68,18 +68,15 @@ public class PedidoController {
 
 
 @PostMapping("/crear")
-public ResponseEntity<Map<String, Object>> crearPedido(@RequestBody CalculoEnvioDTO pedido) {
-    System.out.println("📩 Pedido recibido en el backend:");
+public ResponseEntity<CalculoEnvioResponseDTO> crearPedido(@RequestBody CalculoEnvioDTO pedido) {
+    System.out.println("📩 Pedido recibido:");
     System.out.println("Ciudad: " + pedido.getCiudad());
     System.out.println("Extras: " + pedido.getExtras());
     System.out.println("Productos: " + pedido.getProductos());
 
-     // 👉 Llama al servicio para procesar el pedido (peso + precio)
-    Map<String, Object> response = pedidoService.procesarPedido(pedido);
-
-    return ResponseEntity.ok(response);
+    CalculoEnvioResponseDTO respuesta = pedidoService.calcularEnvioCompleto(pedido);
+    return ResponseEntity.ok(respuesta);
 }
-
 
     
 @PostMapping("/calcular-peso")

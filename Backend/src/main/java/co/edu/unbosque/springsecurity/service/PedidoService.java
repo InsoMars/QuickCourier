@@ -43,24 +43,35 @@ private ZonaRepository zonaRepository;
 
 
 
- public Map<String, Object> procesarPedido(CalculoEnvioDTO pedido) {
-        double pesoTotal = calcularPeso(pedido.getProductos());
-        double precioTotal = calcularPrecio(pedido.getProductos());
+public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido) {
+    // 1️⃣ Calcular subtotal y peso total
+    double pesoTotal = calcularPeso(pedido.getProductos());
+    double subtotal = calcularPrecio(pedido.getProductos());
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("mensaje", "Pedido recibido correctamente");
-        response.put("ciudad", pedido.getCiudad());
-        response.put("extras", pedido.getExtras());
-        response.put("productos", pedido.getProductos());
-        response.put("pesoTotal", pesoTotal);
-        response.put("precioTotal", precioTotal);
+    // 2️⃣ Crear tarifa base según la ciudad
+    Tarifa tarifa = TarifaFactory.calcularTarifaBase(pedido.getCiudad());
 
-        System.out.println("Peso total calculado: " + pesoTotal);
-        System.out.println("Precio total calculado: " + precioTotal);
+    // 3️⃣ Aplicar extras desde la lista (si existen)
+    List<String> extras = pedido.getExtras() == null ? List.of() : pedido.getExtras();
+    if (extras.contains("empaquederegalo")) tarifa = new ExtraEmpaqueRegalo(tarifa);
+    if (extras.contains("entregaexprés") || extras.contains("entregaexpres")) tarifa = new ExtraEntregaExpress(tarifa);
+    if (extras.contains("envioseguro") || extras.contains("envíoasegurado")) tarifa = new ExtraEnvioSeguro(tarifa);
+    if (extras.contains("manejofrágil") || extras.contains("manejofragil")) tarifa = new ExtraManejoFragil(tarifa);
 
-        return response;
-    }
+    // 4️⃣ Calcular costo de envío total y suma final
+    double costoEnvio = tarifa.calcularTarifa(pesoTotal);
+    double totalFinal = subtotal + costoEnvio;
 
+    // 5️⃣ Logs de depuración
+    System.out.println("📦 Ciudad: " + pedido.getCiudad());
+    System.out.println("⚖️ Peso total: " + pesoTotal + " kg");
+    System.out.println("💰 Subtotal productos: " + subtotal);
+    System.out.println("🚚 Costo envío: " + costoEnvio);
+    System.out.println("🔹 Total final: " + totalFinal);
+
+    // 6️⃣ Retornar DTO con todos los valores
+    return new CalculoEnvioResponseDTO(subtotal, costoEnvio, pesoTotal, totalFinal);
+}
 
 
 public Double calcularPeso(List<DetalleFacturaDTO> productos) {
@@ -93,7 +104,7 @@ public Double calcularPeso(List<DetalleFacturaDTO> productos) {
     }
 
 
-
+/* 
     public CalculoEnvioResponseDTO calcularCostoEnvioBase(List<DetalleFacturaDTO> productos, String ciudad,
                                          boolean empaqueRegalo, boolean envioExpress,
                                          boolean envioSeguro, boolean manejoFragil) {
@@ -135,9 +146,9 @@ public Double calcularPeso(List<DetalleFacturaDTO> productos) {
         // 🔹 Retornar el costo total del pedido
          return new CalculoEnvioResponseDTO(totalCompra, costoEnvio, pesoTotal, totalFinal);
     }
+//
 
-
-
+*/
 
    public String obtenerDescripcionTarifa(String ciudad, Double peso, boolean  empaqueRegalo, boolean envioExpress, boolean envioSeguro , boolean manejoFragil) {
 
@@ -152,7 +163,8 @@ public Double calcularPeso(List<DetalleFacturaDTO> productos) {
 
 }
 
-
+/////////////////MOSTRAR CIUDADES Y EXTRAS EN FRONT//////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
 public List<ExtraEnvioDTO> obtenerExtrasExistentes(){
  return  extraEnvioRepository.findAll()
              .stream()
