@@ -1,8 +1,6 @@
 package co.edu.unbosque.springsecurity.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,7 @@ import co.edu.unbosque.springsecurity.dto.DetalleFacturaDTO;
 import co.edu.unbosque.springsecurity.dto.ExtraEnvioDTO;
 import co.edu.unbosque.springsecurity.dto.ZonaDTO;
 import co.edu.unbosque.springsecurity.model.Producto;
+import co.edu.unbosque.springsecurity.repository.ClienteRepository;
 import co.edu.unbosque.springsecurity.repository.ExtraEnvioRepository;
 import co.edu.unbosque.springsecurity.repository.ProductoRepository;
 import co.edu.unbosque.springsecurity.repository.ZonaRepository;
@@ -23,6 +22,9 @@ import co.edu.unbosque.springsecurity.service.Decorator.ExtraEnvioSeguro;
 import co.edu.unbosque.springsecurity.service.Decorator.ExtraManejoFragil;
 import co.edu.unbosque.springsecurity.service.Factory.Tarifa;
 import co.edu.unbosque.springsecurity.service.Factory.TarifaFactory;
+import co.edu.unbosque.springsecurity.service.Strategy.DescuentoFinDeSemana;
+import co.edu.unbosque.springsecurity.service.Strategy.DescuentoPrimeraCompra;
+import co.edu.unbosque.springsecurity.service.Strategy.GestorDescuentos;
 
 @Service
 public class PedidoService {
@@ -41,9 +43,15 @@ private ProductoRepository productoRepository;
 @Autowired
 private ZonaRepository zonaRepository;
 
+@Autowired
+private ClienteRepository clienteRepository;
+
+@Autowired
+private DescuentoPrimeraCompra descuentoPrimeraCompra;
 
 
-public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido) {
+
+public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, String username) {
     // 1️⃣ Calcular subtotal y peso total
     double pesoTotal = calcularPeso(pedido.getProductos());
     double subtotal = calcularPrecio(pedido.getProductos());
@@ -62,15 +70,35 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido) {
     double costoEnvio = tarifa.calcularTarifa(pesoTotal);
     double totalFinal = subtotal + costoEnvio;
 
+
+    //Estrategias de promociones
+
+// Inyectas estrategias
+    GestorDescuentos gestor = new GestorDescuentos();
+    gestor.agregarEstrategia(descuentoPrimeraCompra);
+    gestor.agregarEstrategia(new DescuentoFinDeSemana());
+
+// Aplicas el descuento
+    double totalConDescuento = gestor.aplicarDescuentos(totalFinal, username);
+
+
+
+
+
+
     // 5️⃣ Logs de depuración
     System.out.println("📦 Ciudad: " + pedido.getCiudad());
     System.out.println("⚖️ Peso total: " + pesoTotal + " kg");
     System.out.println("💰 Subtotal productos: " + subtotal);
     System.out.println("🚚 Costo envío: " + costoEnvio);
     System.out.println("🔹 Total final: " + totalFinal);
+    System.out.println("🔹 Total con descuento: " + totalConDescuento);
+
+
+
 
     // 6️⃣ Retornar DTO con todos los valores
-    return new CalculoEnvioResponseDTO(subtotal, costoEnvio, pesoTotal, totalFinal);
+    return new CalculoEnvioResponseDTO(subtotal, costoEnvio, pesoTotal, totalConDescuento);
 }
 
 
