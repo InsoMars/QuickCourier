@@ -1,8 +1,6 @@
 package co.edu.unbosque.springsecurity.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -68,13 +66,16 @@ public class PedidoController {
 
 
 @PostMapping("/crear")
-public ResponseEntity<CalculoEnvioResponseDTO> crearPedido(@RequestBody CalculoEnvioDTO pedido) {
+public ResponseEntity<CalculoEnvioResponseDTO> crearPedido(@AuthenticationPrincipal UserDetails user, @RequestBody CalculoEnvioDTO pedido) {
+
+    String username = user.getUsername(); 
+    System.out.println("📩 Pedido recibido de: " + username);
     System.out.println("📩 Pedido recibido:");
     System.out.println("Ciudad: " + pedido.getCiudad());
     System.out.println("Extras: " + pedido.getExtras());
     System.out.println("Productos: " + pedido.getProductos());
 
-    CalculoEnvioResponseDTO respuesta = pedidoService.calcularEnvioCompleto(pedido);
+    CalculoEnvioResponseDTO respuesta = pedidoService.calcularEnvioCompleto(pedido, username);
     return ResponseEntity.ok(respuesta);
 }
 

@@ -232,11 +232,16 @@ btnPagar.addEventListener("click", async () => {
   try {
     console.log("📦 Enviando pedido al backend:", pedidoFinal);
 
-    const response = await fetch("http://localhost:8081/pedido/crear", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(pedidoFinal)
-    });
+   const accessToken = localStorage.getItem("accessToken");
+
+  const response = await fetch("http://localhost:8081/pedido/crear", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${accessToken}` // 👈 Aquí pasamos el token JWT
+  },
+  body: JSON.stringify(pedidoFinal)
+});
 
     if (response.ok) {
       const data = await response.json();

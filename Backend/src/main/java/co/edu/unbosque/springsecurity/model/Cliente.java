@@ -36,5 +36,7 @@ public class Cliente {
     private String direccion;
     private String contrasena;
     private String telefono;
+    @Column(name = "primera_compra")
+    private boolean primeraCompra;
 
 }

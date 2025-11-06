@@ -12,6 +12,7 @@ import co.edu.unbosque.springsecurity.dto.DetalleFacturaDTO;
 import co.edu.unbosque.springsecurity.dto.ExtraEnvioDTO;
 import co.edu.unbosque.springsecurity.dto.ZonaDTO;
 import co.edu.unbosque.springsecurity.model.Producto;
+import co.edu.unbosque.springsecurity.repository.ClienteRepository;
 import co.edu.unbosque.springsecurity.repository.ExtraEnvioRepository;
 import co.edu.unbosque.springsecurity.repository.ProductoRepository;
 import co.edu.unbosque.springsecurity.repository.ZonaRepository;
@@ -21,6 +22,9 @@ import co.edu.unbosque.springsecurity.service.Decorator.ExtraEnvioSeguro;
 import co.edu.unbosque.springsecurity.service.Decorator.ExtraManejoFragil;
 import co.edu.unbosque.springsecurity.service.Factory.Tarifa;
 import co.edu.unbosque.springsecurity.service.Factory.TarifaFactory;
+import co.edu.unbosque.springsecurity.service.Strategy.DescuentoFinDeSemana;
+import co.edu.unbosque.springsecurity.service.Strategy.DescuentoPrimeraCompra;
+import co.edu.unbosque.springsecurity.service.Strategy.GestorDescuentos;
 import co.edu.unbosque.springsecurity.service.Strategy.ControladorPago;
 import co.edu.unbosque.springsecurity.service.Strategy.PagoStrategy;
 
@@ -41,6 +45,11 @@ private ProductoRepository productoRepository;
 @Autowired
 private ZonaRepository zonaRepository;
 
+@Autowired
+private ClienteRepository clienteRepository;
+
+@Autowired
+private DescuentoPrimeraCompra descuentoPrimeraCompra;
 @Autowired 
 private ControladorPago controladorPago;
 
@@ -48,7 +57,7 @@ private ControladorPago controladorPago;
 
 
 
-public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido) {
+public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, String username) {
     // 1️⃣ Calcular subtotal y peso total
     double pesoTotal = calcularPeso(pedido.getProductos());
     double subtotal = calcularPrecio(pedido.getProductos());
@@ -69,13 +78,26 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido) {
     double totalFinal = subtotal + costoEnvio;
 
 
+    //Estrategias de promociones
+
+// Inyectas estrategias
+    GestorDescuentos gestor = new GestorDescuentos();
+    gestor.agregarEstrategia(descuentoPrimeraCompra);
+    gestor.agregarEstrategia(new DescuentoFinDeSemana());
+
+// Aplicas el descuento
+    double totalConDescuento = gestor.aplicarDescuentos(totalFinal, username);
+
+
+
+
     ControladorPago controladorPago= new ControladorPago();
 
     PagoStrategy medioPago= controladorPago.procesarPago(pedido.getMedioPago());
 
-    Double ajuste= medioPago.realizarPago(totalFinal);
+    Double ajuste= medioPago.realizarPago(totalConDescuento);
 
-    totalFinal+= ajuste;
+    totalConDescuento+= ajuste;
 
 
     // 5️⃣ Logs de depuración
@@ -87,9 +109,13 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido) {
     
 
     System.out.println("🔹 Total final: " + totalFinal);
+    System.out.println("🔹 Total con descuento: " + totalConDescuento);
+
+
+
 
     // 6️⃣ Retornar DTO con todos los valores
-    return new CalculoEnvioResponseDTO(subtotal, costoEnvio, pesoTotal, totalFinal);
+    return new CalculoEnvioResponseDTO(subtotal, costoEnvio, pesoTotal, totalConDescuento);
 }
 
 
