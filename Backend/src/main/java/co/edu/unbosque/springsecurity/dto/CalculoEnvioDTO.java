@@ -10,6 +10,7 @@ public class CalculoEnvioDTO {
     private boolean envioExpress;
     private boolean envioSeguro;
     private boolean manejoFragil;
+    private String medioPago;
     private List<String> extras;
     private List<DetalleFacturaDTO> productos;
 
@@ -57,6 +58,16 @@ public class CalculoEnvioDTO {
         this.extras = extras;
     }
 
+    public String getMedioPago() {
+        return medioPago;
+    }
+
+    public void setMedioPago(String medioPago) {
+        this.medioPago = medioPago;
+    }
+
+
+    
     
 
     
