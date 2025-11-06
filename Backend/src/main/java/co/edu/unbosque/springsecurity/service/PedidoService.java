@@ -25,6 +25,8 @@ import co.edu.unbosque.springsecurity.service.Factory.TarifaFactory;
 import co.edu.unbosque.springsecurity.service.Strategy.DescuentoFinDeSemana;
 import co.edu.unbosque.springsecurity.service.Strategy.DescuentoPrimeraCompra;
 import co.edu.unbosque.springsecurity.service.Strategy.GestorDescuentos;
+import co.edu.unbosque.springsecurity.service.Strategy.ControladorPago;
+import co.edu.unbosque.springsecurity.service.Strategy.PagoStrategy;
 
 @Service
 public class PedidoService {
@@ -48,6 +50,10 @@ private ClienteRepository clienteRepository;
 
 @Autowired
 private DescuentoPrimeraCompra descuentoPrimeraCompra;
+@Autowired 
+private ControladorPago controladorPago;
+
+
 
 
 
@@ -66,7 +72,8 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, Str
     if (extras.contains("envioseguro") || extras.contains("envíoasegurado")) tarifa = new ExtraEnvioSeguro(tarifa);
     if (extras.contains("manejofrágil") || extras.contains("manejofragil")) tarifa = new ExtraManejoFragil(tarifa);
 
-    // 4️⃣ Calcular costo de envío total y suma final
+
+     // 4️⃣ Calcular costo de envío total y suma final
     double costoEnvio = tarifa.calcularTarifa(pesoTotal);
     double totalFinal = subtotal + costoEnvio;
 
@@ -84,6 +91,13 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, Str
 
 
 
+    ControladorPago controladorPago= new ControladorPago();
+
+    PagoStrategy medioPago= controladorPago.procesarPago(pedido.getMedioPago());
+
+    Double ajuste= medioPago.realizarPago(totalConDescuento);
+
+    totalConDescuento+= ajuste;
 
 
     // 5️⃣ Logs de depuración
@@ -91,6 +105,9 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, Str
     System.out.println("⚖️ Peso total: " + pesoTotal + " kg");
     System.out.println("💰 Subtotal productos: " + subtotal);
     System.out.println("🚚 Costo envío: " + costoEnvio);
+    System.out.println("🔹 Ajuste (medio de pago): " + ajuste);
+    
+
     System.out.println("🔹 Total final: " + totalFinal);
     System.out.println("🔹 Total con descuento: " + totalConDescuento);
 
@@ -100,6 +117,9 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, Str
     // 6️⃣ Retornar DTO con todos los valores
     return new CalculoEnvioResponseDTO(subtotal, costoEnvio, pesoTotal, totalConDescuento);
 }
+
+
+
 
 
 public Double calcularPeso(List<DetalleFacturaDTO> productos) {
@@ -132,51 +152,6 @@ public Double calcularPeso(List<DetalleFacturaDTO> productos) {
     }
 
 
-/* 
-    public CalculoEnvioResponseDTO calcularCostoEnvioBase(List<DetalleFacturaDTO> productos, String ciudad,
-                                         boolean empaqueRegalo, boolean envioExpress,
-                                         boolean envioSeguro, boolean manejoFragil) {
-
-        double pesoTotal = 0;
-        double totalCompra = 0;
-
-        for (DetalleFacturaDTO detalle : productos) {
-            Producto prod = productoRepository.findById(detalle.getIdProducto())
-                    .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado con ID: " + detalle.getIdProducto()));
-
-            pesoTotal += prod.getPesoProd() * detalle.getCantidadProducto();
-            totalCompra += prod.getPrecioUniProd() * detalle.getCantidadProducto();
-        }
-
-        
-
-        // 🔹 Crear tarifa base según la ciudad
-        Tarifa tarifa = TarifaFactory.calcularTarifaBase(ciudad);
-
-        // 🔹 Aplicar extras con patrón Decorator
-        if (empaqueRegalo) tarifa = new ExtraEmpaqueRegalo(tarifa);
-        if (envioExpress) tarifa = new ExtraEntregaExpress(tarifa);
-        if (envioSeguro) tarifa = new ExtraEnvioSeguro(tarifa);
-        if (manejoFragil) tarifa = new ExtraManejoFragil(tarifa);
-
-        // 🔹 Calcular costo de envío total
-        double costoEnvio = tarifa.calcularTarifa(pesoTotal);
-        double totalFinal =totalCompra + costoEnvio;
-
-       
-
-        // 🔹 Mostrar datos en consola para depuración
-        System.out.println("Ciudad: " + ciudad);
-        System.out.println("Peso total: " + pesoTotal + " kg");
-        System.out.println("Total compra: $" + totalCompra);
-        System.out.println("Costo envío: $" + costoEnvio);
-
-        // 🔹 Retornar el costo total del pedido
-         return new CalculoEnvioResponseDTO(totalCompra, costoEnvio, pesoTotal, totalFinal);
-    }
-//
-
-*/
 
    public String obtenerDescripcionTarifa(String ciudad, Double peso, boolean  empaqueRegalo, boolean envioExpress, boolean envioSeguro , boolean manejoFragil) {
 
