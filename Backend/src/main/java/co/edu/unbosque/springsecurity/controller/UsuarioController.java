@@ -2,7 +2,10 @@ package co.edu.unbosque.springsecurity.controller;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin; 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -73,4 +76,13 @@ public class UsuarioController {
         TokenDTO token = service.refreshToken(authHeader);
         return ResponseEntity.ok(token);
     }
+
+    @GetMapping("/perfil")
+    public ResponseEntity<?> obtenerPerfil(@AuthenticationPrincipal UserDetails user) {
+        if (user == null) {
+            return ResponseEntity.status(401).body("Usuario no autenticado");
+        }
+        return ResponseEntity.ok(user);
+    }
+
 }

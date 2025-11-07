@@ -5,34 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tu Pedido - Quick Courier</title>
   <link rel="stylesheet" href="static/css/info-pedido.css" />
-  <link rel="icon" href="static/img/logo.png">
+  <link rel="icon" href="static/img/logo.png" />
 </head>
 
 <body>
+  <!-- ====================================================== -->
+  <!-- 🔹 HEADER -->
+  <!-- ====================================================== -->
   <header class="header">
-
     <div class="menu-btn">☰</div>
-    <img src="static/img/logo-blanco.png" class="logo-header">
-    
-  </header>
-    
+    <img src="static/img/logo-blanco.png" class="logo-header" />
   </header>
 
-   <!-- Menú lateral de categorías -->
-<nav id="side-menu" class="side-menu">
+  <!-- ====================================================== -->
+  <!-- 🔹 MENÚ LATERAL -->
+  <!-- ====================================================== -->
+  <nav id="side-menu" class="side-menu">
     <span class="close-btn" id="close-menu">✕</span>
     <ul>
-      <img src="static/img/logo-blanco.png" class="logo-header">
-      
+      <img src="static/img/logo-blanco.png" class="logo-header" />
     </ul>
-<br>
-
+    <br />
     <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
-</nav>
+  </nav>
 
-<!-- Fondo para cerrar menú si clicas afuera -->
-<div id="overlay" class="overlay"></div>
+  <!-- Fondo para cerrar menú si clicas afuera -->
+  <div id="overlay" class="overlay"></div>
 
+  <!-- ====================================================== -->
+  <!-- 🔹 CONTENIDO PRINCIPAL -->
+  <!-- ====================================================== -->
   <main class="container">
     <button class="back-general" id="btnVolverResumen">← Volver al resumen de compra</button>
     <h1>Finaliza tu compra</h1>
@@ -54,63 +56,69 @@
       </div>
     </div>
 
-    <!-- CONTENIDO -->
+    <!-- ====================================================== -->
+    <!-- 🔹 SECCIÓN DE INFORMACIÓN -->
+    <!-- ====================================================== -->
     <div class="order-content">
       <div class="info-section">
         <!-- Paso 1 -->
         <div class="info-box" id="identificacion-section">
           <h2>1. IDENTIFICACIÓN</h2>
-          <p><strong>Correo:</strong> correo@ejemplo.com</p>
-          <p><strong>Nombre:</strong> Mariana Landinez</p>
-          <p><strong>Teléfono:</strong> 312 * **32</p>
+
+          <!-- 👇 Estos IDs son usados por el JS -->
+          <p><strong>Correo:</strong> <span id="correoUsuario">Cargando...</span></p>
+          <p><strong>Nombre:</strong> <span id="nombreUsuario">Cargando...</span></p>
+
           <button class="next-btn" id="toEnvio">Siguiente →</button>
         </div>
 
         <!-- Paso 2 -->
-<div class="info-box hidden" id="envio-section">
-  <h2>2. ENVÍO</h2>
-  <p><strong>Lista de direcciones</strong></p>
+        <div class="info-box hidden" id="envio-section">
+          <h2>2. ENVÍO</h2>
+          <p><strong>Lista de direcciones</strong></p>
 
-  <button class="nueva-direccion" id="btnAgregarDireccion">Agrega una nueva dirección</button>
+          <button class="nueva-direccion" id="btnAgregarDireccion">Agrega una nueva dirección</button>
 
-  <!-- FORMULARIO OCULTO AL INICIO -->
-  <form id="formNuevaDireccion" class="hidden">
-    <h3>Nueva dirección:</h3>
+          <!-- FORMULARIO OCULTO AL INICIO -->
+          <form id="formNuevaDireccion" class="hidden">
+            <h3>Nueva dirección:</h3>
 
-   <div class="formulario-direccion">
-    <!-- Select dinámico de ciudades -->
-    <label for="ciudad">Ciudad:</label>
-    <select id="ciudad" name="ciudad" required>
-      <option value="">Selecciona una ciudad</option>
-      <!-- Las demás opciones se llenan automáticamente desde JS -->
-    </select>
+            <div class="formulario-direccion">
+              <label for="ciudad">Ciudad:</label>
+              <select id="ciudad" name="ciudad" required>
+                <option value="">Selecciona una ciudad</option>
+                <option value="Bogotá">Bogotá</option>
+                <option value="Medellín">Medellín</option>
+                <option value="Cali">Cali</option>
+                <option value="Bucaramanga">Bucaramanga</option>
+                <option value="Barranquilla">Barranquilla</option>
+              </select>
 
-      <br><br>
+              <br /><br />
 
-      <label for="direccion">Dirección:</label>
-      <input type="text" id="direccion" name="direccion" placeholder="Ej: Calle 123 #45-67" required>
+              <label for="direccion">Dirección:</label>
+              <input type="text" id="direccion" name="direccion" placeholder="Ej: Calle 123 #45-67" required />
 
-      <br><br>
+              <br /><br />
 
-      <label for="info-extra-dir">Información adicional:</label>
-      <input type="text" id="info-extra-dir" name="info-extra-dir" placeholder="Barrio, interior, apto...">
+              <label for="info-extra-dir">Información adicional:</label>
+              <input type="text" id="info-extra-dir" name="info-extra-dir" placeholder="Barrio, interior, apto..." />
 
-      <br><br>
+              <br /><br />
 
-      <button type="submit">Guardar nueva dirección</button>
-    </div>
-  </form>
+              <button type="submit">Guardar nueva dirección</button>
+            </div>
+          </form>
 
-  <h3>Personaliza tu envío</h3>
- 
-  <div id="extras-container"></div>
+          <h3>Personaliza tu envío</h3>
+          <!-- 👇 Contenedor donde JS inyecta los extras -->
+          <div id="extras-container"></div>
 
-  <button id="btnCalcularTarifa">Calcular tarifa</button>
+          <button id="btnCalcularTarifa">Calcular tarifa</button>
 
-  <button class="back-btn" id="backToIdent">← Atrás</button>
-  <button class="next-btn" id="toPago">Siguiente →</button>
-</div>
-
+          <button class="back-btn" id="backToIdent">← Atrás</button>
+          <button class="next-btn" id="toPago">Siguiente →</button>
+        </div>
 
         <!-- Paso 3 -->
         <div class="info-box hidden" id="pago-section">
@@ -124,28 +132,33 @@
         </div>
       </div>
 
-      <!-- Resumen -->
-<aside class="summary" id="resumen">
-  <h3>Subtotal (IVA incluido)</h3>
-  <p class="price">$65.000</p>
+      <!-- ====================================================== -->
+      <!-- 🔹 RESUMEN DE COMPRA -->
+      <!-- ====================================================== -->
+      <aside class="summary" id="resumen">
+        <h3>Subtotal (IVA incluido)</h3>
+        <p class="price" id="subtotalResumen">$0</p>
 
-  <h3>Gastos de Envío</h3>
-  <p class="price">$15.000</p>
+        <h3>Gastos de Envío</h3>
+        <p class="price" id="envioResumen">$0</p>
 
-  <hr />
-  <div class="total">
-    <span>Total:</span>
-    <span>$80.000</span>
-  </div>
+        <hr />
+        <div class="total">
+          <span>Total:</span>
+          <span id="totalResumen">$0</span>
+        </div>
 
-  <hr />
-  <div id="resumen-detalles">
-    <!-- Aquí se insertan los datos de identificación, envío y pago -->
-  </div>
-</aside>
+        <hr />
+        <div id="resumen-detalles">
+          <!-- Aquí se insertan los datos de identificación, envío y pago -->
+        </div>
+      </aside>
     </div>
   </main>
 
+  <!-- ====================================================== -->
+  <!-- 🔹 SCRIPTS -->
+  <!-- ====================================================== -->
   <script src="static/js/info-pedido.js"></script>
 </body>
 </html>

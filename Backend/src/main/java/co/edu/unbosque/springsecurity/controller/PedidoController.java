@@ -49,7 +49,17 @@ public class PedidoController {
     return ResponseEntity.ok(response);
 }
  */
+@PostMapping("/calcular-envio")
+public ResponseEntity<CalculoEnvioResponseDTO> calcularEnvio(
+        @AuthenticationPrincipal UserDetails user,
+        @RequestBody CalculoEnvioDTO pedido) {
 
+    String username = (user != null) ? user.getUsername() : "anon";
+    System.out.println("Petición calcular-envio por: " + username);
+
+    CalculoEnvioResponseDTO response = pedidoService.calcularEnvioCompleto(pedido, username);
+    return ResponseEntity.ok(response);
+}
 
 @GetMapping("/extras")
  

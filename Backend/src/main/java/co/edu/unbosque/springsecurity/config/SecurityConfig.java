@@ -46,7 +46,7 @@ public class SecurityConfig {
                     "/pedido/calcular-envio",
                     "/pedido/extras",
                     "/pedido/zonas",
-                    "/calcular-peso",
+                    "/pedido/calcular-peso",
                      "/pedido/tarifa-envio",
                     "/v3/api-docs/**",
                     "/swagger-ui/**",

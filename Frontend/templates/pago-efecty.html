@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pago con Efecty</title>
+  <link rel="stylesheet" href="static/css/pago-efecty.css">
+</head>
+<body>
+
+  <div class="efecty-container" id="pantallaInicial">
+    <h1>💵 Pago con Efecty</h1>
+    <p>Realiza tu pago en cualquier punto <strong>Efecty</strong> con el siguiente código:</p>
+
+    <div class="efecty-info">
+      <p><strong>Código de referencia:</strong> <span id="codigoRef">---</span></p>
+      <p><strong>Valor a pagar:</strong> $<span id="valorPagar">0</span> COP</p>
+    </div>
+
+    <button id="btnGenerar" class="btn-generar">🧾 Generar Recibo</button>
+  </div>
+
+  <!-- Recibo animado -->
+  <div class="recibo-container hidden" id="reciboContainer">
+    <div class="recibo">
+      <h2>🧾 Comprobante de Pago</h2>
+      <p><strong>Referencia:</strong> <span id="refRecibo"></span></p>
+      <p><strong>Monto:</strong> $<span id="valorRecibo"></span> COP</p>
+      <p><strong>Estado:</strong> Pendiente de pago en punto Efecty</p>
+      <p class="gracias">Gracias por confiar en QuickCourier 💛</p>
+      <button id="btnContinuar" class="btn-continuar">Continuar</button>
+    </div>
+  </div>
+
+  <script src="static/js/pago-efecty.js"></script>
+</body>
+</html>
