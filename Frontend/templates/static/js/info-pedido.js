@@ -104,9 +104,15 @@ toPago.addEventListener("click", () => {
 });
  
 
+
 ////////// ENVIO DEL JSON AL BACK/////
 btnPagar.addEventListener("click", async () => {
-  const metodo = document.querySelector("input[name='pago']:checked")?.value || "No seleccionado";
+  const metodo = document.querySelector("input[name='pago']:checked")?.value;
+
+  if (!metodo) {
+    alert("Por favor selecciona un método de pago antes de continuar.");
+    return;
+  }
 
   resumenDetalles.innerHTML += `
     <div class="resumen-bloque">
@@ -115,16 +121,24 @@ btnPagar.addEventListener("click", async () => {
     </div>
   `;
 
-  alert("Simulación: redirigiendo a la pasarela de pago...");
-
   // 🚀 Enviar pedido al backend
   try {
     const pedidoFinal = JSON.parse(localStorage.getItem("pedidoFinal"));
+    const token = localStorage.getItem("accessToken"); // JWT guardado al iniciar sesión
+
+    if (!token) {
+      alert("⚠️ No hay sesión activa. Por favor inicia sesión.");
+      return;
+    }
+
     console.log("📦 Enviando pedido al backend:", pedidoFinal);
 
     const response = await fetch("http://localhost:8081/pedido/crear", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
       body: JSON.stringify(pedidoFinal)
     });
 
@@ -132,14 +146,34 @@ btnPagar.addEventListener("click", async () => {
       const data = await response.json();
       console.log("✅ Pedido creado con éxito:", data);
       alert("Pedido registrado correctamente.");
+
+      // 🔁 Guardamos el pedido por si se necesita mostrar en los otros HTML
+      localStorage.setItem("pedidoConfirmado", JSON.stringify(data));
+
+      // 🎯 Redirigir según el método de pago
+      if (metodo === "tarjeta") {
+        window.location.href = "pago-tarjeta.html";
+      } else if (metodo === "transferencia" || metodo === "efecty") {
+        window.location.href = "pago-efecty.html";
+      } else if (metodo === "contraentrega") {
+        window.location.href = "pago-contraentrega.html";
+      } else {
+        alert("Método de pago no reconocido.");
+      }
+
+    } else if (response.status === 401) {
+      alert("❌ Sesión expirada o token inválido. Inicia sesión nuevamente.");
     } else {
       console.error("❌ Error al enviar pedido:", response.status);
-      alert("Error al registrar el pedido.");
+      alert("Ocurrió un error al registrar el pedido.");
     }
+
   } catch (error) {
     console.error("⚠️ Error de conexión:", error);
+    alert("Error de conexión con el servidor. Intenta nuevamente.");
   }
 });
+
  
 
 // --- BOTONES ATRÁS ---
