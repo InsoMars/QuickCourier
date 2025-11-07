@@ -22,10 +22,10 @@ import co.edu.unbosque.springsecurity.service.Decorator.ExtraEnvioSeguro;
 import co.edu.unbosque.springsecurity.service.Decorator.ExtraManejoFragil;
 import co.edu.unbosque.springsecurity.service.Factory.Tarifa;
 import co.edu.unbosque.springsecurity.service.Factory.TarifaFactory;
+import co.edu.unbosque.springsecurity.service.Strategy.ControladorPago;
 import co.edu.unbosque.springsecurity.service.Strategy.DescuentoFinDeSemana;
 import co.edu.unbosque.springsecurity.service.Strategy.DescuentoPrimeraCompra;
 import co.edu.unbosque.springsecurity.service.Strategy.GestorDescuentos;
-import co.edu.unbosque.springsecurity.service.Strategy.ControladorPago;
 import co.edu.unbosque.springsecurity.service.Strategy.PagoStrategy;
 
 @Service
@@ -67,15 +67,15 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, Str
 
     // 3️⃣ Aplicar extras desde la lista (si existen)
     List<String> extras = pedido.getExtras() == null ? List.of() : pedido.getExtras();
-    if (extras.contains("empaquederegalo")) tarifa = new ExtraEmpaqueRegalo(tarifa);
-    if (extras.contains("entregaexprés") || extras.contains("entregaexpres")) tarifa = new ExtraEntregaExpress(tarifa);
-    if (extras.contains("envioseguro") || extras.contains("envíoasegurado")) tarifa = new ExtraEnvioSeguro(tarifa);
-    if (extras.contains("manejofrágil") || extras.contains("manejofragil")) tarifa = new ExtraManejoFragil(tarifa);
+    if (extras.contains("regalo")) tarifa = new ExtraEmpaqueRegalo(tarifa);
+    if (extras.contains("express")) tarifa = new ExtraEntregaExpress(tarifa);
+    if (extras.contains("seguro"))  tarifa = new ExtraEnvioSeguro(tarifa);
+    if (extras.contains("fragil"))  tarifa = new ExtraManejoFragil(tarifa);
 
 
      // 4️⃣ Calcular costo de envío total y suma final
     double costoEnvio = tarifa.calcularTarifa(pesoTotal);
-    double totalFinal = subtotal + costoEnvio;
+    double totalProductos = subtotal;
 
 
     //Estrategias de promociones
@@ -86,7 +86,7 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, Str
     gestor.agregarEstrategia(new DescuentoFinDeSemana());
 
 // Aplicas el descuento
-    double totalConDescuento = gestor.aplicarDescuentos(totalFinal, username);
+    double envioConDescuento = gestor.aplicarDescuentos(costoEnvio, username);
 
 
 
@@ -95,27 +95,39 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, Str
 
     PagoStrategy medioPago= controladorPago.procesarPago(pedido.getMedioPago());
 
-    Double ajuste= medioPago.realizarPago(totalConDescuento);
+    Double ajusteMedioPago= medioPago.realizarPago(totalProductos);
 
-    totalConDescuento+= ajuste;
+    Double iva= 0.19;
+
+    Double precioDespuesImpuestos= totalProductos+ totalProductos*iva;
+
+    
+
+   
+
+    Double costoTotalPedido= precioDespuesImpuestos+ajusteMedioPago+envioConDescuento;
+
+
+    
 
 
     // 5️⃣ Logs de depuración
     System.out.println("📦 Ciudad: " + pedido.getCiudad());
     System.out.println("⚖️ Peso total: " + pesoTotal + " kg");
-    System.out.println("💰 Subtotal productos: " + subtotal);
+    System.out.println("💰 Precio con IVA: " + precioDespuesImpuestos);
     System.out.println("🚚 Costo envío: " + costoEnvio);
-    System.out.println("🔹 Ajuste (medio de pago): " + ajuste);
+    System.out.println("🔹 Envio con descuento: " + envioConDescuento);
+
+    System.out.println("🔹 ajusteMedioPago (medio de pago): " + ajusteMedioPago);
     
 
-    System.out.println("🔹 Total final: " + totalFinal);
-    System.out.println("🔹 Total con descuento: " + totalConDescuento);
+    System.out.println("🔹 Total final: " + costoTotalPedido);
 
 
 
 
     // 6️⃣ Retornar DTO con todos los valores
-    return new CalculoEnvioResponseDTO(subtotal, costoEnvio, pesoTotal, totalConDescuento);
+    return new CalculoEnvioResponseDTO(precioDespuesImpuestos, envioConDescuento, pesoTotal, costoTotalPedido);
 }
 
 
@@ -175,6 +187,7 @@ public List<ExtraEnvioDTO> obtenerExtrasExistentes(){
              .nombre(extra.getNombreExtra())
              .descripcion(extra.getDescripcionExtra())
              .precio(extra.getPrecioExtra())
+             .codigo(extra.getCodigoExtra())
              .build())
              .toList();
  

@@ -13,7 +13,7 @@ public class ExtraEnvioSeguro extends TarifaExtraDecorator {
     @Override
     public Double calcularTarifa(Double peso) {
 
-        return super.calcularTarifa(peso)+20000;
+        return super.calcularTarifa(peso)+8000;
     }
 
       @Override

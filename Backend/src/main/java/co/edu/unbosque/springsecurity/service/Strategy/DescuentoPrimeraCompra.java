@@ -14,17 +14,17 @@ public class DescuentoPrimeraCompra implements DescuentoStrategy {
     private ClienteRepository clienteRepository;
 
     @Override
-    public double aplicarDescuento(double totalCompra, String username) {
+    public double aplicarDescuento(double costoEnvio, String username) {
         Cliente cliente = clienteRepository.findByEmail(username).orElse(null);
 
         if (cliente != null && cliente.isPrimeraCompra()) {
             cliente.setPrimeraCompra(false); 
             clienteRepository.save(cliente);
-            return totalCompra * 0.50; 
+            return costoEnvio * 0.50; 
         }else{
             System.out.println("Descuento de primera compra NO aplicable");
         }
-        return totalCompra;
+        return costoEnvio;
     }
 
     @Override

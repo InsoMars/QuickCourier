@@ -192,7 +192,7 @@ async function cargarExtras() {
     container.innerHTML = '';
 
     extras.forEach(extra => {
-      const nombreNormalizado = extra.nombre.toLowerCase().replace(/\s+/g, '');
+      const nombreNormalizado = extra.codigo;
       const extraDiv = document.createElement('div');
       extraDiv.classList.add('extra-option');
       extraDiv.innerHTML = `

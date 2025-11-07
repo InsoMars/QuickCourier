@@ -2,7 +2,7 @@ package co.edu.unbosque.springsecurity.service.Strategy;
 
 public interface DescuentoStrategy {
 
-    double aplicarDescuento(double totalCompra, String username);
+    double aplicarDescuento(double costoEnvio, String username);
 
     String getDescripcion();
     

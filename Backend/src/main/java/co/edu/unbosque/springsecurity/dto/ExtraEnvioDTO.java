@@ -18,6 +18,8 @@ public class ExtraEnvioDTO {
     private String descripcion;
  
     private Double precio;
+
+    private String codigo;
  
 
  
