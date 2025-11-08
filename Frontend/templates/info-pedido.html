@@ -30,7 +30,6 @@
     <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
 </nav>
 
-<!-- Fondo para cerrar menú si clicas afuera -->
 <div id="overlay" class="overlay"></div>
 
   <main class="container">
@@ -38,7 +37,7 @@
     <h1>Finaliza tu compra</h1>
     <p class="subtitle">Completa los siguientes pasos para continuar</p>
 
-    <!-- Pasos -->
+    <!-- pasos -->
     <div class="steps-container">
       <div class="step active" id="step1">
         <div class="circle">1</div>
@@ -54,10 +53,11 @@
       </div>
     </div>
 
-    <!-- CONTENIDO -->
+    <!-- Contenido de los pasos -->
     <div class="order-content">
       <div class="info-section">
-        <!-- Paso 1 -->
+
+        <!-- Paso 1 identificacion -->
         <div class="info-box" id="identificacion-section">
           <h2>1. IDENTIFICACIÓN</h2>
           <p><strong>Correo:</strong> correo@ejemplo.com</p>
@@ -65,23 +65,22 @@
           <button class="next-btn" id="toEnvio">Siguiente →</button>
         </div>
 
-        <!-- Paso 2 -->
+        <!-- Paso 2 direccion  -->
 <div class="info-box hidden" id="envio-section">
   <h2>2. ENVÍO</h2>
   <p><strong>Lista de direcciones</strong></p>
 
   <button class="nueva-direccion" id="btnAgregarDireccion">Agrega una nueva dirección</button>
 
-  <!-- FORMULARIO OCULTO AL INICIO -->
   <form id="formNuevaDireccion" class="hidden">
     <h3>Nueva dirección:</h3>
 
    <div class="formulario-direccion">
-    <!-- Select dinámico de ciudades -->
+
     <label for="ciudad">Ciudad:</label>
     <select id="ciudad" name="ciudad" required>
       <option value="">Selecciona una ciudad</option>
-      <!-- Las demás opciones se llenan automáticamente desde JS -->
+     
     </select>
 
       <br><br>
@@ -110,7 +109,7 @@
 </div>
 
 
-        <!-- Paso 3 -->
+        <!-- Paso 3 medio de pago -->
         <div class="info-box hidden" id="pago-section">
           <h2>3. PAGO</h2>
           <p>Selecciona tu método de pago:</p>
@@ -125,20 +124,20 @@
       <!-- Resumen -->
 <aside class="summary" id="resumen">
   <h3>Subtotal (IVA incluido)</h3>
-  <p class="price">$65.000</p>
+  <p class="price">$0.0</p>
 
   <h3>Gastos de Envío</h3>
-  <p class="price">$15.000</p>
+  <p class="price">$0.0</p>
 
   <hr />
   <div class="total">
     <span>Total:</span>
-    <span>$80.000</span>
+    <span>$0.0</span>
   </div>
 
   <hr />
   <div id="resumen-detalles">
-    <!-- Aquí se insertan los datos de identificación, envío y pago -->
+  
   </div>
 </aside>
     </div>

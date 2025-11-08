@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("loginForm");
     const errorDisplay = document.querySelector('.login-error-message'); // Contenedor para errores generales
 
-    // Manejador del envío del formulario
+    // envió del inicio de sesión 
+
     form.addEventListener("submit", async (event) => {
         event.preventDefault(); 
         
@@ -18,7 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         resetErrors();
 
-        // 1. Validación del lado del cliente
+        // validaciónes correo y contraseña 
+
         if (!validateEmail(correo)) {
             showError(correoInput, "Debes ingresar un correo válido");
             valid = false;
@@ -30,10 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (!valid) {
-            return; // Detenemos si la validación falla
+            return;
         }
 
-        // 2. Llamada asíncrona al API de login
+        // API login
         try {
             const response = await fetch('http://localhost:8081/auth/login', { 
                 method: 'POST',
@@ -47,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (!response.ok) {
-                // Manejar errores como 401 (Unauthorized)
+                
                 const status = response.status;
                 let errorMessage = "Verifica tu correo y contraseña.";
                 
@@ -62,10 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // 3. Login Exitoso: Guardar y Redirigir
+        
             const tokenDTO = await response.json();
-            
-            // 🔥 CORRECCIÓN CLAVE: Leemos la propiedad que envía el backend (access_token)
             const jwtToken = tokenDTO.access_token; 
             
             if (!jwtToken) {
@@ -74,10 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
             
-            // Guardar el token principal con la clave 'accessToken' (para que catalogo.js lo lea)
+            // Guardar el token principal
             localStorage.setItem('accessToken', jwtToken); 
             
-            // Guardar el refresh token (si existe)
+            // Guardar el refresh token
             if (tokenDTO.refresh_token) {
                  localStorage.setItem('refreshToken', tokenDTO.refresh_token);
             }
@@ -92,10 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// --- Funciones de Validación y Errores ---
+// Validación y Errores
 
 function validateEmail(email) {
-    // Regex estándar para validación simple de correo
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
 }
@@ -108,10 +107,9 @@ function showError(input, message) {
 }
 
 function resetErrors() {
-    // Limpia mensajes de error individuales
     document.querySelectorAll(".error-msg").forEach(msg => msg.textContent = "");
     document.querySelectorAll(".input-error").forEach(input => input.classList.remove("input-error"));
-    // Limpia el mensaje de error general
+    
     const errorDisplay = document.querySelector('.login-error-message');
     if (errorDisplay) errorDisplay.textContent = "";
 }

@@ -1,4 +1,4 @@
-// ====== Variables ======
+// Variables 
 let batchSize = 10;
 const grids = {
     Libros: document.getElementById("libros-container"),
@@ -8,14 +8,14 @@ const grids = {
 let productosGlobal = { Libros: [], Snacks: [], Accesorios: [] };
 let indices = { Libros: 0, Snacks: 0, Accesorios: 0 };
 
-// ====== Carrito ======
+//carrito
 function actualizarCarrito() {
     const idsEnCarrito = JSON.parse(localStorage.getItem('carritoIds') || '[]');
     const contador = document.getElementById("cart-count");
     if (contador) contador.textContent = idsEnCarrito.length;
 }
 
-// ====== Cargar productos ======
+// cargar los productos 
 function cargarProductosBatch(categoria) {
     const contenedor = grids[categoria];
     const productos = productosGlobal[categoria];
@@ -35,7 +35,7 @@ function cargarProductosBatch(categoria) {
     indices[categoria] = end;
 }
 
-// ====== DOMContentLoaded ======
+// DOMContentLoaded 
 document.addEventListener('DOMContentLoaded', async () => {
     actualizarCarrito();
     const API_URL = 'http://localhost:8081/QuickCourier/Productos/Catalogo';
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         cargarProductosBatch("Accesorios");
     } catch (err) { console.error(err); }
 
-    // Lazy loading al hacer scroll
+   
     Object.keys(grids).forEach(categoria => {
         const grid = grids[categoria];
         grid.addEventListener("scroll", () => {
@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 });
 
-// ====== Agregar al carrito ======
+// agregar productos al carrito 
+
 document.addEventListener("click", (e) => {
     if (e.target.classList.contains("add-btn")) {
         const idProducto = e.target.dataset.id;
@@ -77,7 +78,7 @@ document.addEventListener("click", (e) => {
     }
 });
 
-// ====== Menú lateral ======
+// lógica del menú lateral 
 const menuBtn = document.querySelector(".menu-btn");
 const sideMenu = document.getElementById("side-menu");
 const closeMenu = document.getElementById("close-menu");
@@ -88,7 +89,8 @@ if (menuBtn && sideMenu && closeMenu && overlay) {
     overlay.addEventListener("click", () => { sideMenu.classList.remove("open"); overlay.classList.remove("show"); });
 }
 
-// ====== Logout ======
+// cerrar sesión 
+
 async function logoutUser() {
     const accessToken = localStorage.getItem('accessToken');
     localStorage.removeItem('accessToken');

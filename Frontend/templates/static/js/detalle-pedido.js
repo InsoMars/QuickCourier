@@ -5,18 +5,18 @@ document.addEventListener("DOMContentLoaded", () => {
       return response.json();
     })
     .then(data => {
-      // 🧾 Datos del cliente
+      //  Datos del cliente
       document.getElementById("nombreCliente").textContent = data.nombreCliente || "Desconocido";
       document.getElementById("correoCliente").textContent = data.correoCliente || "Sin correo";
       document.getElementById("telefonoCliente").textContent = data.telefonoCliente || "Sin teléfono";
       document.getElementById("zonaEnvio").textContent = data.zonaEnvio || "N/A";
 
-      // 💲 Totales (con validación)
+      // Totales
       document.getElementById("costoZona").textContent = (data.costoZona ?? 0).toLocaleString();
       document.getElementById("impuesto").textContent = (data.impuesto ?? 0).toLocaleString();
       document.getElementById("totalFactura").textContent = (data.totalFactura ?? 0).toLocaleString();
 
-      // 🧩 Productos
+      // Productos
       const productosContainer = document.getElementById("productos");
       productosContainer.innerHTML = "";
       data.productos.forEach(prod => {
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         productosContainer.appendChild(li);
       });
 
-      // 🎁 Extras
+      // Extras
       const extrasContainer = document.getElementById("extras");
       extrasContainer.innerHTML = "";
       data.extras.forEach(extra => {
@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-  // 🔹 Botón para ir al catálogo
   const btnFinalizar = document.getElementById("btnFinalizar");
   btnFinalizar.addEventListener("click", () => {
     window.location.href = "catalogo.html";
