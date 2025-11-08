@@ -1,14 +1,11 @@
 package co.edu.unbosque.springsecurity.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 
 public class CalculoEnvioResponseDTO {
-    private double totalCompra;   // total de productos
-    private double costoEnvio;    // costo del envío
-    private double pesoTotal;     // peso calculado
+    private double totalCompra;   
+    private double costoEnvio;    
+    private double pesoTotal;     
     private double totalFinal;
 
 
