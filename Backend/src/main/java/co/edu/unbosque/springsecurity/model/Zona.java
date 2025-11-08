@@ -6,13 +6,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+
 @Entity
+
 @Table(name="zona")
-@Getter
-@Setter
+
 
 public class Zona {
 
@@ -26,5 +32,34 @@ public class Zona {
 
     @Column(name="precio_zona")
     private Double precioZona;
+
+    public Long getIdZona() {
+        return idZona;
+    }
+
+    public void setIdZona(Long idZona) {
+        this.idZona = idZona;
+    }
+
+    public String getNombreZona() {
+        return nombreZona;
+    }
+
+    public void setNombreZona(String nombreZona) {
+        this.nombreZona = nombreZona;
+    }
+
+    public Double getPrecioZona() {
+        return precioZona;
+    }
+
+    public void setPrecioZona(Double precioZona) {
+        this.precioZona = precioZona;
+    }
+
+
+
+
+    
     
 }

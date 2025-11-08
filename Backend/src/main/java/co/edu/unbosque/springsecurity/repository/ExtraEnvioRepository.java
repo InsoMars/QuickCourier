@@ -11,6 +11,6 @@ import co.edu.unbosque.springsecurity.model.Extra;
 @Repository
 public interface  ExtraEnvioRepository extends JpaRepository<Extra, Long> {
 
-    Optional<Extra> findByCodigoExtra(String codigo);
+Optional<Extra> findByCodigoExtraIgnoreCase(String codigoExtra);
     
 }

@@ -1,5 +1,6 @@
 package co.edu.unbosque.springsecurity.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,9 +12,18 @@ import co.edu.unbosque.springsecurity.dto.CalculoEnvioResponseDTO;
 import co.edu.unbosque.springsecurity.dto.DetalleFacturaDTO;
 import co.edu.unbosque.springsecurity.dto.ExtraEnvioDTO;
 import co.edu.unbosque.springsecurity.dto.ZonaDTO;
+import co.edu.unbosque.springsecurity.model.Cliente;
+import co.edu.unbosque.springsecurity.model.DetalleExtra;
+import co.edu.unbosque.springsecurity.model.DetalleFacturaProducto;
+import co.edu.unbosque.springsecurity.model.Extra;
+import co.edu.unbosque.springsecurity.model.Factura;
 import co.edu.unbosque.springsecurity.model.Producto;
+import co.edu.unbosque.springsecurity.model.Zona;
 import co.edu.unbosque.springsecurity.repository.ClienteRepository;
+import co.edu.unbosque.springsecurity.repository.DetalleExtraRepository;
+import co.edu.unbosque.springsecurity.repository.DetalleFacturaRepository;
 import co.edu.unbosque.springsecurity.repository.ExtraEnvioRepository;
+import co.edu.unbosque.springsecurity.repository.FacturaProductoRepository;
 import co.edu.unbosque.springsecurity.repository.ProductoRepository;
 import co.edu.unbosque.springsecurity.repository.ZonaRepository;
 import co.edu.unbosque.springsecurity.service.Decorator.ExtraEmpaqueRegalo;
@@ -53,6 +63,15 @@ private DescuentoPrimeraCompra descuentoPrimeraCompra;
 @Autowired 
 private ControladorPago controladorPago;
 
+@Autowired
+private FacturaProductoRepository facturaRepository;
+@Autowired
+private DetalleFacturaRepository detalleFacturaRepository;
+@Autowired
+private DetalleExtraRepository detalleExtraRepository;
+
+
+
 
 
 
@@ -65,12 +84,23 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, Str
     // 2️⃣ Crear tarifa base según la ciudad
     Tarifa tarifa = TarifaFactory.calcularTarifaBase(pedido.getCiudad());
 
+
+
+    
+
+
+
     // 3️⃣ Aplicar extras desde la lista (si existen)
     List<String> extras = pedido.getExtras() == null ? List.of() : pedido.getExtras();
     if (extras.contains("regalo")) tarifa = new ExtraEmpaqueRegalo(tarifa);
     if (extras.contains("express")) tarifa = new ExtraEntregaExpress(tarifa);
     if (extras.contains("seguro"))  tarifa = new ExtraEnvioSeguro(tarifa);
     if (extras.contains("fragil"))  tarifa = new ExtraManejoFragil(tarifa);
+
+
+
+
+ 
 
 
      // 4️⃣ Calcular costo de envío total y suma final
@@ -106,6 +136,58 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, Str
    
 
     Double costoTotalPedido= precioDespuesImpuestos+ajusteMedioPago+envioConDescuento;
+
+
+     // --- 2️⃣ Guardar entidades en BD ---
+    Cliente cliente = clienteRepository.findByEmail(username)
+            .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
+
+    Zona zona = zonaRepository.findByNombreZonaIgnoreCase(pedido.getCiudad())
+            .orElseThrow(() -> new IllegalArgumentException("Zona no encontrada"));
+
+      // Crear factura
+    Factura factura = new Factura();
+    factura.setCliente(cliente);
+    factura.setZona(zona);
+    factura.setFechaFacProd(LocalDateTime.now());
+    factura.setImpuesto(subtotal * iva);
+    factura.setPeso(pesoTotal);
+    factura.setTotalFacProd(costoTotalPedido);
+
+    factura = facturaRepository.save(factura);
+
+     // 🔹 Guardar detalles de productos
+    for (DetalleFacturaDTO detalleDTO : pedido.getProductos()) {
+        Producto producto = productoRepository.findById(detalleDTO.getIdProducto())
+                .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));
+
+        DetalleFacturaProducto detalle = new DetalleFacturaProducto();
+        detalle.setFactura(factura);
+        detalle.setProducto(producto);
+        detalle.setCantidadProducto(detalleDTO.getCantidadProducto());
+        detalle.setSubtotalProducto(producto.getPrecioUniProd() * detalleDTO.getCantidadProducto());
+
+        detalleFacturaRepository.save(detalle);
+    }
+
+    // 🔹 Guardar extras (si existen)
+    if (pedido.getExtras() != null && !pedido.getExtras().isEmpty()) {
+        for (String codigoExtra : pedido.getExtras()) {
+            Extra extra = extraEnvioRepository.findByCodigoExtraIgnoreCase(codigoExtra)
+                    .orElseThrow(() -> new IllegalArgumentException("Extra no encontrado: " + codigoExtra));
+
+            DetalleExtra detExtra = new DetalleExtra();
+            detExtra.setFactura(factura);
+            detExtra.setExtra(extra);
+            detExtra.setSubtototalDetalleExtra(extra.getPrecioExtra());
+
+            detalleExtraRepository.save(detExtra);
+        }
+    }
+
+    System.out.println("✅ Factura guardada con ID: " + factura.getIdNumFacProd());
+
+   
 
 
     
@@ -202,5 +284,4 @@ public List<ExtraEnvioDTO> obtenerExtrasExistentes(){
 }
 
 
-    
 }
