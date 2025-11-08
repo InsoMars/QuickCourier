@@ -6,9 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
+@Getter 
+@Setter
 @Table(name="producto")
 public class Producto {
 
@@ -51,61 +55,6 @@ public class Producto {
         this.rutaProd = rutaProd;
     }
 
-    public Long getIdProducto() {
-        return idProducto;
-    }
-
-    public void setIdProducto(Long idProducto) {
-        this.idProducto = idProducto;
-    }
-
-    public String getNombreProd() {
-        return nombreProd;
-    }
-
-    public void setNombreProd(String nombreProd) {
-        this.nombreProd = nombreProd;
-    }
-
-    public String getDescripcionProd() {
-        return descripcionProd;
-    }
-
-    public void setDescripcionProd(String descripcionProd) {
-        this.descripcionProd = descripcionProd;
-    }
-
-    public Double getPrecioUniProd() {
-        return precioUniProd;
-    }
-
-    public void setPrecioUniProd(Double precioUniProd) {
-        this.precioUniProd = precioUniProd;
-    }
-
-    public String getCategoriaProd() {
-        return categoriaProd;
-    }
-
-    public void setCategoriaProd(String categoriaProd) {
-        this.categoriaProd = categoriaProd;
-    }
-
-    public Double getPesoProd() {
-        return pesoProd;
-    }
-
-    public void setPesoProd(Double pesoProd) {
-        this.pesoProd = pesoProd;
-    }
-
-    public String getRutaProd() {
-        return rutaProd;
-    }
-
-    public void setRutaProd(String rutaProd) {
-        this.rutaProd = rutaProd;
-    }
 
     
 }

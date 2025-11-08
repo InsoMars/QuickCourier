@@ -2,14 +2,15 @@
 
 package co.edu.unbosque.springsecurity.service;
 
-import co.edu.unbosque.springsecurity.dto.ProductoDTO;
-import co.edu.unbosque.springsecurity.model.Producto;
-import co.edu.unbosque.springsecurity.repository.ProductoRepository;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import co.edu.unbosque.springsecurity.dto.ProductoDTO;
+import co.edu.unbosque.springsecurity.model.Producto;
+import co.edu.unbosque.springsecurity.repository.ProductoRepository;
 
 @Service
 public class ProductoService {
@@ -18,18 +19,17 @@ public class ProductoService {
     private ProductoRepository productoRepository;
 
     private ProductoDTO convertirADto(Producto producto) {
-        
-        return ProductoDTO.builder()
-                .idProducto(producto.getIdProducto())
-                .nombreProd(producto.getNombreProd())
-                .descripcionProd(producto.getDescripcionProd())
-                .precioUniProd(producto.getPrecioUniProd())
-                .categoriaProd(producto.getCategoriaProd())
-                .pesoProd(producto.getPesoProd())
-                // Mapeo con TRADUCCIÓN (rutaProd -> rutaImagen)
-                .rutaImagen(producto.getRutaProd()) 
-                .build();
-    }
+    ProductoDTO dto = new ProductoDTO();
+    dto.setIdProducto(producto.getIdProducto());
+    dto.setNombreProd(producto.getNombreProd());
+    dto.setDescripcionProd(producto.getDescripcionProd());
+    dto.setPrecioUniProd(producto.getPrecioUniProd());
+    dto.setCategoriaProd(producto.getCategoriaProd());
+    dto.setPesoProd(producto.getPesoProd());
+    dto.setRutaImagen(producto.getRutaProd());
+    return dto;
+}
+
 
     public List<ProductoDTO> findAllProductos() {
         return productoRepository.findAll().stream()

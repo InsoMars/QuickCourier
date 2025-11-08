@@ -9,9 +9,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
+@Getter 
+@Setter
 
 @Table(name="detalle_extra")
 public class DetalleExtra {
@@ -29,69 +33,11 @@ public class DetalleExtra {
 
    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_extra", nullable = false)
-    private Extra extra; // 🔹 Relación con el extra específico
+    private Extra extra; 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_factura", nullable = false)
-    private Factura factura; // 🔹 Relación con la factura principal
-
-
-    public Long getIdDetalleExtra() {
-        return idDetalleExtra;
-    }
-
-
-
-    public void setIdDetalleExtra(Long idDetalleExtra) {
-        this.idDetalleExtra = idDetalleExtra;
-    }
-
-
-
-    public Double getSubtototalDetalleExtra() {
-        return subtototalDetalleExtra;
-    }
-
-
-
-    public void setSubtototalDetalleExtra(Double subtototalDetalleExtra) {
-        this.subtototalDetalleExtra = subtototalDetalleExtra;
-    }
-
-
-
-    public Extra getExtra() {
-        return extra;
-    }
-
-
-
-    public void setExtra(Extra extra) {
-        this.extra = extra;
-    }
-
-
-
-    public Factura getFactura() {
-        return factura;
-    }
-
-
-
-    public void setFactura(Factura factura) {
-        this.factura = factura;
-    }
-
-    
-
-
-    
-    
-
-
-
-
-
+    private Factura factura; 
 
     
 }

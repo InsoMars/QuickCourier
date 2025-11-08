@@ -1,5 +1,10 @@
 package co.edu.unbosque.springsecurity.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 
 
 public class CalculoEnvioResponseDTO {
@@ -19,52 +24,6 @@ public class CalculoEnvioResponseDTO {
 
     public CalculoEnvioResponseDTO() {
     }
-
-
-    public double getTotalCompra() {
-        return totalCompra;
-    }
-
-
-    public void setTotalCompra(double totalCompra) {
-        this.totalCompra = totalCompra;
-    }
-
-
-    public double getCostoEnvio() {
-        return costoEnvio;
-    }
-
-
-    public void setCostoEnvio(double costoEnvio) {
-        this.costoEnvio = costoEnvio;
-    }
-
-
-    public double getPesoTotal() {
-        return pesoTotal;
-    }
-
-
-    public void setPesoTotal(double pesoTotal) {
-        this.pesoTotal = pesoTotal;
-    }
-
-
-    public double getTotalFinal() {
-        return totalFinal;
-    }
-
-
-    public void setTotalFinal(double totalFinal) {
-        this.totalFinal = totalFinal;
-    }
-
-
-    
-
-
-
     
     
 }

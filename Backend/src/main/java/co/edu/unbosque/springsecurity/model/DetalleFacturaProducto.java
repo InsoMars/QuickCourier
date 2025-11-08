@@ -9,8 +9,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 
+@Getter 
+@Setter
 @Entity
 
 
@@ -27,7 +31,7 @@ public class DetalleFacturaProducto {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_producto", nullable = false)
-    private Producto producto; // 🔹 Relación con producto
+    private Producto producto; 
 
 
     @Column(name="subtotal_producto")
@@ -35,68 +39,9 @@ public class DetalleFacturaProducto {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_factura", nullable = false)
-    private Factura factura;  // 🔹 Relación con la factura principal
+    private Factura factura;  
 
 
-
-
-
-
-    public Long getIdDetalleFacturaProducto() {
-        return idDetalleFacturaProducto;
-    }
-
-
-    public void setIdDetalleFacturaProducto(Long idDetalleFacturaProducto) {
-        this.idDetalleFacturaProducto = idDetalleFacturaProducto;
-    }
-
-
-    public int getCantidadProducto() {
-        return cantidadProducto;
-    }
-
-
-    public void setCantidadProducto(int cantidadProducto) {
-        this.cantidadProducto = cantidadProducto;
-    }
-
-
-    public Producto getProducto() {
-        return producto;
-    }
-
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
-
-
-    public Double getSubtotalProducto() {
-        return subtotalProducto;
-    }
-
-
-    public void setSubtotalProducto(Double subtotalProducto) {
-        this.subtotalProducto = subtotalProducto;
-    }
-
-
-    public Factura getFactura() {
-        return factura;
-    }
-
-
-    public void setFactura(Factura factura) {
-        this.factura = factura;
-    }
-
-    
-
-
-
-    
-  
     
     
 }

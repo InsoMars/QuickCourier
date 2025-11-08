@@ -13,8 +13,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter 
+@Setter
 
 @Table(name="factura_producto")
 public class Factura {
@@ -53,128 +57,6 @@ public class Factura {
 
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
     private List<DetalleFacturaProducto> detalleFactura;
-
-
-  
-
-  
-
-   
-
-
-
-
-    public Long getIdNumFacProd() {
-        return idNumFacProd;
-    }
-
-
-    public void setIdNumFacProd(Long idNumFacProd) {
-        this.idNumFacProd = idNumFacProd;
-    }
-
-
-    public LocalDateTime getFechaFacProd() {
-        return fechaFacProd;
-    }
-
-
-    public void setFechaFacProd(LocalDateTime fechaFacProd) {
-        this.fechaFacProd = fechaFacProd;
-    }
-
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-
-   
-
-
-    public Zona getZona() {
-        return zona;
-    }
-
-
-    public void setZona(Zona zona) {
-        this.zona = zona;
-    }
-
-
-    
-
-
-    public double getImpuesto() {
-        return impuesto;
-    }
-
-
-    public void setImpuesto(double impuesto) {
-        this.impuesto = impuesto;
-    }
-
-
-    public Double getTotalFacProd() {
-        return totalFacProd;
-    }
-
-
-    public void setTotalFacProd(Double totalFacProd) {
-        this.totalFacProd = totalFacProd;
-    }
-
-
- 
-
-
-    public double getPeso() {
-        return peso;
-    }
-
-
-    public void setPeso(double peso) {
-        this.peso = peso;
-    }
-
-
-    public List<DetalleExtra> getDetalleExtra() {
-        return detalleExtra;
-    }
-
-
-    public void setDetalleExtra(List<DetalleExtra> detalleExtra) {
-        this.detalleExtra = detalleExtra;
-    }
-
-
-    public List<DetalleFacturaProducto> getDetalleFactura() {
-        return detalleFactura;
-    }
-
-
-    public void setDetalleFactura(List<DetalleFacturaProducto> detalleFactura) {
-        this.detalleFactura = detalleFactura;
-    }
-
-
-    
-
-    
-
-
-
-
-
-
-
-
-
 
     
 }

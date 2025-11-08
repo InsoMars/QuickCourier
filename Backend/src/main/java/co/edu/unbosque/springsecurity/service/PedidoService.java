@@ -77,20 +77,14 @@ private DetalleExtraRepository detalleExtraRepository;
 
 
 public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, String username) {
-    // 1️⃣ Calcular subtotal y peso total
+   
     double pesoTotal = calcularPeso(pedido.getProductos());
     double subtotal = calcularPrecio(pedido.getProductos());
 
-    // 2️⃣ Crear tarifa base según la ciudad
+
     Tarifa tarifa = TarifaFactory.calcularTarifaBase(pedido.getCiudad());
 
 
-
-    
-
-
-
-    // 3️⃣ Aplicar extras desde la lista (si existen)
     List<String> extras = pedido.getExtras() == null ? List.of() : pedido.getExtras();
     if (extras.contains("regalo")) tarifa = new ExtraEmpaqueRegalo(tarifa);
     if (extras.contains("express")) tarifa = new ExtraEntregaExpress(tarifa);
@@ -99,25 +93,17 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, Str
 
 
 
-
- 
-
-
-     // 4️⃣ Calcular costo de envío total y suma final
     double costoEnvio = tarifa.calcularTarifa(pesoTotal);
     double totalProductos = subtotal;
 
 
-    //Estrategias de promociones
-
-// Inyectas estrategias
+ 
     GestorDescuentos gestor = new GestorDescuentos();
     gestor.agregarEstrategia(descuentoPrimeraCompra);
     gestor.agregarEstrategia(new DescuentoFinDeSemana());
 
-// Aplicas el descuento
+// aplicación descuento 
     double envioConDescuento = gestor.aplicarDescuentos(costoEnvio, username);
-
 
 
 
@@ -131,21 +117,18 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, Str
 
     Double precioDespuesImpuestos= totalProductos+ totalProductos*iva;
 
-    
-
-   
-
     Double costoTotalPedido= precioDespuesImpuestos+ajusteMedioPago+envioConDescuento;
 
 
-     // --- 2️⃣ Guardar entidades en BD ---
+     // guardar en la base
     Cliente cliente = clienteRepository.findByEmail(username)
             .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
 
     Zona zona = zonaRepository.findByNombreZonaIgnoreCase(pedido.getCiudad())
             .orElseThrow(() -> new IllegalArgumentException("Zona no encontrada"));
 
-      // Crear factura
+      // creación de la factura
+
     Factura factura = new Factura();
     factura.setCliente(cliente);
     factura.setZona(zona);
@@ -156,7 +139,8 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, Str
 
     factura = facturaRepository.save(factura);
 
-     // 🔹 Guardar detalles de productos
+     // guardar los productos seleccionados 
+
     for (DetalleFacturaDTO detalleDTO : pedido.getProductos()) {
         Producto producto = productoRepository.findById(detalleDTO.getIdProducto())
                 .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));
@@ -170,7 +154,8 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, Str
         detalleFacturaRepository.save(detalle);
     }
 
-    // 🔹 Guardar extras (si existen)
+    // guardar los extras seleccionados
+
     if (pedido.getExtras() != null && !pedido.getExtras().isEmpty()) {
         for (String codigoExtra : pedido.getExtras()) {
             Extra extra = extraEnvioRepository.findByCodigoExtraIgnoreCase(codigoExtra)
@@ -185,35 +170,18 @@ public CalculoEnvioResponseDTO calcularEnvioCompleto(CalculoEnvioDTO pedido, Str
         }
     }
 
-    System.out.println("✅ Factura guardada con ID: " + factura.getIdNumFacProd());
 
-   
+    // Logs de depuración
+    System.out.println(" Ciudad: " + pedido.getCiudad());
+    System.out.println(" Peso total: " + pesoTotal + " kg");
+    System.out.println(" Precio con IVA: " + precioDespuesImpuestos);
+    System.out.println(" Costo envío: " + costoEnvio);
+    System.out.println(" Envio con descuento: " + envioConDescuento);
+    System.out.println(" ajusteMedioPago (medio de pago): " + ajusteMedioPago); 
+    System.out.println(" Total final: " + costoTotalPedido);
 
-
-    
-
-
-    // 5️⃣ Logs de depuración
-    System.out.println("📦 Ciudad: " + pedido.getCiudad());
-    System.out.println("⚖️ Peso total: " + pesoTotal + " kg");
-    System.out.println("💰 Precio con IVA: " + precioDespuesImpuestos);
-    System.out.println("🚚 Costo envío: " + costoEnvio);
-    System.out.println("🔹 Envio con descuento: " + envioConDescuento);
-
-    System.out.println("🔹 ajusteMedioPago (medio de pago): " + ajusteMedioPago);
-    
-
-    System.out.println("🔹 Total final: " + costoTotalPedido);
-
-
-
-
-    // 6️⃣ Retornar DTO con todos los valores
     return new CalculoEnvioResponseDTO(precioDespuesImpuestos, envioConDescuento, pesoTotal, costoTotalPedido);
 }
-
-
-
 
 
 public Double calcularPeso(List<DetalleFacturaDTO> productos) {
@@ -226,8 +194,6 @@ public Double calcularPeso(List<DetalleFacturaDTO> productos) {
  
             pesoTotal += prod.getPesoProd() * detalle.getCantidadProducto();
         }
- 
- 
  
         return  pesoTotal;
 
@@ -260,19 +226,20 @@ public Double calcularPeso(List<DetalleFacturaDTO> productos) {
 
 }
 
-/////////////////MOSTRAR CIUDADES Y EXTRAS EN FRONT//////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
-public List<ExtraEnvioDTO> obtenerExtrasExistentes(){
- return  extraEnvioRepository.findAll()
-             .stream()
-             .map(extra -> ExtraEnvioDTO.builder()
-             .nombre(extra.getNombreExtra())
-             .descripcion(extra.getDescripcionExtra())
-             .precio(extra.getPrecioExtra())
-             .codigo(extra.getCodigoExtra())
-             .build())
-             .toList();
- 
+// mostrar extras y zonas 
+
+public List<ExtraEnvioDTO> obtenerExtrasExistentes() {
+    return extraEnvioRepository.findAll()
+            .stream()
+            .map(extra -> {
+                ExtraEnvioDTO dto = new ExtraEnvioDTO();
+                dto.setNombre(extra.getNombreExtra());
+                dto.setDescripcion(extra.getDescripcionExtra());
+                dto.setPrecio(extra.getPrecioExtra());
+                dto.setCodigo(extra.getCodigoExtra());
+                return dto;
+            })
+            .toList();
 }
 
 

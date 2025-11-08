@@ -29,14 +29,14 @@ public class FacturaService {
 
     public FacturaDTO obtenerUltimaFactura() {
 
-        // 🔹 Buscar la última factura registrada
+      
         Factura factura = facturaRepository.findUltimaFactura()
                 .orElseThrow(() -> new RuntimeException("No existen facturas registradas."));
 
         var cliente = factura.getCliente();
         var zona = factura.getZona();
 
-        // 🔹 Mapear los productos asociados a la factura
+      
         List<DetalleProductoDTO> productos = detalleFacturaRepository.findByFactura(factura)
                 .stream()
                 .map(det -> new DetalleProductoDTO(
@@ -47,7 +47,7 @@ public class FacturaService {
                 ))
                 .collect(Collectors.toList());
 
-        // 🔹 Mapear los extras asociados a la factura
+     
         List<DetalleExtraDTO> extras = detalleExtraRepository.findByFactura(factura)
                 .stream()
                 .map(ext -> new DetalleExtraDTO(
@@ -57,7 +57,7 @@ public class FacturaService {
                 ))
                 .collect(Collectors.toList());
 
-        // 🔹 Construir el DTO final de respuesta (orden correcto según tu constructor)
+      
         return new FacturaDTO(
                 cliente.getEmail(),
                 BigDecimal.valueOf(zona.getPrecioZona() != null ? zona.getPrecioZona() : 0.0),

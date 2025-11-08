@@ -2,6 +2,14 @@ package co.edu.unbosque.springsecurity.dto;
 
 import java.math.BigDecimal;
 
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+
+
 public class DetalleExtraDTO {
 
     private Integer idExtra;
@@ -17,29 +25,6 @@ public class DetalleExtraDTO {
     public DetalleExtraDTO() {
     }
 
-    public Integer getIdExtra() {
-        return idExtra;
-    }
-
-    public void setIdExtra(Integer idExtra) {
-        this.idExtra = idExtra;
-    }
-
-    public String getNombreExtra() {
-        return nombreExtra;
-    }
-
-    public void setNombreExtra(String nombreExtra) {
-        this.nombreExtra = nombreExtra;
-    }
-
-    public BigDecimal getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(BigDecimal subtotal) {
-        this.subtotal = subtotal;
-    }
 
     
 }

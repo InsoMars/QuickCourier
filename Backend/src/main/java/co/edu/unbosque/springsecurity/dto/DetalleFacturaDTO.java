@@ -1,5 +1,12 @@
 package co.edu.unbosque.springsecurity.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+
 
 public class DetalleFacturaDTO {
 
@@ -16,36 +23,6 @@ public String toString() {
             ", cantidadProducto=" + cantidadProducto +
             '}';
 }
-    
-    public Long getIdDetalleFacturaProducto() {
-        return idDetalleFacturaProducto;
-    }
-    public void setIdDetalleFacturaProducto(Long idDetalleFacturaProducto) {
-        this.idDetalleFacturaProducto = idDetalleFacturaProducto;
-    }
-    public int getCantidadProducto() {
-        return cantidadProducto;
-    }
-    public void setCantidadProducto(int cantidadProducto) {
-        this.cantidadProducto = cantidadProducto;
-    }
-    public Double getSubtotalProducto() {
-        return subtotalProducto;
-    }
-    public void setSubtotalProducto(Double subtotalProducto) {
-        this.subtotalProducto = subtotalProducto;
-    }
-    public Long getIdProducto() {
-        return idProducto;
-    }
-    public void setIdProducto(Long idProducto) {
-        this.idProducto = idProducto;
-    }
-    
-   
-
-
-    
     
     
 }

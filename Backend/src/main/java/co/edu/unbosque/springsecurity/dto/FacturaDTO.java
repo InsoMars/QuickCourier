@@ -4,6 +4,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+
 public class FacturaDTO {
 
     private Integer idFactura;
@@ -50,100 +57,5 @@ public class FacturaDTO {
 
     public FacturaDTO() {}
 
-    public Integer getIdFactura() {
-        return idFactura;
-    }
-
-    public void setIdFactura(Integer idFactura) {
-        this.idFactura = idFactura;
-    }
-
-    public LocalDateTime getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getNombreCliente() {
-        return nombreCliente;
-    }
-
-    public void setNombreCliente(String nombreCliente) {
-        this.nombreCliente = nombreCliente;
-    }
-
-    public String getCorreoCliente() {
-        return correoCliente;
-    }
-
-    public void setCorreoCliente(String correoCliente) {
-        this.correoCliente = correoCliente;
-    }
-
-    public String getTelefonoCliente() {
-        return telefonoCliente;
-    }
-
-    public void setTelefonoCliente(String telefonoCliente) {
-        this.telefonoCliente = telefonoCliente;
-    }
-
-    public String getZonaEnvio() {
-        return zonaEnvio;
-    }
-
-    public void setZonaEnvio(String zonaEnvio) {
-        this.zonaEnvio = zonaEnvio;
-    }
-
-    public BigDecimal getCostoZona() {
-        return costoZona;
-    }
-
-    public void setCostoZona(BigDecimal costoZona) {
-        this.costoZona = costoZona;
-    }
-
-    public BigDecimal getPesoTotal() {
-        return pesoTotal;
-    }
-
-    public void setPesoTotal(BigDecimal pesoTotal) {
-        this.pesoTotal = pesoTotal;
-    }
-
-    public BigDecimal getImpuesto() {
-        return impuesto;
-    }
-
-    public void setImpuesto(BigDecimal impuesto) {
-        this.impuesto = impuesto;
-    }
-
-    public BigDecimal getTotalFactura() {
-        return totalFactura;
-    }
-
-    public void setTotalFactura(BigDecimal totalFactura) {
-        this.totalFactura = totalFactura;
-    }
-
-    public List<DetalleProductoDTO> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(List<DetalleProductoDTO> productos) {
-        this.productos = productos;
-    }
-
-    public List<DetalleExtraDTO> getExtras() {
-        return extras;
-    }
-
-    public void setExtras(List<DetalleExtraDTO> extras) {
-        this.extras = extras;
-    }
 
 }

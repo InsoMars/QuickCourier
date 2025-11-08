@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/facturas")
-@Tag(name = "Factura Controller", description = "Permite consultar la última factura generada por el sistema.")
+@Tag(name = "Factura Controller", description = "Permite consultar la factura generada por el sistema.")
 
 public class FacturaController {
 

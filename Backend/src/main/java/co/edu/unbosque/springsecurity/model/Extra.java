@@ -6,8 +6,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter 
+@Setter
 
 @Table(name="extra")
 
@@ -30,49 +34,6 @@ public class Extra {
     @Column(name="codigo_extra")
     private String codigoExtra;
 
-    public Long getIdExtra() {
-        return idExtra;
-    }
-
-    public void setIdExtra(Long idExtra) {
-        this.idExtra = idExtra;
-    }
-
-    public String getNombreExtra() {
-        return nombreExtra;
-    }
-
-    public void setNombreExtra(String nombreExtra) {
-        this.nombreExtra = nombreExtra;
-    }
-
-    public Double getPrecioExtra() {
-        return precioExtra;
-    }
-
-    public void setPrecioExtra(Double precioExtra) {
-        this.precioExtra = precioExtra;
-    }
-
-    public String getDescripcionExtra() {
-        return descripcionExtra;
-    }
-
-    public void setDescripcionExtra(String descripcionExtra) {
-        this.descripcionExtra = descripcionExtra;
-    }
-
-    public String getCodigoExtra() {
-        return codigoExtra;
-    }
-
-    public void setCodigoExtra(String codigoExtra) {
-        this.codigoExtra = codigoExtra;
-    }
- 
-    
- 
-
-    
+  
     
 }

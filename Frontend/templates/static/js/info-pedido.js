@@ -36,6 +36,8 @@ const priceGastosEnvio = document.querySelector('.summary > p.price:nth-child(4)
 const priceTotal = document.querySelector('.total span:nth-child(2)');
 
 
+
+
 // =======================================================
 // FUNCIONES DE CÁLCULO Y FORMATO
 // =======================================================
@@ -52,6 +54,10 @@ function formatoMoneda(cantidad) {
  * Calcula la suma total de los productos (Subtotal) y ACTUALIZA el peso total.
  * ⚠️ REQUIERE que el objeto producto en localStorage tenga 'pesoUnitario'.
  */
+
+
+
+
 function calcularSubtotalProductos() {
     const pedidoParcial = JSON.parse(localStorage.getItem("pedidoParcial")) || { productos: [] };
     let subtotal = 0;
@@ -198,6 +204,9 @@ async function calcularYActualizarEnvio() {
     // Esto recalcula el total, asegurando que si ya había extras, se sumen al nuevo costo base.
     document.dispatchEvent(new Event('change'));
 }
+
+
+
 
 
 // =======================================================
