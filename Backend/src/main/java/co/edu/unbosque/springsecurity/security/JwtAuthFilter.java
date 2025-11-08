@@ -14,7 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import co.edu.unbosque.springsecurity.model.Token;
 import co.edu.unbosque.springsecurity.repository.TokenRepository;
-import io.jsonwebtoken.ExpiredJwtException; 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException; 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

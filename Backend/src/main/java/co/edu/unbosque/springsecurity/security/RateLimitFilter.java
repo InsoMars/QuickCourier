@@ -40,11 +40,11 @@ public class RateLimitFilter extends OncePerRequestFilter {
                      ? "null" : SecurityContextHolder.getContext().getAuthentication().getName()));
 
 
-        // Obtenemos el usuario autenticado (correo extraído del JWT)
+  
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication.getName() == null) {
             filterChain.doFilter(request, response);
-            return; // No autenticado → no aplica Rate Limit
+            return; 
         }
 
         String correoUsuario = authentication.getName();
