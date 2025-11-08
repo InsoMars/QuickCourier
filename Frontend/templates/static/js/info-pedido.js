@@ -433,7 +433,7 @@ const valorPago = pedidoParcial.metodoPago || pedidoParcial.medioPago || '';
 // ser modificado por los listeners de la interfaz.
 let pedidoFinal = {
     // 3a. Valores existentes del pedidoParcial y fallbacks
-    ciudad: pedidoParcial.ciudad || 'bogotá',
+    ciudad: pedidoParcial.ciudad,
     productos: pedidoParcial.productos || [],
     extras: pedidoParcial.extras || [],
     

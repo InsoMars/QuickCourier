@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Iniciar la carga de datos del carrito
     cargarResumenDelCarrito();
+    actualizarEstadoBotonPago(); 
 });
 
 
@@ -81,6 +82,7 @@ async function cargarResumenDelCarrito() {
       document.getElementById("resumen-carrito-peso").textContent = "0 kg";
       countSpan.textContent = "0";
       localStorage.removeItem("pedidoParcial");
+      actualizarEstadoBotonPago();
       return;
     }
 
@@ -112,6 +114,7 @@ async function cargarResumenDelCarrito() {
 
     // 🔹 Renderizar
     renderCarrito(resumenCarrito);
+    actualizarEstadoBotonPago();
 
   } catch (error) {
     console.error('⚠️ Error al cargar el resumen del carrito:', error);
@@ -124,6 +127,7 @@ async function cargarResumenDelCarrito() {
     subtotalSpan.textContent = "$0";
     document.getElementById("resumen-carrito-peso").textContent = "0 kg";
     countSpan.textContent = "0";
+    actualizarEstadoBotonPago();
   }
 }
 
@@ -237,7 +241,7 @@ async function calcularEnvio(productos, pesoCalculadoLocal) {
   if (!accessToken) return 0;
 
   const datosEnvio = {
-    ciudad: "Bogota",  // ⚠️ Temporal, luego cambia según dirección seleccionada
+    ciudad:null,
     empaqueRegalo: false,
     envioExpress: false,
     envioSeguro: false,
@@ -399,3 +403,29 @@ if (logoutBtn) {
         window.location.href = '/frontend/templates/index.html'; // Redirigir al login
     });
 }
+
+
+// =======================================================
+// 6. DESHABILITAR BOTÓN DE PAGO SI EL CARRITO ESTÁ VACÍO
+// =======================================================
+
+function actualizarEstadoBotonPago() {
+  const botonPagar = document.getElementById("resumen-carrito-pagar");
+  const idsEnCarrito = JSON.parse(localStorage.getItem("carritoIds") || "[]");
+
+  if (!idsEnCarrito.length) {
+    botonPagar.classList.add("disabled");
+    botonPagar.style.pointerEvents = "none"; // evita clics
+    botonPagar.style.opacity = "0.5"; // efecto visual de desactivado
+    botonPagar.title = "Agrega productos para continuar con el pago";
+  } else {
+    botonPagar.classList.remove("disabled");
+    botonPagar.style.pointerEvents = "auto";
+    botonPagar.style.opacity = "1";
+    botonPagar.removeAttribute("title");
+  }
+}
+
+// Llamar cada vez que se carga o modifica el carrito
+document.addEventListener("DOMContentLoaded", actualizarEstadoBotonPago);
+window.addEventListener("storage", actualizarEstadoBotonPago);
