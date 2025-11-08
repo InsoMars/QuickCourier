@@ -44,6 +44,7 @@ public class SecurityConfig {
                     "/auth/**",
                     "/QuickCourier/Productos/Catalogo",
                     "/pedido/calcular-envio",
+                    "/facturas/ultima",
                     "/pedido/extras",
                     "/pedido/zonas",
                     "/calcular-peso",

@@ -5,19 +5,6 @@ console.log("✅ resumen-carrito.js cargado correctamente");
 // para obtener los detalles de los productos.
 const API_URL = 'http://localhost:8081/QuickCourier/Productos/Catalogo'; 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Referencias del DOM
 const tbody = document.getElementById('resumen-carrito-body');
 const subtotalSpan = document.getElementById('resumen-carrito-subtotal');
@@ -65,69 +52,81 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 async function cargarResumenDelCarrito() {
-    const mainContainer = document.querySelector("main.resumen-carrito-main");
+  const mainContainer = document.querySelector("main.resumen-carrito-main");
+  const accessToken = localStorage.getItem('accessToken'); 
 
-    // 1. OBTENER Y VERIFICAR EL TOKEN 🔥
-    const accessToken = localStorage.getItem('accessToken'); 
-    if (!accessToken) {
-        // Redirigir si no hay token (sesión no válida)
-        mainContainer.innerHTML = "<p class='text-center text-red-600' style='padding: 2rem;'>Debes iniciar sesión para ver tu carrito. Redirigiendo...</p>";
+  if (!accessToken) {
+    mainContainer.innerHTML = "<p class='text-center text-red-600' style='padding: 2rem;'>Debes iniciar sesión para ver tu carrito. Redirigiendo...</p>";
+    setTimeout(() => {
+      window.location.href = '/frontend/templates/index.html'; 
+    }, 2000);
+    return;
+  }
+
+  try {
+    // 🛍️ Obtener IDs guardados
+    const idsEnCarrito = JSON.parse(localStorage.getItem('carritoIds') || '[]');
+
+    // 🔹 Si no hay productos, mostrar mensaje vacío y resetear totales
+    if (!idsEnCarrito.length) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="5" style="text-align:center; padding: 20px;">
+            🛒 Tu carrito está vacío.<br>
+            <a href="catalogo.html" style="color:#007bff; text-decoration:underline;">¡Agrega productos!</a>
+          </td>
+        </tr>`;
+      
+      subtotalSpan.textContent = "$0";
+      document.getElementById("resumen-carrito-peso").textContent = "0 kg";
+      countSpan.textContent = "0";
+      localStorage.removeItem("pedidoParcial");
+      return;
+    }
+
+    // 🔹 Obtener catálogo desde backend
+    const response = await fetch(API_URL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
+
+    if (!response.ok) {
+      if (response.status === 401 || response.status === 403) {
+        console.error('Token inválido/expirado al cargar carrito:', response.status);
+        mainContainer.innerHTML = "<p class='text-center text-red-600' style='padding: 2rem;'>Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.</p>";
+        await logoutUser();
         setTimeout(() => {
-            window.location.href = '/frontend/templates/index.html'; 
+          window.location.href = '/frontend/templates/index.html';
         }, 2000);
         return;
+      }
+      throw new Error(`Error HTTP: ${response.status}`);
     }
 
+    // 🔹 Catálogo recibido
+    const todosLosProductos = await response.json();
+    const resumenCarrito = agruparProductosYContar(idsEnCarrito, todosLosProductos);
 
-    try {
-        // A. Obtener IDs del carrito desde localStorage
-        const idsEnCarrito = JSON.parse(localStorage.getItem('carritoIds') || '[]');
-        
-        if (idsEnCarrito.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="3">Tu carrito está vacío. <a href="catalogo.html">¡Añade algo!</a></td></tr>';
-            actualizarTotales(0, 0);
-            return;
-        }
+    // 🔹 Renderizar
+    renderCarrito(resumenCarrito);
 
-        // B. Llamar a la API para obtener TODOS los detalles de los productos
-        // 🔥 INCLUIR EL TOKEN EN EL ENCABEZADO
-        const response = await fetch(API_URL, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}` // <-- ¡Paso crucial!
-            }
-        });
-
-        if (response.ok) {
-            // Petición exitosa
-            const todosLosProductos = await response.json(); // Lista de ProductoDTOs
-
-            // C. Mapear y agrupar: Contar cuántas veces aparece cada ID en el carrito
-            const resumenCarrito = agruparProductosYContar(idsEnCarrito, todosLosProductos);
-            
-            // D. Renderizar la tabla y calcular totales
-            renderCarrito(resumenCarrito);
-
-        } else if (response.status === 401 || response.status === 403) {
-             // Manejar sesión expirada o token inválido
-            console.error('Token inválido/expirado al cargar carrito:', response.status);
-            mainContainer.innerHTML = "<p class='text-center text-red-600' style='padding: 2rem;'>Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.</p>";
-            await logoutUser(); // Limpiar tokens localmente
-            setTimeout(() => {
-                window.location.href = '/frontend/templates/index.html';
-            }, 2000);
-            return;
-        } else {
-            throw new Error(`Error HTTP: ${response.status}`);
-        }
-
-    } catch (error) {
-        console.error('Error al cargar el resumen del carrito:', error);
-        tbody.innerHTML = '<tr><td colspan="3">Error al cargar el pedido. Intenta más tarde.</td></tr>';
-        actualizarTotales(0, 0);
-    }
+  } catch (error) {
+    console.error('⚠️ Error al cargar el resumen del carrito:', error);
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" style="text-align:center; padding: 20px; color: #dc3545;">
+          ❌ Error al cargar el carrito. Intenta más tarde.
+        </td>
+      </tr>`;
+    subtotalSpan.textContent = "$0";
+    document.getElementById("resumen-carrito-peso").textContent = "0 kg";
+    countSpan.textContent = "0";
+  }
 }
+
 
 
 /**
@@ -171,117 +170,115 @@ function agruparProductosYContar(idsEnCarrito, todosLosProductos) {
 // =======================================================
 
 async function renderCarrito(productosEnCarrito) {
-    tbody.innerHTML = '';
-    let subtotal = 0;
-    let totalProductos = 0;
-    let pesoTotal = 0;
+  tbody.innerHTML = '';
+  let subtotal = 0;
+  let totalProductos = 0;
+  let pesoTotal = 0;
+
+  productosEnCarrito.forEach((producto) => {
+    const precioUnitario = producto.precioUniProd;
+    const cantidad = producto.cantidad;
+    const peso = producto.pesoProd || 0;
+    const precioTotalProducto = precioUnitario * cantidad;
+    const pesoTotalProducto = peso * cantidad;
+
+    subtotal += precioTotalProducto;
+    totalProductos += cantidad;
+    pesoTotal += pesoTotalProducto;
+
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>
+        <div class="product-info-wrap">
+          <img src="${producto.rutaImagen}" alt="${producto.nombreProd}"> 
+          <div>
+            <strong>${producto.nombreProd}</strong><br>
+            <small>${producto.descripcionProd}</small>
+          </div>
+        </div>
+      </td>
+      <td>$${precioUnitario.toLocaleString()}</td>
+      <td>${peso.toFixed(2)} kg</td>
+      <td>
+        <div class="cantidad-controls">
+          <button class="control-btn minus-btn" data-id="${producto.idProducto}">-</button>
+          <span class="cantidad-display">${cantidad}</span>
+          <button class="control-btn plus-btn" data-id="${producto.idProducto}">+</button>
+        </div>
+      </td>
+      <td><button class="remove-all-btn" data-id="${producto.idProducto}">Eliminar</button></td>
+    `;
+    tbody.appendChild(row);
+  });
+  // 🗃️ Guardar pedido parcial en localStorage
+  const pedidoParcial = {
+    productos: productosEnCarrito.map(p => ({
+      idProducto: p.idProducto,
+      cantidadProducto: p.cantidad,
+      precioUnitario: p.precioUniProd,
+      pesoUnitario: p.pesoProd
+    }))
+  };
+  localStorage.setItem("pedidoParcial", JSON.stringify(pedidoParcial));
+  console.log("🗃️ Pedido parcial guardado en localStorage:", pedidoParcial);
+
+  // 🔹 Mostrar totales locales (antes de llamar al backend)
+  subtotalSpan.textContent = `$${subtotal.toLocaleString()}`;
+  countSpan.textContent = totalProductos;
+  document.getElementById('resumen-carrito-peso').textContent = `${pesoTotal.toFixed(2)} kg`;
+
+  // 🔹 Llamar al backend para actualizar total real y peso si aplica
+  // await calcularEnvio(productosEnCarrito, pesoTotal);
+}
 
 
-    productosEnCarrito.forEach((producto) => {
-        const precioUnitario = producto.precioUniProd;
-        const cantidad = producto.cantidad;
-        const peso = producto.pesoProd;
-        const precioTotalProducto = precioUnitario * cantidad;
-        
-        subtotal += precioTotalProducto;
-        totalProductos += cantidad;
-        pesoTotal += peso * cantidad;
+async function calcularEnvio(productos, pesoCalculadoLocal) {
+  const accessToken = localStorage.getItem('accessToken');
+  if (!accessToken) return 0;
 
+  const datosEnvio = {
+    ciudad: "Bogota",  // ⚠️ Temporal, luego cambia según dirección seleccionada
+    empaqueRegalo: false,
+    envioExpress: false,
+    envioSeguro: false,
+    manejoFragil: false,
+    productos: productos.map(p => ({
+      idProducto: p.idProducto,
+      cantidadProducto: p.cantidad
+    }))
+  };
 
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>
-                <div class="product-info-wrap">
-                    <img src="${producto.rutaImagen}" alt="${producto.nombreProd}"> 
-                    <div>
-                        <strong>${producto.nombreProd}</strong><br>
-                        <small>${producto.descripcionProd}</small>
-                    </div>
-                </div>
-            </td>
-            <td>$${precioUnitario.toLocaleString()}</td>
-            <td>
-                <div class="cantidad-controls">
-                    <button class="control-btn minus-btn" data-id="${producto.idProducto}">-</button>
-                    <span class="cantidad-display">${cantidad}</span>
-                    <button class="control-btn plus-btn" data-id="${producto.idProducto}">+</button>
-                </div>
-            </td>
-            <td><button class="remove-all-btn" data-id="${producto.idProducto}">Eliminar</button></td>
-        `;
-        tbody.appendChild(row);
-
-
-                    // Al final de renderCarrito()
-            const pedidoParcial = {
-            productos: productosEnCarrito.map(p => ({
-                idProducto: p.idProducto,
-                cantidadProducto: p.cantidad
-            }))
-            };
-
-            // Guardar en localStorage para que info-pedido.js lo complete
-            localStorage.setItem("pedidoParcial", JSON.stringify(pedidoParcial));
-
-            console.log("🗃️ Pedido parcial guardado en localStorage:", pedidoParcial);
-
+  try {
+    const response = await fetch("http://localhost:8081/pedido/calcular-envio", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${accessToken}`
+      },
+      body: JSON.stringify(datosEnvio)
     });
 
+    if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
 
-    
+    const data = await response.json();
 
-    // 🔹 Calcular el envío real desde backend
-    const totalPedido = await calcularEnvio(productosEnCarrito);
+    // Mostrar el peso total en el HTML
+    const pesoSpan = document.getElementById('resumen-carrito-peso');
+    pesoSpan.textContent = `${(data.pesoTotal ?? pesoCalculadoLocal).toFixed(2)} kg`;
 
-    // 🔹 Actualizar totales
-    subtotalSpan.textContent = `$${subtotal.toLocaleString()}`;
-    totalSpan.textContent = `$${totalPedido.toLocaleString()}`;
-    countSpan.textContent = totalProductos;
-}
-
-
-async function calcularEnvio(productos) {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) return 0;
-
-    const datosEnvio = {
-        ciudad: "Bogota",  // luego puedes cambiarlo según la dirección del usuario
-        empaqueRegalo: false,
-        envioExpress: false,
-        envioSeguro: false,
-        manejoFragil: false,
-        productos: productos.map(p => ({
-            idProducto: p.idProducto,
-            cantidadProducto: p.cantidad
-        }))
-    };
-
-    try {
-        const response = await fetch("http://localhost:8081/pedido/calcular-envio", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${accessToken}`
-            },
-            body: JSON.stringify(datosEnvio)
-        });
-
-        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-
-        const data = await response.json();
-
-        // Mostrar el peso total en el HTML
-        const pesoSpan = document.getElementById('resumen-carrito-peso');
-        pesoSpan.textContent = `${data.pesoTotal.toFixed(2)} kg`;
-
-        // Retornar el total final
-        return data.totalFinal;
-
-    } catch (error) {
-        console.error("Error al calcular envío:", error);
-        return 0;
+    // Retornar y mostrar total final si existe
+    if (data.totalFinal) {
+      subtotalSpan.textContent = `$${data.totalFinal.toLocaleString()}`;
     }
+
+    return data.totalFinal || 0;
+
+  } catch (error) {
+    console.error("Error al calcular envío:", error);
+    return 0;
+  }
 }
+
 
 
 function actualizarTotales(subtotal, totalProductos) {
