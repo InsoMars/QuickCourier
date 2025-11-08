@@ -24,8 +24,8 @@ public class RateLimitFilter extends OncePerRequestFilter {
     private final Map<String, Bucket> buckets = new ConcurrentHashMap<>();
 
     private Bucket crearBucket() {
-        Refill refill = Refill.greedy(5000, Duration.ofMinutes(1));
-        Bandwidth limit = Bandwidth.classic(5000, refill);
+        Refill refill = Refill.greedy(4000, Duration.ofMinutes(1));
+        Bandwidth limit = Bandwidth.classic(4000, refill);
         return Bucket.builder().addLimit(limit).build();
     }
 
