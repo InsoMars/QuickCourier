@@ -84,9 +84,6 @@ public ResponseEntity<CalculoEnvioResponseDTO> crearPedido(@AuthenticationPrinci
     public ResponseEntity<Double> calcularPeso(
     @RequestBody CalculoEnvioDTO request) {
  
- 
-   
- 
     Double response = pedidoService.calcularPeso(
         request.getProductos()
        

@@ -29,9 +29,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final co.edu.unbosque.springsecurity.security.RateLimitFilter rateLimitFilter;
     private final JwtAuthFilter filtroJwt;
     private final AuthenticationProvider proveedorAutenticacion;
     private final TokenRepository repositorioTokens;
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -42,13 +44,12 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/auth/**",
-                    "/QuickCourier/Productos/Catalogo",
                     "/pedido/calcular-envio",
                     "/facturas/ultima",
                     "/pedido/extras",
                     "/pedido/zonas",
                     "/calcular-peso",
-                     "/pedido/tarifa-envio",
+                    "/pedido/tarifa-envio",
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
                     "/swagger-ui.html",
@@ -63,6 +64,7 @@ public class SecurityConfig {
             )
             .authenticationProvider(proveedorAutenticacion)
             .addFilterBefore(filtroJwt, UsernamePasswordAuthenticationFilter.class)
+            .addFilterAfter(rateLimitFilter, JwtAuthFilter.class)
             .logout(logout -> logout
                 .logoutUrl("/auth/logout")
                 .addLogoutHandler((request, response, authentication) -> {
@@ -79,6 +81,7 @@ public class SecurityConfig {
                 .logoutSuccessHandler((request, response, authentication) -> 
                         SecurityContextHolder.clearContext())
             );
+
 
         return http.build();
     }
