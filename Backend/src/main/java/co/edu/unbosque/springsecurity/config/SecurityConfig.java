@@ -20,6 +20,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import co.edu.unbosque.springsecurity.repository.TokenRepository;
+import co.edu.unbosque.springsecurity.security.ApiKeyFilter;
 import co.edu.unbosque.springsecurity.security.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 
@@ -33,6 +34,7 @@ public class SecurityConfig {
     private final JwtAuthFilter filtroJwt;
     private final AuthenticationProvider proveedorAutenticacion;
     private final TokenRepository repositorioTokens;
+    private final ApiKeyFilter apiKeyFilter;
 
 
     @Bean
@@ -55,6 +57,7 @@ public class SecurityConfig {
                     "/swagger-ui.html",
                     "/swagger-resources/**",
                     "/webjars/**",
+                    "/claves/**",
                     "/error"
                 ).permitAll()
                 .anyRequest().authenticated()
@@ -64,6 +67,7 @@ public class SecurityConfig {
             )
             .authenticationProvider(proveedorAutenticacion)
             .addFilterBefore(filtroJwt, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(apiKeyFilter, UsernamePasswordAuthenticationFilter.class)
             .addFilterAfter(rateLimitFilter, JwtAuthFilter.class)
             .logout(logout -> logout
                 .logoutUrl("/auth/logout")
