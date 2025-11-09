@@ -1,5 +1,6 @@
 window.onload = () => {
-   
+    const codigoGenerado = localStorage.getItem("codigoPagoEfecty");
+    const totalMonto = localStorage.getItem("totalPedido") || "0";
 
     document.getElementById("reciboContainer")?.classList.add("hidden");
 
@@ -12,18 +13,15 @@ window.onload = () => {
     const pantallaInicial = document.getElementById("pantallaInicial");
     const reciboContainer = document.getElementById("reciboContainer");
 
-    // 1. Generación del Código de Pago (Referencia)
-    const codigo = Math.floor(100000 + Math.random() * 900000);
-    if (codigoRef) {
-        codigoRef.textContent = codigo;
+    // 🧾 Mostrar el código del backend directamente
+    if (codigoRef && codigoGenerado) {
+        codigoRef.textContent = codigoGenerado;
     }
 
-   
     if (btnGenerar) {
         btnGenerar.addEventListener("click", async () => {
-
-            if (refRecibo) refRecibo.textContent = codigo;
-            if (valorRecibo) valorRecibo.textContent = totalMonto;
+            if (refRecibo) refRecibo.textContent = codigoGenerado || "EF-000000";
+            if (valorRecibo) valorRecibo.textContent = `$${parseInt(totalMonto).toLocaleString('es-CO')}`;
 
             if (pantallaInicial) pantallaInicial.classList.add("hidden");
             if (reciboContainer) reciboContainer.classList.remove("hidden");
@@ -32,7 +30,6 @@ window.onload = () => {
 
     if (btnContinuar) {
         btnContinuar.addEventListener("click", () => {
-          
             window.location.href = "detalle-pedido.html";
         });
     }
