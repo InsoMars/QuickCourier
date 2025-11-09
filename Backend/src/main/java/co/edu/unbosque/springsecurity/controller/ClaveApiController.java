@@ -34,7 +34,7 @@ public class ClaveApiController {
     public ResponseEntity<String> validar(@RequestParam String clave) {
         boolean valida = claveApiService.esClaveValida(clave);
         return valida
-                ? ResponseEntity.ok("✅ Clave válida")
-                : ResponseEntity.status(401).body("❌ Clave no válida o revocada");
+                ? ResponseEntity.ok("Clave válida")
+                : ResponseEntity.status(401).body("Clave no válida o revocada");
     }
 }
