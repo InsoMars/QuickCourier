@@ -26,7 +26,7 @@ body {
   color: orange;
 }
  
-/* Contenedor principal */
+
 .container {
   max-width: 1100px;
   margin: 30px auto;
@@ -47,7 +47,7 @@ h1 {
   margin-bottom: 30px;
 }
  
-/* Pasos */
+
 .steps-container {
   display: flex;
   justify-content: center;
@@ -84,7 +84,7 @@ h1 {
   color: white;
 }
  
-/* Contenido */
+
 .order-content {
   display: flex;
   gap: 40px;
@@ -120,8 +120,7 @@ h1 {
   padding: 10px;
   margin: 10px 0;
 }
- 
-/* Resumen */
+
 .summary {
   width: 280px;
   border: 1px solid #333;
@@ -242,7 +241,7 @@ hr {
 }
  
  
-/* Efecto de colapso de las secciones */
+
 .info-box {
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -374,7 +373,7 @@ next-btn,
 .side-menu {
     position: fixed;
     top: 0;
-    left: -320px; /* escondido */
+    left: -320px;
     width: 280px;
     height: 100%;
     background: #0A4285;
@@ -384,7 +383,7 @@ next-btn,
 }
  
 .side-menu.open {
-    left: 0; /* aparece */
+    left: 0; 
 }
  
 .side-menu ul {
@@ -451,7 +450,7 @@ next-btn,
  
  
  
-/* --- FORMULARIO NUEVA DIRECCIÓN --- */
+
 #formNuevaDireccion {
   margin-top: 15px;
   border: 1px solid #ccc;
@@ -487,7 +486,7 @@ next-btn,
   min-height: 60px;
 }
  
-/* --- BOTÓN GUARDAR DIRECCIÓN --- */
+
 #formNuevaDireccion button[type="submit"] {
   background: orange;
   color: white;
@@ -503,7 +502,7 @@ next-btn,
   background: #e69500;
 }
  
-/* --- BOTÓN AGREGAR NUEVA DIRECCIÓN --- */
+
 #btnAgregarDireccion {
   display: inline-block;
   background: #0A4285;
@@ -523,7 +522,7 @@ next-btn,
   transform: scale(1.03);
 }
  
-/* Animación al desplegar formulario */
+
 @keyframes slideDown {
   from {
     opacity: 0;

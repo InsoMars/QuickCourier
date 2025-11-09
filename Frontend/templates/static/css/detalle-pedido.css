@@ -1,4 +1,4 @@
-/* 🎨 Estilo general */
+
 body {
   font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f3f6fa;
@@ -11,7 +11,7 @@ body {
   min-height: 100vh;
 }
 
-/* 🧾 Contenedor principal */
+
 .factura-container {
   background: #ffffff;
   width: 90%;
@@ -22,7 +22,7 @@ body {
   animation: fadeIn 0.6s ease-in-out;
 }
 
-/* ✨ Animación de entrada */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -34,7 +34,7 @@ body {
   }
 }
 
-/* 🧠 Títulos */
+
 h1 {
   text-align: center;
   color: #1a73e8;
@@ -51,7 +51,7 @@ h2 {
   font-size: 1.3rem;
 }
 
-/* 📋 Información del cliente */
+
 .factura-info p {
   margin: 5px 0;
   font-size: 0.95rem;
@@ -61,7 +61,6 @@ h2 {
   color: #2b6cb0;
 }
 
-/* 🛒 Listas */
 ul {
   list-style: none;
   padding: 0;
@@ -83,7 +82,7 @@ ul li:hover {
   background-color: #ebf8ff;
 }
 
-/* 💰 Totales */
+
 p strong {
   color: #2b6cb0;
 }
@@ -94,7 +93,7 @@ p strong {
   font-size: 1.2rem;
 }
 
-/* 🟢 Botón */
+
 button {
   display: block;
   width: 100%;
@@ -115,7 +114,7 @@ button:hover {
   transform: translateY(-2px);
 }
 
-/* ✅ Botón verde especial para finalizar */
+
 #finalizarBtn {
   background-color: #38a169;
 }
@@ -124,7 +123,7 @@ button:hover {
   background-color: #2f855a;
 }
 
-/* 📱 Responsive */
+
 @media (max-width: 600px) {
   .factura-container {
     padding: 25px;

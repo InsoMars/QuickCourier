@@ -133,13 +133,13 @@ input:focus {
 
 
 
-/* Estados por defecto (sin rojo inicial) */
+
 input {
     
     transition: border-color 0.3s ease;
 }
 
-/* Mostrar rojo solo cuando el usuario ya interactuó o se intentó enviar */
+
 input.user-invalid {
     border-color: #ff4d4d !important;
 }
@@ -148,7 +148,6 @@ input.user-valid {
     border-color: #6EC19E !important;
 }
 
-/* Mensajes de error */
 .error-msg {
     font-size: 12px;
     color: #ff4d4d;
