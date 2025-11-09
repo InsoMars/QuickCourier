@@ -1,43 +1,60 @@
+
+/* ==================== HEADER ==================== */
+.header {
+    background: #0A4285; /* color de fondo del header */
+    width: 100%;
+    display: flex;
+    justify-content: flex-start; /* logo a la izquierda */
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    margin-top: -40px;
+}
+
+.logo-header {
+    height: 80px; /* altura del logo */
+    width: auto;  /* ancho automático para mantener proporción */
+}
+
+/* ==================== BODY ==================== */
 body {
     margin: 0;
     padding: 0;
     background-color: #f9f9f9;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-line-pack: center;
-        align-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     min-height: 100vh;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    font-family: 'Raleway';
+    font-family: 'Inter', sans-serif;
 }
 
+
+/* ==================== TÍTULO ==================== */
 .payment-title {
     width: 100%;
     text-align: center;
+    font-size: 20px;          /* tamaño del texto */
+    font-weight: bold;        /* negrita */
+    color: #0A4285;           /* CAMBIA ESTE COLOR */
+    margin-top: -80px;         /* espacio superior opcional */
+    margin-bottom: -120px;      /* espacio inferior */
 }
-
+/* ==================== FORMULARIO ==================== */
 .form-container .field-container:first-of-type {
-    grid-area: name;
+    grid-area: name; /* primera fila del formulario */
 }
 
 .form-container .field-container:nth-of-type(2) {
-    grid-area: number;
+    grid-area: number; /* segunda fila */
 }
 
 .form-container .field-container:nth-of-type(3) {
-    grid-area: expiration;
+    grid-area: expiration; /* tercera fila izquierda */
 }
 
 .form-container .field-container:nth-of-type(4) {
-    grid-area: security;
+    grid-area: security; /* tercera fila derecha */
 }
 
 .field-container input {
@@ -46,43 +63,53 @@ body {
 }
 
 .field-container {
-    position: relative;
+    position: relative; /* permite colocar iconos o botones dentro del input */
 }
 
 .form-container {
     display: grid;
-    grid-column-gap: 10px;
-    grid-template-columns: auto auto;
-    grid-template-rows: 90px 90px 90px;
-    grid-template-areas: "name name""number number""expiration security";
+    grid-column-gap: 10px; /* espacio horizontal entre campos */
+    grid-template-columns: auto auto; /* dos columnas */
+    grid-template-rows: 85px 85px 70px; /* altura de las filas */
+    grid-template-areas: "name name""number number""expiration security"; /* disposición de campos */
     max-width: 400px;
     padding: 20px;
-    color: #707070;
+    color: #000000; /* color del texto de los labels */
 }
 
 label {
     padding-bottom: 5px;
-    font-size: 13px;
+    font-size: 13px; /* tamaño del texto de la etiqueta */
 }
 
 input {
     margin-top: 3px;
     padding: 15px;
-    font-size: 16px;
+    font-size: 16px; /* tamaño del texto dentro del input */
     width: 100%;
     border-radius: 3px;
-    border: 1px solid #dcdcdc;
+    border: 1px solid #dcdcdc; /* borde del input */
 }
 
 .ccicon {
     height: 38px;
     position: absolute;
     right: 6px;
-    top: calc(50% - 17px);
-    width: 60px;
+    top: calc(50% - 17px); /* centrado vertical */
+    width: 60px; /* ancho del icono */
 }
 
+#generatecard{
+    cursor: pointer;
+    float: right;
+    font-size: 12px; /* tamaño del texto del botón */
+    color: #fff; /* color del texto */
+    padding: 2px 4px;
+    background-color: #000000; /* color de fondo del botón */
+    border-radius: 4px;
+}
 
+/* ==================== TARJETA ==================== */
 .preload * {
     -webkit-transition: none !important;
     -moz-transition: none !important;
@@ -96,6 +123,7 @@ input {
     max-height: 251px;
     height: 54vw;
     padding: 20px;
+    perspective: 1000px; /* perspectiva para efecto 3D */
 }
 
 #ccsingle {
@@ -112,217 +140,88 @@ input {
 .creditcard svg#cardfront,
 .creditcard svg#cardback {
     width: 100%;
-    -webkit-box-shadow: 1px 5px 6px 0px black;
+    -webkit-box-shadow: 1px 5px 6px 0px black; /* sombra de la tarjeta */
     box-shadow: 1px 5px 6px 0px black;
-    border-radius: 22px;
+    border-radius: 22px; /* bordes redondeados */
 }
-
-#generatecard{
-    cursor: pointer;
-    float: right;
-    font-size: 12px;
-    color: #fff;
-    padding: 2px 4px;
-    background-color: #909090;
-    border-radius: 4px;
-    cursor: pointer;
-    float:right;
-}
-
 
 .creditcard .lightcolor,
 .creditcard .darkcolor {
     -webkit-transition: fill .5s;
-    transition: fill .5s;
+    transition: fill .5s; /* transición al cambiar color de la tarjeta */
 }
 
-.creditcard .lightblue {
-    fill: #03A9F4;
-}
+/* Colores de la tarjeta */
+.creditcard .lightblue { fill: #03A9F4; } /* CAMBIAR AQUÍ */
+.creditcard .lightbluedark { fill: #0288D1; } /* CAMBIAR AQUÍ */
+.creditcard .red { fill: #ef5350; } /* CAMBIAR AQUÍ */
+.creditcard .reddark { fill: #d32f2f; } /* CAMBIAR AQUÍ */
+.creditcard .purple { fill: #ab47bc; } /* CAMBIAR AQUÍ */
+.creditcard .purpledark { fill: #7b1fa2; } /* CAMBIAR AQUÍ */
+.creditcard .cyan { fill: #26c6da; } /* CAMBIAR AQUÍ */
+.creditcard .cyandark { fill: #0097a7; } /* CAMBIAR AQUÍ */
+.creditcard .green { fill: #66bb6a; } /* CAMBIAR AQUÍ */
+.creditcard .greendark { fill: #388e3c; } /* CAMBIAR AQUÍ */
+.creditcard .lime { fill: #d4e157; } /* CAMBIAR AQUÍ */
+.creditcard .limedark { fill: #afb42b; } /* CAMBIAR AQUÍ */
+.creditcard .yellow { fill: #ffeb3b; } /* CAMBIAR AQUÍ */
+.creditcard .yellowdark { fill: #f9a825; } /* CAMBIAR AQUÍ */
+.creditcard .orange { fill: #ff9800; } /* CAMBIAR AQUÍ */
+.creditcard .orangedark { fill: #ef6c00; } /* CAMBIAR AQUÍ */
+.creditcard .grey { fill: #bdbdbd; } /* CAMBIAR AQUÍ */
+.creditcard .greydark { fill: #616161; } /* CAMBIAR AQUÍ */
 
-.creditcard .lightbluedark {
-    fill: #0288D1;
-}
+/* ==================== TEXTO DE LA TARJETA (SVG) ==================== */
+#svgname { text-transform: uppercase; } /* forzar mayúsculas del nombre */
 
-.creditcard .red {
-    fill: #ef5350;
-}
+#cardfront .st2 { fill: #FFFFFF; } /* color de números grandes - CAMBIAR AQUÍ */
+#cardfront .st3 { font-family: 'Source Code Pro', monospace; font-weight: 600; } /* tipo y grosor de letra de números - CAMBIAR AQUÍ */
+#cardfront .st4 { font-size: 54.7817px; } /* tamaño de los números - CAMBIAR AQUÍ */
+#cardfront .st5 { font-family: 'Source Code Pro', monospace; font-weight: 400; } /* tipo y grosor de letra del nombre - CAMBIAR AQUÍ */
+#cardfront .st6 { font-size: 33.1112px; } /* tamaño del nombre - CAMBIAR AQUÍ */
+#cardfront .st7 { opacity: 0.6; fill: #FFFFFF; } /* color textos secundarios - CAMBIAR AQUÍ */
+#cardfront .st8 { font-size: 24px; } /* tamaño textos secundarios - CAMBIAR AQUÍ */
+#cardfront .st9 { font-size: 36.5498px; } /* tamaño expiración - CAMBIAR AQUÍ */
+#cardfront .st10 { font-family: 'Source Code Pro', monospace; font-weight: 300; } /* tipo letra adicional */
+#cardfront .st11 { font-size: 16.1716px; } /* tamaño letra adicional */
+#cardfront .st12 { fill: #4C4C4C; } /* color adicional */
 
-.creditcard .reddark {
-    fill: #d32f2f;
-}
+/* ==================== TARJETA ATRÁS ==================== */
+#cardback .st0 { fill: none; stroke: #0F0F0F; stroke-miterlimit: 10; }
+#cardback .st2 { fill: #111111; } /* color del fondo de la banda magnética - CAMBIAR AQUÍ */
+#cardback .st3 { fill: #F2F2F2; } /* color de fondo - CAMBIAR AQUÍ */
+#cardback .st4 { fill: #D8D2DB; }
+#cardback .st5 { fill: #C4C4C4; }
+#cardback .st6 { font-family: 'Source Code Pro', monospace; font-weight: 400; } /* tipo letra - CAMBIAR AQUÍ */
+#cardback .st7 { font-size: 27px; } /* tamaño letra - CAMBIAR AQUÍ */
+#cardback .st8 { opacity: 0.6; }
 
-.creditcard .purple {
-    fill: #ab47bc;
-}
-
-.creditcard .purpledark {
-    fill: #7b1fa2;
-}
-
-.creditcard .cyan {
-    fill: #26c6da;
-}
-
-.creditcard .cyandark {
-    fill: #0097a7;
-}
-
-.creditcard .green {
-    fill: #66bb6a;
-}
-
-.creditcard .greendark {
-    fill: #388e3c;
-}
-
-.creditcard .lime {
-    fill: #d4e157;
-}
-
-.creditcard .limedark {
-    fill: #afb42b;
-}
-
-.creditcard .yellow {
-    fill: #ffeb3b;
-}
-
-.creditcard .yellowdark {
-    fill: #f9a825;
-}
-
-.creditcard .orange {
-    fill: #ff9800;
-}
-
-.creditcard .orangedark {
-    fill: #ef6c00;
-}
-
-.creditcard .grey {
-    fill: #bdbdbd;
-}
-
-.creditcard .greydark {
-    fill: #616161;
-}
-
-
-#svgname {
-    text-transform: uppercase;
-}
-
-#cardfront .st2 {
-    fill: #FFFFFF;
-}
-
-#cardfront .st3 {
-    font-family: 'Source Code Pro', monospace;
-    font-weight: 600;
-}
-
-#cardfront .st4 {
-    font-size: 54.7817px;
-}
-
-#cardfront .st5 {
-    font-family: 'Source Code Pro', monospace;
-    font-weight: 400;
-}
-
-#cardfront .st6 {
-    font-size: 33.1112px;
-}
-
-#cardfront .st7 {
-    opacity: 0.6;
-    fill: #FFFFFF;
-}
-
-#cardfront .st8 {
-    font-size: 24px;
-}
-
-#cardfront .st9 {
-    font-size: 36.5498px;
-}
-
-#cardfront .st10 {
-    font-family: 'Source Code Pro', monospace;
-    font-weight: 300;
-}
-
-#cardfront .st11 {
-    font-size: 16.1716px;
-}
-
-#cardfront .st12 {
-    fill: #4C4C4C;
-}
-
-
-#cardback .st0 {
-    fill: none;
-    stroke: #0F0F0F;
-    stroke-miterlimit: 10;
-}
-
-#cardback .st2 {
-    fill: #111111;
-}
-
-#cardback .st3 {
-    fill: #F2F2F2;
-}
-
-#cardback .st4 {
-    fill: #D8D2DB;
-}
-
-#cardback .st5 {
-    fill: #C4C4C4;
-}
-
-#cardback .st6 {
-    font-family: 'Source Code Pro', monospace;
-    font-weight: 400;
-}
-
-#cardback .st7 {
-    font-size: 27px;
-}
-
-#cardback .st8 {
-    opacity: 0.6;
-}
+/* ==================== BOTÓN PAGAR ==================== */
 .btn-pagar {
   grid-column: span 2;
   margin-top: 20px;
   padding: 15px;
-  background-color: #ff9900;
-  color: white;
+  background-color: #ff9900; /* color de fondo del botón - CAMBIAR AQUÍ */
+  color: white; /* color del texto del botón - CAMBIAR AQUÍ */
   font-weight: bold;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 16px; /* tamaño texto botón - CAMBIAR AQUÍ */
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .btn-pagar:hover {
-  background-color: #ffb84d;
-}
-.container {
-  perspective: 1000px;
+  background-color: #ffb84d; /* color al pasar el mouse - CAMBIAR AQUÍ */
 }
 
+/* ==================== EFECTO 3D TARJETA ==================== */
 .creditcard {
   position: relative;
   width: 100%;
   max-width: 400px;
   height: 250px;
-  transform-style: preserve-3d;
+  transform-style: preserve-3d; /* permite giro 3D */
   transition: transform 0.6s ease-in-out;
   cursor: pointer;
 }
@@ -334,14 +233,14 @@ input {
   position: absolute;
   top: 0;
   left: 0;
-  backface-visibility: hidden;
+  backface-visibility: hidden; /* oculta la cara trasera al frente */
   border-radius: 22px;
 }
 
 .creditcard .back {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg); /* rota la parte trasera */
 }
 
 .creditcard.flipped {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg); /* clase para girar tarjeta al hacer click */
 }

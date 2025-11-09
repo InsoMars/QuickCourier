@@ -3,17 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>Pago Contraentrega | QuickCourier</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/css/pago-contraentrega.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="card">
-    <div class="icon-wrapper">
-      <img src="static/img/descarga.svg" alt="Entrega a domicilio" class="icon">
-    </div>
-    <h2>Pago Contraentrega</h2>
-    <p>Tu pedido será entregado en tu dirección. <br> Podrás pagar al recibirlo en casa 🏠.</p>
-    <button id="btnConfirmar">Confirmar pedido</button>
+
+  <!-- Header azul extendido con logo -->
+  <header class="header">
+      <img src="static/img/logo-blanco.png" class="logo-header">
+  </header>
+
+  <!-- Contenido de pago sin card -->
+  <div class="pago-content">
+      <div class="icon-wrapper">
+        <img src="static/img/descarga.svg" alt="Entrega a domicilio" class="icon">
+      </div>
+      <h2 class="card-title">Pago Contraentrega</h2>
+      <p class="card-text">
+        Tu pedido será entregado en tu dirección.<br>
+        Podrás pagar al recibirlo en casa 🏠.
+      </p>
+      <button id="btnConfirmar" class="confirm-btn">Confirmar pedido</button>
   </div>
 
   <script src="static/js/pago-contraentrega.js"></script>

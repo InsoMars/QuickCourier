@@ -7,29 +7,35 @@
   <link rel="stylesheet" href="static/css/detalle-pedido.css">
 </head>
 <body>
- <div class="factura-container">
-  <h1>Factura</h1>
 
-  <div class="factura-info">
-    <p><strong>Cliente:</strong> <span id="nombreCliente"></span></p>
-    <p><strong>Correo:</strong> <span id="correoCliente"></span></p>
-    <p><strong>Teléfono:</strong> <span id="telefonoCliente"></span></p>
-    <p><strong>Zona de envío:</strong> <span id="zonaEnvio"></span></p>
-  </div>
+  <!-- HEADER -->
+  <header class="header">
+    <img src="static/img/logo-blanco.png" class="logo-header">
+  </header>
 
-  <h2>Productos</h2>
-  <ul id="productos"></ul>
+  <div class="factura-container">
+    <h1>Factura</h1>
 
-  <h2>Extras</h2>
-  <ul id="extras"></ul>
+    <div class="factura-info">
+      <p><strong>Cliente:</strong> <span id="nombreCliente"></span></p>
+      <p><strong>Correo:</strong> <span id="correoCliente"></span></p>
+      <p><strong>Teléfono:</strong> <span id="telefonoCliente"></span></p>
+      <p><strong>Zona de envío:</strong> <span id="zonaEnvio"></span></p>
+    </div>
 
-  <h2>Totales</h2>
-  <p><strong>Costo zona:</strong> $<span id="costoZona"></span></p>
-  <p><strong>Impuesto:</strong> $<span id="impuesto"></span></p>
-  <p><strong>Total factura:</strong> $<span id="totalFactura"></span></p>
+    <h2>Productos</h2>
+    <ul id="productos"></ul>
+
+    <h2>Extras</h2>
+    <ul id="extras"></ul>
+
+    <h2>Totales</h2>
+    <p><strong>Costo zona:</strong> $<span id="costoZona"></span></p>
+    <p><strong>Impuesto:</strong> $<span id="impuesto"></span></p>
+    <p><strong>Total factura:</strong> $<span id="totalFactura"></span></p>
 
     <button id="btnFinalizar">Finalizar compra</button>
-</div>
+  </div>
 
   <script src="static/js/detalle-pedido.js"></script>
 </body>

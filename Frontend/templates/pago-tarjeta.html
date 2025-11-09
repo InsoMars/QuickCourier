@@ -7,11 +7,12 @@
   <script src="https://unpkg.com/imask"></script>
 </head>
 <body>
-
+<header class="header">
+    <img src="static/img/logo-blanco.png" class="logo-header">
+</header>
   <div class="payment-title">
     <h1>Pago con Tarjeta de Crédito</h1>
   </div>
-
   <div class="container preload">
     <div class="creditcard">
       <div class="front">
@@ -29,9 +30,9 @@
             </g>
 
             <text transform="matrix(1 0 0 1 60.106 295.0121)" id="svgnumber"
-              class="st2 st3 st4">0123 4567 8910 1112</text>
+              class="st2 st3 st4">0000 0000 0000 0000</text>
             <text transform="matrix(1 0 0 1 54.1064 428.1723)" id="svgname"
-              class="st2 st5 st6">JOHN DOE</text>
+              class="st2 st5 st6"></text>
             <text transform="matrix(1 0 0 1 54.1074 389.8793)"
               class="st7 st5 st8">cardholder name</text>
             <text transform="matrix(1 0 0 1 479.7754 388.8793)"
@@ -41,7 +42,7 @@
 
             <g>
               <text transform="matrix(1 0 0 1 574.4219 433.8095)" id="svgexpire"
-                class="st2 st5 st9">01/23</text>
+                class="st2 st5 st9">00/00</text>
               <text transform="matrix(1 0 0 1 479.3848 417.0097)"
                 class="st2 st10 st11">VALID</text>
               <text transform="matrix(1 0 0 1 479.3848 435.6762)"
@@ -73,9 +74,9 @@
               C707.1,246.4,704.4,249.1,701.1,249.1z" />
           </g>
           <text transform="matrix(1 0 0 1 621.999 227.2734)" id="svgsecurity"
-            class="st6 st7">985</text>
+            class="st6 st7">111</text>
           <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback"
-            class="st12 st13">John Doe</text>
+            class="st12 st13"></text>
         </svg>
       </div>
     </div>
@@ -84,7 +85,7 @@
   <div class="form-container">
     <div class="field-container">
       <label for="name">Nombre del Titular</label>
-      <input id="name" maxlength="20" type="text" placeholder="Ej. Juan Pérez">
+      <input id="name" maxlength="20" type="text" placeholder="">
     </div>
 
     <div class="field-container">
@@ -104,7 +105,7 @@
       <input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric">
     </div>
 
-    <button id="btnPagar" class="btn-pagar">💰 Pagar ahora</button>
+    <button id="btnPagar" class="btn-pagar"> Pagar ahora</button>
   </div>
 
   <script src="https://unpkg.com/imask"></script>
