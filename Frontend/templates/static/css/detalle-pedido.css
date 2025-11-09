@@ -1,142 +1,130 @@
-/* ==================== HEADER ==================== */
 .header {
-  background: #0A4285; /* color azul del encabezado */
-  width: 100%; /* ocupa todo el ancho de la pantalla */
-  display: flex; /* activa flexbox para el layout interno del header */
-  justify-content: flex-start; /* alinea el contenido (logo) a la izquierda */
-  padding: 0px 20px; /* relleno interno: 0 arriba/abajo, 20px a los lados */
-  box-sizing: border-box; /* incluye padding en el cálculo del ancho */
-  margin-top: 0; /* margen superior del header (0 = pegado arriba) */
+  background: #0A4285;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0px 20px;
+  box-sizing: border-box;
+  margin-top: 0;
 }
 
 .logo-header {
-  height: 80px; /* altura del logo en el header */
-  width: auto;  /* ancho automático para mantener la proporción */
+  height: 80px;
+  width: auto;
 }
 
-/* ==================== BODY ==================== */
 body {
-  margin: 0; /* elimina el margen por defecto del navegador */
-  padding: 0; /* elimina el padding por defecto del navegador */
-  background-color: #f9f9f9; /* color de fondo de la página */
-  display: flex; /* usa flexbox para el layout general de la página */
-  justify-content: center; /* centra horizontalmente el contenido */
-  align-items: center; /* centra verticalmente el contenido */
-  flex-wrap: wrap; /* permite que los elementos salten a la siguiente línea si no caben */
-  min-height: 100vh; /* altura mínima igual a la altura de la ventana */
-  font-family: 'Inter', sans-serif; /* fuente por defecto de la página */
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
 }
 
-/* ==================== CONTENEDOR FACTURA ==================== */
 .factura-container {
-  background: #ffffff; /* color de fondo blanco del contenedor */
-  width: 90%; /* ocupa el 90% del ancho disponible */
-  max-width: 700px; /* no crecerá más de 700px en pantallas grandes */
-  padding: 30px 40px; /* padding interno: 30px arriba/abajo, 40px laterales */
-  border-radius: 16px; /* esquinas redondeadas */
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); /* sombra alrededor del contenedor */
-  margin-top: 20px; /* espacio entre el header y este contenedor */
-
+  background: #ffffff;
+  width: 90%;
+  max-width: 700px;
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  margin-top: 20px;
 }
 
-/* título principal */
 h1 {
-  text-align: center; /* centra el texto del h1 */
-  color: #0A4285; /* color azul del texto del h1 */
-  margin-bottom: 10px; /* espacio debajo del h1 */
-  font-size: 2rem; /* tamaño de fuente del h1 */
+  text-align: center;
+  color: #0A4285;
+  margin-bottom: 10px;
+  font-size: 2rem;
 }
 
-/* subtítulos */
 h2 {
-  color: #000000; /* color gris oscuro para h2 */
-  border-bottom: 2px solid #e2e8f0; /* línea inferior decorativa */
-  padding-bottom: 6px; /* espacio debajo del texto hacia la línea */
-  margin-top: 25px; /* espacio superior antes del h2 */
-  margin-bottom: 10px; /* espacio inferior después del h2 */
-  font-size: 1.3rem; /* tamaño de fuente del h2 */
+  color: #000000;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 6px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
 }
 
-/* información del cliente */
 .factura-info p {
-  margin: 5px 0; /* margen vertical entre párrafos de info */
-  font-size: 0.95rem; /* tamaño de fuente de la info del cliente */
+  margin: 5px 0;
+  font-size: 0.95rem;
 }
 
 .factura-info strong {
-  color: #0A4285; /* color azul para etiquetas en la info (Cliente:, Correo:, etc.) */
+  color: #0A4285;
 }
 
-/* listas */
 ul {
-  list-style: none; /* elimina viñetas de la lista */
-  padding: 0; /* elimina padding por defecto de la lista */
-  margin: 0; /* elimina margen por defecto de la lista */
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 ul li {
-  background-color: #f7fafc; /* fondo claro para cada elemento de lista */
-  margin-bottom: 8px; /* espacio entre elementos de lista */
-  padding: 10px 15px; /* padding interno de cada elemento */
-  border-radius: 8px; /* redondeo de las esquinas de cada elemento */
-  display: flex; /* usa flex para distribuir contenido dentro del li */
-  justify-content: space-between; /* separa a izquierda y derecha el contenido del li */
-  align-items: center; /* centra verticalmente el contenido del li */
-  transition: background-color 0.2s ease; /* transición para hover */
+  background-color: #f7fafc;
+  margin-bottom: 8px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
 }
 
 ul li:hover {
-  background-color: #ebf8ff; /* color al pasar el cursor por encima */
+  background-color: #ebf8ff;
 }
 
-/* textos fuertes */
 p strong {
-  color: #0A4285; /* color azul para texto fuerte */
+  color: #0A4285;
 }
 
-/* total factura */
 #totalFactura {
-  font-weight: bold; /* pone en negrita el total */
-  color: #000000; /* color oscuro para el total */
-  font-size: 1.2rem; /* tamaño del texto del total */
+  font-weight: bold;
+  color: #000000;
+  font-size: 1.2rem;
 }
 
-/* botones */
 button {
-  display: block; /* hace que el botón sea de bloque */
-  width: 100%; /* ocupa todo el ancho del contenedor padre */
-  background-color: #0A4285; /* color de fondo del botón */
-  color: #fff; /* color del texto del botón */
-  border: none; /* sin borde */
-  padding: 14px 0; /* padding vertical del botón */
-  border-radius: 10px; /* esquinas redondeadas del botón */
-  cursor: pointer; /* cursor pointer al pasar encima */
-  font-size: 1.05rem; /* tamaño del texto del botón */
-  font-weight: 600; /* peso de la fuente del botón */
-  margin-top: 30px; /* margen superior del botón */
-  transition: background-color 0.3s, transform 0.2s ease; /* transiciones para hover */
+  display: block;
+  width: 100%;
+  background-color: #0A4285;
+  color: #fff;
+  border: none;
+  padding: 14px 0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 30px;
+  transition: background-color 0.3s, transform 0.2s ease;
 }
 
 button:hover {
-  background-color: #083667; /* color más oscuro al pasar el cursor */
-  transform: translateY(-2px); /* efecto de elevación al hacer hover */
+  background-color: #083667;
+  transform: translateY(-2px);
 }
 
-/* ==================== RESPONSIVE ==================== */
 @media (max-width: 600px) {
   .factura-container {
-    padding: 25px; /* reduce el padding en pantallas pequeñas */
+    padding: 25px;
   }
 
   h1 {
-    font-size: 1.7rem; /* reduce tamaño h1 en móviles */
+    font-size: 1.7rem;
   }
 
   h2 {
-    font-size: 1.1rem; /* reduce tamaño h2 en móviles */
+    font-size: 1.1rem;
   }
 
   button {
-    font-size: 1rem; /* reduce tamaño texto de botones en móviles */
+    font-size: 1rem;
   }
 }

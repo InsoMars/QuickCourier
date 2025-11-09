@@ -1,107 +1,76 @@
 body {
-  font-family: 'Raleway', sans-serif;
+  background: #ffffff;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  background: #0A4285;
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #f9f9f9;
-  margin: 0;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+.logo-header {
+  height: 80px;
+  width: auto;
+}
+
+.pago-content,
+.recibo-container {
+  text-align: center;
+  margin-top: 70px;
 }
 
 .hidden {
-  display: none !important;; 
+  display: none !important;
 }
 
-.efecty-container {
-  text-align: center;
-  background: #fff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  width: 380px;
-  animation: fadeIn 0.6s ease;
+.icon {
+  width: 300px;
+  height: 100px;
 }
 
-h1 {
-  color: #ffb300;
-  margin-bottom: 10px;
+.card-text {
+  color: #000000;
+  font-size: 15px;
+  margin-bottom: 17px;
+  line-height: 1.6;
 }
 
-p {
-  color: #333;
-  font-size: 16px;
+.codigo-text {
+  color: #0A4285;
 }
 
-.efecty-info {
-  background-color: #fffbe6;
-  border: 1px solid #ffeb99;
-  padding: 15px;
-  border-radius: 8px;
-  margin: 20px 0;
-  text-align: left;
+.card-title {
+  color: #0A4285;
 }
 
-.btn-generar,
-.btn-continuar {
-  background-color: #ffb300;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
+.confirm-btn {
+  background: #FF9100;
   border: none;
+  padding: 12px 30px;
   border-radius: 8px;
-  padding: 12px 20px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 10px rgba(255,145,0,0.3);
 }
 
-.btn-generar:hover,
-.btn-continuar:hover {
-  background-color: #ffcc33;
-  transform: scale(1.05);
-}
-
-/* === RECIBO === */
-.recibo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: fadeIn 0.8s ease;
-}
-
-.recibo {
-  background: #fff;
-  width: 320px;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  position: relative;
-  text-align: center;
-  border: 2px dashed #ffb300;
-  animation: slideIn 0.7s ease;
-}
-
-.recibo h2 {
-  color: #444;
-  margin-bottom: 15px;
-}
-
-.recibo p {
-  margin: 5px 0;
-  color: #222;
+.confirm-btn:hover {
+  background: #FF9100;
+  transform: translateY(-2px);
 }
 
 .gracias {
-  margin-top: 20px;
-  font-weight: bold;
-  color: #ffb300;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes slideIn {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  color: #000000;
+  font-weight: 700;
+  margin-top: 25px;
 }

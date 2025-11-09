@@ -193,6 +193,7 @@ async function renderCarrito(productosEnCarrito) {
     `;
     tbody.appendChild(row);
   });
+  
   // pedido parcial con los productos cantidades y peso
 
   const pedidoParcial = {

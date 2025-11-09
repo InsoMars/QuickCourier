@@ -2,31 +2,37 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Pago con Efecty</title>
+  <title>Pago con Efecty | QuickCourier</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/css/pago-efecty.css">
 </head>
 <body>
 
-  <div class="efecty-container" id="pantallaInicial">
-    <h1>💵 Pago con Efecty</h1>
-    <p>Realiza tu pago en cualquier punto <strong>Efecty</strong> con el siguiente código:</p>
+  <header class="header">
+      <img src="static/img/logo-blanco.png" class="logo-header" alt="QuickCourier Logo">
+  </header>
 
-    <div class="efecty-info">
-      <p><strong>Código de referencia:</strong> <span id="codigoRef">---</span></p>
-    </div>
+  <div class="pago-content" id="pantallaInicial">
+      <div class="icon-wrapper">
+        <img src="static/img/Efecty_logo.png" alt="Logo Efecty" class="icon">
+      </div>
+      <p class="card-text">
+              Acercate a un punto de Efecty más cercano. <br>
+              Paga con el código      </p>
 
-    <button id="btnGenerar" class="btn-generar">🧾 Generar Recibo</button>
+      <p class="codigo-text"><strong>Código de referencia:</strong> <span id="codigoRef">---</span></p>
+
+      <button id="btnGenerar" class="confirm-btn">🧾 Generar Recibo</button>
   </div>
 
-  <!-- Recibo animado -->
   <div class="recibo-container hidden" id="reciboContainer">
-    <div class="recibo">
-      <h2>🧾 Comprobante de Pago</h2>
-      <p><strong>Referencia:</strong> <span id="refRecibo"></span></p>
-      <p><strong>Estado:</strong> Pendiente de pago en punto Efecty</p>
-      <p class="gracias">Gracias por confiar en QuickCourier 💛</p>
-      <button id="btnContinuar" class="btn-continuar">Continuar</button>
-    </div>
+      <div class="icon-wrapper">
+        <img src="static/img/Efecty_logo.png" alt="Recibo" class="icon">
+      </div>
+      <h2 class="card-title">Comprobante de Pago</h2>
+      <p class="card-text"><strong>Referencia:</strong> <span id="refRecibo"></span></p>
+      <p class="card-text"><strong>Estado:</strong> Pendiente de pago en punto Efecty</p>
+      <button id="btnContinuar" class="confirm-btn">Continuar</button>
   </div>
 
   <script src="static/js/pago-efecty.js"></script>

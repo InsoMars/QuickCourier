@@ -13,7 +13,6 @@ window.onload = () => {
     const pantallaInicial = document.getElementById("pantallaInicial");
     const reciboContainer = document.getElementById("reciboContainer");
 
-    // 🧾 Mostrar el código del backend directamente
     if (codigoRef && codigoGenerado) {
         codigoRef.textContent = codigoGenerado;
     }
