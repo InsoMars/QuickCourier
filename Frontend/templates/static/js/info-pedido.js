@@ -249,7 +249,13 @@ function goToEnvio() {
 
 toEnvio.addEventListener("click", goToEnvio);
 
-toPago.addEventListener("click", () => {
+toPago.addEventListener("click", (e) => {
+    if (!pedidoFinal.ciudad || pedidoFinal.ciudad.trim() === "") {
+        alert("⚠️ Por favor selecciona una ciudad antes de continuar con el pago.");
+        e.preventDefault(); 
+        return; 
+    }
+
     envio.classList.add("hidden");
     pago.classList.remove("hidden");
 
@@ -258,8 +264,9 @@ toPago.addEventListener("click", () => {
 
     let direccionTexto;
     let ciudadSeleccionada;
+
     if (direccionGuardada) {
-        direccionTexto = `${direccionGuardada.direccion}, ${direccionGuardada.ciudad.toUpperCase()} ${
+        direccionTexto = `${direccionGuardada.direccion || "Dirección no especificada"}, ${direccionGuardada.ciudad.toUpperCase()} ${
             direccionGuardada.infoExtra ? "- " + direccionGuardada.infoExtra : ""
         }`;
         ciudadSeleccionada = direccionGuardada.ciudad;
@@ -270,9 +277,9 @@ toPago.addEventListener("click", () => {
             : "Dirección no seleccionada";
         ciudadSeleccionada = pedidoFinal.ciudad;
     }
-    
+
     if (costoEnvioActual === 0) {
-        calcularYActualizarEnvio(); 
+        calcularYActualizarEnvio();
     }
 
     let extrasHTML = '';
@@ -288,8 +295,8 @@ toPago.addEventListener("click", () => {
         const nombreExtra = checkbox.parentElement.textContent.trim();
         costoEnvioFinal += precioExtra;
         extrasHTML += `<p class="extra-line" style="font-size: 0.85em; margin: 0; padding-left: 10px;">
-                                 • ${nombreExtra}: <span style="float: right;">${formatoMoneda(precioExtra)}</span>
-                            </p>`;
+            • ${nombreExtra}: <span style="float: right;">${formatoMoneda(precioExtra)}</span>
+        </p>`;
     });
 
     const bloquesExistente = resumenDetalles.querySelectorAll('.resumen-bloque');
@@ -315,6 +322,7 @@ toPago.addEventListener("click", () => {
     costoEnvioActual = costoEnvioFinal; 
     actualizarResumenPrecios(); 
 });
+
 
 const pedidoParcial = JSON.parse(localStorage.getItem("pedidoParcial")) || { productos: [] };
 const valorPago = pedidoParcial.metodoPago || pedidoParcial.medioPago || '';
