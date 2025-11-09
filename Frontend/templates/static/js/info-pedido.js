@@ -540,14 +540,7 @@ const sideMenu = document.getElementById("side-menu");
 const closeMenu = document.getElementById("close-menu");
 const overlay = document.getElementById("overlay");
 
-menuBtn.addEventListener("click", () => {
-    sideMenu.classList.add("open");
-    overlay.classList.add("show");
-});
-closeMenu.addEventListener("click", () => {
-    sideMenu.classList.remove("open");
-    overlay.classList.remove("show");
-});
+
 overlay.addEventListener("click", () => {
     sideMenu.classList.remove("open");
     overlay.classList.remove("show");
