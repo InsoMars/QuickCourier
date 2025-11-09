@@ -5,10 +5,10 @@ public class PagoTarjeta implements PagoStrategy {
     
 
     @Override
-    public Double realizarPago(Double monto) {
+    public PagoResult realizarPago(Double monto) {
 
         Double cobroTotal = monto * 0.015;
-        return cobroTotal;
+        return new PagoResult(cobroTotal, null);
     }
 
     

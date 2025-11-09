@@ -36,6 +36,7 @@ import co.edu.unbosque.springsecurity.service.Strategy.ControladorPago;
 import co.edu.unbosque.springsecurity.service.Strategy.DescuentoFinDeSemana;
 import co.edu.unbosque.springsecurity.service.Strategy.DescuentoPrimeraCompra;
 import co.edu.unbosque.springsecurity.service.Strategy.GestorDescuentos;
+import co.edu.unbosque.springsecurity.service.Strategy.PagoResult;
 import co.edu.unbosque.springsecurity.service.Strategy.PagoStrategy;
 
 @Service
@@ -97,7 +98,10 @@ public class PedidoService {
 
         ControladorPago controladorPago = new ControladorPago();
         PagoStrategy medioPago = controladorPago.procesarPago(pedido.getMedioPago());
-        Double ajusteMedioPago = medioPago.realizarPago(totalProductos);
+        PagoResult resultadoPago = medioPago.realizarPago(totalProductos);
+
+        Double ajusteMedioPago = resultadoPago.getMontoFinal();
+        String codigoPagoEfecty = resultadoPago.getCodigoPago(); 
 
         Double iva = 0.19;
         Double precioDespuesImpuestos = totalProductos + totalProductos * iva;
@@ -139,7 +143,7 @@ public class PedidoService {
         System.out.println(" ajusteMedioPago (medio de pago): " + ajusteMedioPago);
         System.out.println(" Total final: " + costoTotalPedido);
 
-        return toDTO(factura, envioConDescuento);
+        return toDTO(factura, envioConDescuento, codigoPagoEfecty);
     }
 
 
@@ -172,14 +176,16 @@ public class PedidoService {
         return detExtra;
     }
 
-    private CalculoEnvioResponseDTO toDTO(Factura factura, double envioConDescuento) {
-        return new CalculoEnvioResponseDTO(
-                factura.getTotalFacProd() - factura.getImpuesto(),
-                envioConDescuento,
-                factura.getPeso(),
-                factura.getTotalFacProd()
-        );
-    }
+   private CalculoEnvioResponseDTO toDTO(Factura factura, double envioConDescuento, String codigoPago) {
+    return new CalculoEnvioResponseDTO(
+        factura.getTotalFacProd() - factura.getImpuesto(),
+        envioConDescuento,
+        factura.getPeso(),
+        factura.getTotalFacProd(),
+        codigoPago
+    );
+}
+
 
 
     public Double calcularPeso(List<DetalleFacturaDTO> productos) {

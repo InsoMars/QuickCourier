@@ -652,12 +652,20 @@ btnPagar.addEventListener("click", async () => {
             body: JSON.stringify(pedidoFinal)
         });
 
-        if (response.ok) {
-            const data = await response.json();
-            console.log("✅ Pedido creado con éxito:", data);
-            // 5. Redirigir al usuario según el método de pago
-            window.location.href = urlRedireccion;
-        } else {
+       if (response.ok) {
+    const data = await response.json();
+    console.log("✅ Pedido creado con éxito:", data);
+
+    // 💾 Guardar el código de pago si existe (solo si el método es efecty)
+    if (data.codigoPago) {
+        localStorage.setItem("codigoPagoEfecty", data.codigoPago);
+        console.log("💾 Código de pago Efecty guardado:", data.codigoPago);
+
+    }
+
+    // Redirigir a la pantalla de pago
+    window.location.href = urlRedireccion;
+    } else {
             console.error("❌ Error al enviar pedido:", response.status);
             alert("Error al registrar el pedido.");
         }
