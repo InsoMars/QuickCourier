@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("http://backend:8081/facturas/ultima")
+  fetch("http://localhost:8081/facturas/ultima")
     .then(response => {
       if (!response.ok) throw new Error("Error al cargar la factura");
       return response.json();

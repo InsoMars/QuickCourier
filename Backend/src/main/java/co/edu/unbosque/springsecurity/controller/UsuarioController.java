@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@CrossOrigin (origins = "http://127.0.0.1:5500") 
+@CrossOrigin (origins = "http://localhost:8080") 
 @Tag(name = "Autenticación", description = "Endpoints para registro, login y refresco de tokens JWT")
 public class UsuarioController {
 

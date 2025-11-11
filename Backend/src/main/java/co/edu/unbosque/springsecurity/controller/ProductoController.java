@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/QuickCourier/Productos/Catalogo")
-@CrossOrigin (origins = "http://127.0.0.1:5500")
+@CrossOrigin (origins = "http://localhost:8080")
 @Tag(name = "Catálogo de Productos", description = "Permite consultar la lista de productos disponibles en QuickCourier.")
 
 public class ProductoController {

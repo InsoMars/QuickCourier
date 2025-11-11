@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // API login
         try {
-            const response = await fetch('http://backend:8081/auth/login', { 
+            const response = await fetch('http://localhost:8081/auth/login', { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             
             // Redirigir al usuario
-            window.location.href = '/frontend/templates/catalogo.html'; 
+            window.location.href = 'catalogo.html'; 
 
         } catch (error) {
             console.error('Error de conexión o del servidor:', error);

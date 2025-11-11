@@ -1,5 +1,13 @@
-# Usa Nginx para servir archivos estáticos
 FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
-COPY . .
+
+# Limpia los archivos por defecto
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copia el contenido del folder templates (donde está este Dockerfile)
+COPY . /usr/share/nginx/html
+
+# Copia también la carpeta static (que está fuera de templates)
+COPY ../static /usr/share/nginx/html/static
+
 EXPOSE 80
+    

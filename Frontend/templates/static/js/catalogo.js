@@ -38,9 +38,9 @@ function cargarProductosBatch(categoria) {
 // DOMContentLoaded 
 document.addEventListener('DOMContentLoaded', async () => {
     actualizarCarrito();
-    const API_URL = 'http://backend:8081/QuickCourier/Productos/Catalogo';
+    const API_URL = 'http://localhost:8081/QuickCourier/Productos/Catalogo';
     const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) { window.location.href = '/frontend/templates/index.html'; return; }
+    if (!accessToken) { window.location.href = 'index.html'; return; }
 
     try {
         const resp = await fetch(API_URL, { headers: { 'Authorization': `Bearer ${accessToken}` } });
@@ -98,10 +98,10 @@ async function logoutUser() {
     localStorage.removeItem('carritoIds');
     actualizarCarrito();
     if (accessToken) {
-        try { await fetch('http://backend:8081/auth/logout', { method: 'POST', headers: { 'Authorization': `Bearer ${accessToken}` } }); }
+        try { await fetch('http://localhost:8081/auth/logout', { method: 'POST', headers: { 'Authorization': `Bearer ${accessToken}` } }); }
         catch (err) { console.error(err); }
     }
-    window.location.href = '/frontend/templates/index.html';
+    window.location.href = 'index.html';
 }
 const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) logoutBtn.addEventListener('click', logoutUser);

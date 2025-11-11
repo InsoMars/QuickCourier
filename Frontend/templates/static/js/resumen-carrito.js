@@ -1,7 +1,7 @@
 console.log(" resumen-carrito.js cargado correctamente");
 
 
-const API_URL = 'http://backend:8081/QuickCourier/Productos/Catalogo'; 
+const API_URL = 'http://localhost:8081/QuickCourier/Productos/Catalogo'; 
 
 const tbody = document.getElementById('resumen-carrito-body');
 const subtotalSpan = document.getElementById('resumen-carrito-subtotal');
@@ -20,7 +20,7 @@ async function logoutUser() {
  
     if (accessToken) {
         try {
-            const LOGOUT_URL = 'http://backend:8081/auth/logout';
+            const LOGOUT_URL = 'http://localhost:8081/auth/logout';
             await fetch(LOGOUT_URL, {
                 method: 'POST', 
                 headers: { 'Authorization': `Bearer ${accessToken}` }
@@ -48,7 +48,7 @@ async function cargarResumenDelCarrito() {
   if (!accessToken) {
     mainContainer.innerHTML = "<p class='text-center text-red-600' style='padding: 2rem;'>Debes iniciar sesión para ver tu carrito. Redirigiendo...</p>";
     setTimeout(() => {
-      window.location.href = '/frontend/templates/index.html'; 
+      window.location.href = 'index.html'; 
     }, 2000);
     return;
   }
@@ -91,7 +91,7 @@ async function cargarResumenDelCarrito() {
         mainContainer.innerHTML = "<p class='text-center text-red-600' style='padding: 2rem;'>Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.</p>";
         await logoutUser();
         setTimeout(() => {
-          window.location.href = '/frontend/templates/index.html';
+          window.location.href = 'index.html';
         }, 2000);
         return;
       }
@@ -231,7 +231,7 @@ async function calcularEnvio(productos, pesoCalculadoLocal) {
   };
 
   try {
-    const response = await fetch("http://backend:8081/pedido/calcular-envio", {
+    const response = await fetch("http://localhost:8081/pedido/calcular-envio", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -358,7 +358,7 @@ if (logoutBtn) {
         e.preventDefault();
         await logoutUser();
         console.log("Sesión cerrada correctamente desde el carrito."); 
-        window.location.href = '/frontend/templates/index.html';
+        window.location.href = 'index.html';
     });
 }
 
