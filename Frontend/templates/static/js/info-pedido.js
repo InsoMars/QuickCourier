@@ -341,7 +341,7 @@ function guardarPedido() {
 
 function cargarCiudades() {
     const selectCiudad = document.getElementById('ciudad');
-    fetch('http://localhost:8081/pedido/zonas')
+    fetch('http://backend:8081/pedido/zonas')
         .then(response => {
             if (!response.ok) throw new Error('Error al cargar las zonas, status: ' + response.status);
             return response.json();
@@ -438,7 +438,7 @@ function sincronizarExtrasUI() {
 
 async function cargarExtras() {
     try {
-        const response = await fetch('http://localhost:8081/pedido/extras');
+        const response = await fetch('http://backend:8081/pedido/extras');
         const extras = await response.json();
         const container = document.getElementById('extras-container');
         container.innerHTML = '';
@@ -496,7 +496,7 @@ btnPagar.addEventListener("click", async () => {
     try {
         const accessToken = localStorage.getItem("accessToken");
 
-        const response = await fetch("http://localhost:8081/pedido/crear", {
+        const response = await fetch("http://backend:8081/pedido/crear", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

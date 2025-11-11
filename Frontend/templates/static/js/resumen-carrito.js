@@ -1,7 +1,7 @@
 console.log(" resumen-carrito.js cargado correctamente");
 
 
-const API_URL = 'http://localhost:8081/QuickCourier/Productos/Catalogo'; 
+const API_URL = 'http://backend:8081/QuickCourier/Productos/Catalogo'; 
 
 const tbody = document.getElementById('resumen-carrito-body');
 const subtotalSpan = document.getElementById('resumen-carrito-subtotal');
@@ -20,7 +20,7 @@ async function logoutUser() {
  
     if (accessToken) {
         try {
-            const LOGOUT_URL = 'http://localhost:8081/auth/logout';
+            const LOGOUT_URL = 'http://backend:8081/auth/logout';
             await fetch(LOGOUT_URL, {
                 method: 'POST', 
                 headers: { 'Authorization': `Bearer ${accessToken}` }
@@ -231,7 +231,7 @@ async function calcularEnvio(productos, pesoCalculadoLocal) {
   };
 
   try {
-    const response = await fetch("http://localhost:8081/pedido/calcular-envio", {
+    const response = await fetch("http://backend:8081/pedido/calcular-envio", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
