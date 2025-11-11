@@ -48,7 +48,7 @@ async function cargarResumenDelCarrito() {
   if (!accessToken) {
     mainContainer.innerHTML = "<p class='text-center text-red-600' style='padding: 2rem;'>Debes iniciar sesión para ver tu carrito. Redirigiendo...</p>";
     setTimeout(() => {
-      window.location.href = '/frontend/templates/index.html'; 
+      window.location.href = 'index.html'; 
     }, 2000);
     return;
   }
@@ -91,7 +91,7 @@ async function cargarResumenDelCarrito() {
         mainContainer.innerHTML = "<p class='text-center text-red-600' style='padding: 2rem;'>Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.</p>";
         await logoutUser();
         setTimeout(() => {
-          window.location.href = '/frontend/templates/index.html';
+          window.location.href = 'index.html';
         }, 2000);
         return;
       }
@@ -358,7 +358,7 @@ if (logoutBtn) {
         e.preventDefault();
         await logoutUser();
         console.log("Sesión cerrada correctamente desde el carrito."); 
-        window.location.href = '/frontend/templates/index.html';
+        window.location.href = 'index.html';
     });
 }
 

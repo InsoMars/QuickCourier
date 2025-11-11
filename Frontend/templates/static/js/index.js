@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             
             // Redirigir al usuario
-            window.location.href = '/frontend/templates/catalogo.html'; 
+            window.location.href = 'catalogo.html'; 
 
         } catch (error) {
             console.error('Error de conexión o del servidor:', error);
