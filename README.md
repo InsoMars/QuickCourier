@@ -81,45 +81,96 @@ Usuario → Login → JWT → Request con token → Validación → Acceso autor
 
 ---
 
+
 # 🔗 Documentación de Endpoints
 
-## Auth
+La API REST de **QuickCourier** se encuentra completamente documentada mediante **Swagger (OpenAPI 3)**, donde se pueden visualizar y probar todos los endpoints, parámetros, respuestas y modelos de datos.
 
-POST /auth/login  
-POST /auth/register  
+📘 Acceso a Swagger UI:
 
----
+http://localhost:8080/swagger-ui.html
 
-## Productos
+o
 
-GET /products  
-GET /products/{id}  
-POST /products  
-PUT /products/{id}  
-DELETE /products/{id}  
+http://localhost:8080/swagger-ui/index.html
 
----
+Swagger permite:
 
-## Pedidos
-
-GET /orders  
-GET /orders/{id}  
-POST /orders  
-PUT /orders/{id}  
-DELETE /orders/{id}  
+- visualizar la estructura de requests y responses
+- probar los endpoints directamente desde el navegador
+- revisar los modelos DTO
+- validar autenticación JWT
+- consultar códigos de respuesta (200, 401, 403, 500, etc.)
 
 ---
 
-## Facturación
+# 📋 Lista de Endpoints
 
-GET /invoice/{orderId}  
-GET /invoice  
+## 🔐 Autenticación
+
+Base path:
+
+/auth
+
+| Método | Endpoint | Descripción |
+|--------|---------|------------|
+| POST | /auth/register | Registrar usuario |
+| POST | /auth/login | Iniciar sesión y obtener JWT |
+| POST | /auth/refresh | Refrescar token JWT |
 
 ---
 
-## Envíos
+## 📦 Productos
 
-POST /shipping/calculate  
+Base path:
+
+/QuickCourier/Productos/Catalogo
+
+| Método | Endpoint | Descripción |
+|--------|---------|------------|
+| GET | /QuickCourier/Productos/Catalogo | Obtener catálogo de productos |
+
+---
+
+## 📬 Pedidos
+
+Base path:
+
+/pedido
+
+| Método | Endpoint | Descripción |
+|--------|---------|------------|
+| GET | /pedido/extras | Obtener extras de envío disponibles |
+| GET | /pedido/zonas | Obtener zonas disponibles |
+| POST | /pedido/crear | Crear pedido y calcular envío |
+| POST | /pedido/calcular-peso | Calcular peso total del pedido |
+
+---
+
+## 🧾 Facturación
+
+Base path:
+
+/facturas
+
+| Método | Endpoint | Descripción |
+|--------|---------|------------|
+| GET | /facturas/ultima | Obtener última factura generada |
+
+---
+
+## 🔑 API Keys
+
+Base path:
+
+/claves
+
+| Método | Endpoint | Descripción |
+|--------|---------|------------|
+| POST | /claves/crear | Crear nueva API Key |
+| POST | /claves/revocar | Revocar API Key |
+| GET | /claves/validar | Validar API Key |
+
 
 ---
 
