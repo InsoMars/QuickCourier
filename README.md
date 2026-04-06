@@ -190,7 +190,7 @@ Base path:
 
 # 🚀 Instalación
 
-git clone https://github.com/tuusuario/QuickCourier.git
+git clone https://github.com/InsoMars/QuickCourier.git
 
 cd QuickCourier
 
