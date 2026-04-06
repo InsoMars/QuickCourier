@@ -52,39 +52,16 @@ Controller → Service → DTO → Model → Repository → Database
 # 📊 Diagramas UML
 
 ### Diagrama de Casos de Uso
-![Casos de uso](docs/diagramas/QuickCurrier - Diagrama Casos de uso.pdf)
+📄 [Ver PDF](Diagramas/QuickCurrier - Diagrama Casos de uso.pdf)
 
 ### Diagrama Entidad Relación
-![Entidad-Relación](docs/diagramas/QuickCurrier - Entidad-Relación.pdf)
+📄 [Ver PDF](Diagramas/QuickCurrier - Entidad-Relación.pdf)
 
-### Diagrama de componentes
-![Componentes](docs/diagramas/QuickCurrier - Diagrama de Componentes.pdf)
+### Diagrama de Componentes
+📄 [Ver PDF](Diagramas/QuickCurrier - Diagrama de Componentes.pdf)
 
-### Diagrama de despliegue
-![Despliegue](docs/diagramas/QuickCurrier - Diagrama de Despliegue.pdf)
----
-
-# 📂 Estructura del proyecto
-
-QuickCourier
-│
-├── backend
-│   ├── controller
-│   ├── service
-│   ├── dto
-│   ├── model
-│   ├── repository
-│   └── security
-│
-├── frontend
-│   ├── html
-│   ├── css
-│   └── js
-│
-├── docs
-│   └── diagramas
-│
-└── Dockerfile
+### Diagrama de Despliegue
+📄 [Ver PDF](Diagramas/QuickCurrier - Diagrama de Despliegue.pdf)
 
 ---
 
@@ -188,7 +165,7 @@ Demostrar:
 
 ---
 
-# 👨‍💻 Autor
+# 👨‍💻 Autores
 Mariana Landinez Restrepo
 Johann Sebastian Orjuela Heredia
 Juan Diego Moreno Alayon
