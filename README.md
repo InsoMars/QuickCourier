@@ -217,7 +217,7 @@ Demostrar:
 ---
 
 # 👨‍💻 Autores
-Mariana Landinez Restrepo
-Johann Sebastian Orjuela Heredia
-Juan Diego Moreno Alayon
+Mariana Landinez Restrepo,
+Johann Sebastian Orjuela Heredia,
+Juan Diego Moreno Alayon,
 Jeison Miguel Gomez Gomez
