@@ -194,13 +194,25 @@ git clone https://github.com/InsoMars/QuickCourier.git
 
 cd QuickCourier
 
-mvn spring-boot:run
-
 Docker:
 
-docker build -t quickcourier .
+docker compose up --build
 
-docker run -p 8080:8080 quickcourier
+Por si tienes el proceso de postgresql ejecutando/ usamos el puerto 5432, puerto por defecto de postgresql
+
+sudo systemctl stop postgresql (linux)
+
+Para eliminar el docker si falla la instalacion
+
+docker compose down
+
+Para ver los contenedores activos
+
+docker ps
+
+Para poblar la Base de datos 
+
+docker exec -i quickcourier_db psql -U postgres -d quickcourierdb < productos.sql
 
 ---
 
