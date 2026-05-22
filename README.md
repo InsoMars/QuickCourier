@@ -199,13 +199,20 @@ Docker:
 docker compose up --build
 
 Por si tienes el proceso de postgresql ejecutando/ usamos el puerto 5432, puerto por defecto de postgresql
+
 sudo systemctl stop postgresql (linux)
 
 Para eliminar el docker si falla la instalacion
+
 docker compose down
 
 Para ver los contenedores activos
+
 docker ps
+
+Para poblar la Base de datos 
+
+docker exec -i quickcourier_db psql -U postgres -d quickcourierdb < productos.sql
 
 ---
 
