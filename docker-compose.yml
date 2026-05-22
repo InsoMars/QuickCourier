@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   backend:
-    build: ./backend
+    build: ./Backend
     container_name: quickcourier_backend
     ports:
       - "8081:8081"
@@ -29,7 +29,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend/templates
+      context: ./Frontend/templates
       dockerfile: Dockerfile
     container_name: quickcourier_frontend
     ports:
